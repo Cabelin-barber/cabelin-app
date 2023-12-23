@@ -1,6 +1,3 @@
-import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
-import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
-import 'package:cabelin_v2/pages/home/home_page.dart';
 import 'package:cabelin_v2/routes/main.dart';
 import 'package:flutter/material.dart';
 
