@@ -3,6 +3,7 @@ import 'package:cabelin_v2/pages/estableshiment/components/portfolio/portfolio.d
 import 'package:cabelin_v2/pages/estableshiment/components/services_offer/services_offer.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class EstlableshimentPage extends StatelessWidget {
   const EstlableshimentPage({super.key});
@@ -20,7 +21,9 @@ class EstlableshimentPage extends StatelessWidget {
                 floating: false,
                 pinned: true,
                 leading: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pop();
+                  },
                   icon: const Icon(
                     Icons.chevron_left_rounded,
                     size: 52,

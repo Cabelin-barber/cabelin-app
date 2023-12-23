@@ -1,5 +1,7 @@
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
+import 'package:cabelin_v2/pages/home/home_page.dart';
+import 'package:cabelin_v2/routes/main.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Flutter Demo',
       theme: ThemeData(
         dividerTheme: DividerThemeData(
@@ -35,7 +38,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const BookingConfirmationPage(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ServicesOfferPage extends StatelessWidget {
   const ServicesOfferPage({super.key});
@@ -30,7 +31,9 @@ class ServicesOfferPage extends StatelessWidget {
         ),
         trailing: ButtonWidget(
           title: "Escolher",
-          onTap: () {}
+          onTap: () {
+            context.push("/bookingConfirmation");
+          }
         ),
       ),
     ));

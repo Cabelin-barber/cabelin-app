@@ -3,6 +3,7 @@ import 'package:cabelin_v2/widgets/category_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -155,6 +156,7 @@ class HomePage extends StatelessWidget {
                 itemCount: 15,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (_, __) => ListTile(
+                  onTap: () => context.push("/estableshiment"),
                   leading: Container(
                     color: Colors.blue,
                     width: 60,
