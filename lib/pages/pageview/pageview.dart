@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/pages/calendar/calendar_page.dart';
 import 'package:cabelin_v2/pages/home/home_page.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class PageViewApp extends StatelessWidget {
         },
         children: const [
           HomePage(),
+          CalendarPage()
         ],
       ),
       bottomNavigationBar: Observer(builder: (_) {
