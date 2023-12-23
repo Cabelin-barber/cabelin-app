@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
 import 'package:cabelin_v2/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const EstlableshimentPage(),
     );
   }
 }
