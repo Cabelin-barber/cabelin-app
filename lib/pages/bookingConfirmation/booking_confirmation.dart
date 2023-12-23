@@ -1,8 +1,10 @@
+import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +16,9 @@ class BookingConfirmationPage extends StatelessWidget {
     initializeDateFormatting();
     DateFormat formatter = DateFormat("d 'de' MMMM", 'pt_BR');
     DateTime todayDate = DateTime.now();
+
+    BookingConfirmationController calendarController =
+        BookingConfirmationController();
 
     return Scaffold(
       appBar: AppbarWidget(
@@ -29,12 +34,7 @@ class BookingConfirmationPage extends StatelessWidget {
               "R\$ 30,00",
               customWeight: FontWeight.w800,
             ),
-            ButtonWidget(
-              title: "Finalizar",
-              onTap: () {
-
-              }
-            )
+            ButtonWidget(title: "Finalizar", onTap: () {})
           ],
         ),
       ),
@@ -51,7 +51,7 @@ class BookingConfirmationPage extends StatelessWidget {
                 locale: "pt_Br",
                 activeColor: Colors.blue,
                 onDateChange: (dateSelected) {
-                  //calendarController.changeDate(dateSelected);
+                  calendarController.changeDate(dateSelected);
                 },
                 itemBuilder: (context, dayNumber, dayName, monthName, fullDate,
                     isSelected) {
@@ -109,10 +109,12 @@ class BookingConfirmationPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget(
-                    formatter.format(todayDate),
-                    isFontWeight: true,
-                  ),
+                  Observer(builder: (_) {
+                    return TextWidget(
+                      formatter.format(calendarController.currentSelectedDate),
+                      isFontWeight: true,
+                    );
+                  }),
                   const TextWidget(
                     "9 horários disponíveis",
                     customFontsize: 16,
@@ -130,29 +132,39 @@ class BookingConfirmationPage extends StatelessWidget {
                             childAspectRatio: 4 / 2),
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(16)),
-                            padding: const EdgeInsets.all(16),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.wb_sunny_outlined,
-                                  size: 16,
-                                ),
-                                TextWidget(
-                                  "13:00",
-                                  margin: EdgeInsets.only(left: 3),
-                                  customFontsize: 13,
-                                  isFontWeight: true,
-                                )
-                              ],
-                            ),
-                          ));
+                      return GestureDetector(onTap: () {
+                        calendarController.setCurrentTimeSelected(index);
+                      }, child: Observer(builder: (_) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: calendarController.currentTimeSelected 
+                                !=null && calendarController.currentTimeSelected == index
+                                ? Colors.blue
+                                : Colors.white,
+                              border: Border.all(
+                                color: calendarController.currentTimeSelected 
+                                  != null && calendarController.currentTimeSelected == index
+                                  ? Colors.blue
+                                  : Colors.grey),
+                              borderRadius: BorderRadius.circular(16)),
+                          padding: const EdgeInsets.all(16),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.wb_sunny_outlined,
+                                size: 16,
+                              ),
+                              TextWidget(
+                                "13:00",
+                                margin: EdgeInsets.only(left: 3),
+                                customFontsize: 13,
+                                isFontWeight: true,
+                              )
+                            ],
+                          ),
+                        );
+                      }));
                     },
                   ),
                   Container(
