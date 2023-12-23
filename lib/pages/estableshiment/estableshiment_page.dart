@@ -1,3 +1,6 @@
+import 'package:cabelin_v2/pages/estableshiment/components/informations/informations.dart';
+import 'package:cabelin_v2/pages/estableshiment/components/portfolio/portfolio.dart';
+import 'package:cabelin_v2/pages/estableshiment/components/services_offer/services_offer.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -25,16 +28,11 @@ class EstlableshimentPage extends StatelessWidget {
                   )
                 ),
                 flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: const Text("Collapsing Toolbar",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                        )),
-                    background: Image.network(
-                      "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
-                      fit: BoxFit.cover,
-                    )),
+                  background: Image.network(
+                    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.5323gYZjoqFwr0zrN28KPAHaE8%26pid%3DApi&f=1&ipt=96d6cb3c800087f979dcfed334aaa919f198619cfcf66cec8e9bfe1f65920957&ipo=images",
+                    fit: BoxFit.cover,
+                  )
+                ),
               ),
               const SliverToBoxAdapter(
                 child: Padding(
@@ -53,6 +51,7 @@ class EstlableshimentPage extends StatelessWidget {
               ),
               SliverPersistentHeader(
                 delegate: _SliverAppBarDelegate(
+                  
                   const TabBar(
                     labelColor: Colors.black87,
                     unselectedLabelColor: Colors.grey,
@@ -67,18 +66,15 @@ class EstlableshimentPage extends StatelessWidget {
               ),
             ];
           },
-          body: const TabBarView(
-            children: [
-              Center(
-                child: TextWidget("Serviços"),
-              ),
-              Center(
-                child: TextWidget("Portfólio"),
-              ),
-              Center(
-                child: TextWidget("Informações"),
-              )
-            ]
+          body: const Padding(
+            padding:  EdgeInsets.only(left: 16, right: 16),
+            child: TabBarView(
+              children: [
+                ServicesOfferPage(),
+                Portfolio(),
+                Informations()
+              ]
+            ),
           )
         ),
       ),
@@ -98,7 +94,10 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return  _tabBar;
+    return  Container(
+      color: Colors.white,
+      child: _tabBar
+    );
   }
 
   @override
