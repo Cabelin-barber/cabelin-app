@@ -1,5 +1,4 @@
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
-import 'package:cabelin_v2/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
