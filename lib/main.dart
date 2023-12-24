@@ -32,6 +32,46 @@ class MyApp extends StatelessWidget {
             )
           )
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Colors.black),
+          )
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.grey[200],
+          suffixIconColor: const Color(0xFF272727).withOpacity(0.5),
+          iconColor: const Color(0xFF272727).withOpacity(0.5),
+          prefixIconColor: const Color(0xFF272727).withOpacity(0.5),
+          contentPadding:const EdgeInsets.only(left: 16, top: 23, right: 16, bottom: 23),
+          hintStyle: TextStyle(
+            color: Colors.black.withOpacity(0.6),
+            fontWeight: FontWeight.w300
+          ),
+          labelStyle: TextStyle(color: const Color(0xFF272727).withOpacity(0.5)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            borderSide:BorderSide(color: const Color(0xFF272727).withOpacity(0.5)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide(color: const Color(0xFF272727).withOpacity(0.5)),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide(color: const Color(0xFF272727).withOpacity(0.5)),
+          ),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          enableFeedback: false,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          elevation: 0,
+          selectedItemColor: Color(0XFF322938),
+          unselectedItemColor: Color(0XFF322938),
+          selectedLabelStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 13),
+          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 13)
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
