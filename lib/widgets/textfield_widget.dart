@@ -58,14 +58,11 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
         keyboardType: widget.keyboardType,
         controller: widget.controller,
         validator: widget.validator,
-        style: const TextStyle(color: Color(0xFF95A1AC)),
         minLines: widget.minLines,
         maxLines: 1,
         maxLength: widget.maxLength,
         obscureText: widget.isPasswordField ? isObscureText : false,
         decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
           suffixIcon: widget.isPasswordField 
             ? Visibility(
               visible: isObscureText,
