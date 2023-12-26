@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "901703205418",
+    "project_id": "cabelinapp-7cb91",
+    "storage_bucket": "cabelinapp-7cb91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901703205418:android:ed9c6228f394e41185f953",
+        "android_client_info": {
+          "package_name": "com.example.cabelin_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfRicRk_5oYUd3jogX9uKhdttmIvRtMfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
