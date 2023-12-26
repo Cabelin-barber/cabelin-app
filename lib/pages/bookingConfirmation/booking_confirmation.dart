@@ -260,6 +260,7 @@ class BookingConfirmationPage extends StatelessWidget {
                         children: [
                           TextWidget(
                             "Adicionar outro corte",
+                            customWeight: FontWeight.w800,
                             color: Colors.blue[900],
                             customFontsize: 16,
                           ),
