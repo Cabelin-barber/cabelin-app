@@ -63,7 +63,7 @@ class BookingConfirmationPage extends StatelessWidget {
                               child: Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.1),
+                                  color: Colors.grey.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(50)
                                 ),
                                 child: const Icon(Icons.close_rounded),
