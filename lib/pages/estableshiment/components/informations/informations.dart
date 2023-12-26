@@ -1,6 +1,7 @@
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Informations extends StatelessWidget {
   const Informations({super.key});
@@ -22,8 +23,13 @@ class Informations extends StatelessWidget {
               ),
               ButtonWidget(
                 title: "Ligar",
-                onTap: () {
-
+                onTap: () async {
+                  final call = Uri.parse("tel:62982399800");
+                  if (await canLaunchUrl(call)) {
+                    launchUrl(call);
+                  } else {
+                    throw 'Could not launch $call';
+                  }
                 }
               )
             ],
