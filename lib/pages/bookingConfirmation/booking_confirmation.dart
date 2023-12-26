@@ -5,6 +5,7 @@ import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -34,7 +35,63 @@ class BookingConfirmationPage extends StatelessWidget {
               "R\$ 30,00",
               customWeight: FontWeight.w800,
             ),
-            ButtonWidget(title: "Finalizar", onTap: () {})
+            ButtonWidget(title: "Finalizar", onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return Container(
+                    height: MediaQuery.of(context).size.height / 1.5,
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.all(16),
+                    color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextWidget(
+                              "Finalização de pedido",
+                              customWeight: FontWeight.w800,
+                            ),
+
+                            GestureDetector(
+                              onTap: () {
+                                context.pop();
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(50)
+                                ),
+                                child: const Icon(Icons.close_rounded),
+                              ),
+                            )
+                          ],
+                        ),
+                        Container(
+                          height: MediaQuery.of(context).size.height/2,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                            itemCount: 30,
+                            itemBuilder: (_, index) => TextWidget("Teste")
+                          ),
+                        ),
+                        const Spacer(),
+                        ButtonWidget(
+                          title: "Finalizar",
+                          fullWidth: true,
+                          onTap: () {}
+                        )
+
+                      ],
+                    )
+                  );  
+                }
+              );
+            })
           ],
         ),
       ),
