@@ -251,6 +251,26 @@ class BookingConfirmationPage extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 8),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextWidget(
+                            "Adicionar outro corte",
+                            color: Colors.blue[900],
+                            customFontsize: 16,
+                          ),
+                          Icon(
+                            Icons.add,
+                            color: Colors.blue[900],
+                          )
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
