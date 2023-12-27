@@ -1,4 +1,6 @@
+import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
 part 'authentication_controller.g.dart';
@@ -23,9 +25,12 @@ abstract class _AuthenticationControllerBase with Store {
       idToken: googleAuth?.idToken,
     );
     UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
-    print(user.user?.displayName);
-    print(user.user?.email);
   } catch (e) {
+    ScaffoldMessenger.of(GlobalContext.context.currentContext!).showSnackBar(
+      const SnackBar(
+        content: Text('Erro'),
+      )
+    );
       print(e);
   } finally{
       isLoadingSingInGoogle = false;

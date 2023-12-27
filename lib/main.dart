@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/firebase_options.dart';
 import 'package:cabelin_v2/routes/main.dart';
+import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

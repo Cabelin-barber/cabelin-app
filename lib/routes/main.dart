@@ -1,10 +1,12 @@
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
 import 'package:cabelin_v2/pages/pageview/pageview.dart';
+import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration
 final router = GoRouter(
+  navigatorKey: GlobalContext.context,
   routes: [
     GoRoute(
       path: '/',
