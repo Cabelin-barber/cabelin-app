@@ -19,9 +19,9 @@ class PageViewApp extends StatelessWidget {
         onPageChanged: (int index) {
           controller.handleChangePage(index);
         },
-        children: const [
-          HomePage(),
-          CalendarPage(),
+        children: [
+          const HomePage(),
+          const CalendarPage(),
           AuthenticationPage()
         ],
       ),
