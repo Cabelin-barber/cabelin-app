@@ -1,8 +1,10 @@
+import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
+
 part 'authentication_controller.g.dart';
 
 class AuthenticationController = _AuthenticationControllerBase with _$AuthenticationController;
@@ -25,6 +27,10 @@ abstract class _AuthenticationControllerBase with Store {
       idToken: googleAuth?.idToken,
     );
     UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
+  
+    // [TO-DO]
+    // - Enviar o usuário via API
+    saveUser(user);
   } catch (e) {
     ScaffoldMessenger.of(GlobalContext.context.currentContext!).showSnackBar(
       const SnackBar(
@@ -35,5 +41,10 @@ abstract class _AuthenticationControllerBase with Store {
   } finally{
       isLoadingSingInGoogle = false;
     }
+  }
+
+  @action
+  saveUser(UserCredential userGoogle) {
+    
   }
 }

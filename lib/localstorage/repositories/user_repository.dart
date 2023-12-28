@@ -1,4 +1,4 @@
-import 'package:cabelin_v2/localstorage/models/user.dart';
+import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
