@@ -9,14 +9,14 @@ class UserRepository {
     db = openDatabase();
   }
 
-  Future<void> saveUser(User newUser) async {
+  Future<void> saveUser(UserModel newUser) async {
     final isar = await db;
-    isar.writeTxnSync<int>(() => isar.users.putSync(newUser));
+    isar.writeTxnSync<int>(() => isar.userModels.putSync(newUser));
   }
 
-   Future<User?> getUser() async {
+   Future<UserModel?> getUser() async {
     final isar = await db;
-    User? user = await isar.users.get(1);
+    UserModel? user = await isar.userModels.get(1);
     return user;
   }
 
@@ -24,7 +24,7 @@ class UserRepository {
     if(Isar.instanceNames.isEmpty) {
       final dir = await getApplicationDocumentsDirectory();
       return await Isar.open(
-        [UserSchema],
+        [UserModelSchema],
         inspector: true,
         directory: dir.path,
       );
