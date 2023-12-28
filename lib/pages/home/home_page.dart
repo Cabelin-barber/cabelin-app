@@ -1,6 +1,6 @@
-import 'package:cabelin_v2/widgets/appbar_widget.dart';
-import 'package:cabelin_v2/widgets/category_widget.dart';
+import 'package:cabelin_v2/pages/home/components/location/location_page.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
+import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +11,21 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget(showNotifications: true),
+      appBar: AppBar(
+        centerTitle: true,
+        title: TextButtonWidget(
+          title: "Buscar pela minha localização",
+          icon: Icons.arrow_drop_down_sharp,
+          onTap: () {
+            showModalBottomSheet(
+              useSafeArea: true,
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => const LocationPage()
+            );
+          }
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16),
@@ -24,39 +38,39 @@ class HomePage extends StatelessWidget {
                 customFontsize: 16,
                 margin: EdgeInsets.only(bottom: 16),
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 16),
-                    child: CategoryWidget(
-                      title: "Saloes",
-                      imageUrl: "assets/salao.png",
-                      onTap: () {},
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 16),
-                    child: CategoryWidget(
-                      title: "Barba",
-                      imageUrl: "assets/barbearia.png",
-                      onTap: () {},
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 16),
-                    child: CategoryWidget(
-                      title: "Tatto",
-                      imageUrl: "assets/tatuagem.png",
-                      onTap: () {},
-                    ),
-                  ),
-                  CategoryWidget(
-                    title: "SPA",
-                    imageUrl: "assets/spa.png",
-                    onTap: () {},
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Container(
+              //       margin: const EdgeInsets.only(right: 16),
+              //       child: CategoryWidget(
+              //         title: "Saloes",
+              //         imageUrl: "assets/salao.png",
+              //         onTap: () {},
+              //       ),
+              //     ),
+              //     Container(
+              //       margin: const EdgeInsets.only(right: 16),
+              //       child: CategoryWidget(
+              //         title: "Barba",
+              //         imageUrl: "assets/barbearia.png",
+              //         onTap: () {},
+              //       ),
+              //     ),
+              //     Container(
+              //       margin: const EdgeInsets.only(right: 16),
+              //       child: CategoryWidget(
+              //         title: "Tatto",
+              //         imageUrl: "assets/tatuagem.png",
+              //         onTap: () {},
+              //       ),
+              //     ),
+              //     CategoryWidget(
+              //       title: "SPA",
+              //       imageUrl: "assets/spa.png",
+              //       onTap: () {},
+              //     ),
+              //   ],
+              // ),
               Container(
                   width: MediaQuery.of(context).size.width,
                   height: 200,
@@ -86,6 +100,14 @@ class HomePage extends StatelessWidget {
                 "Salões em destaque",
                 margin: EdgeInsets.only(bottom: 16)
               ),
+
+              TextButtonWidget(
+                title: "Buscar ",
+                onTap: () {
+
+                },
+              ),
+              
               SizedBox(
                 height: 220,
                 child: ListWidget(
