@@ -12,7 +12,7 @@ class AuthenticationPage extends StatelessWidget {
   AuthenticationPage({super.key});
   
   AuthenticationController authenticationController = AuthenticationController();
-  final _formKey = GlobalKey<FormState>();
+    final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class AuthenticationPage extends StatelessWidget {
                   child: TextWidget("ou", margin: EdgeInsets.only(top: 16, bottom: 16),)
                 ),
                 TextfieldWidget(
-                  hintText: "Email",
+                  label: "Email",
                   suffixIcon: const Icon(Icons.email_outlined),
                   validator: (String? value)  {
                     if(value ==  null || value.isEmpty) {
