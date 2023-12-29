@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/pages/authentication/authentication_controller.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
+import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/socialLogin/google.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
@@ -17,13 +18,12 @@ class AuthenticationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoggedIn = false;
     return Scaffold(
-      body: Visibility(
-        visible: !isLoggedIn,
-        replacement: const Column(
-          children: [TextWidget("Replace")],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+      body: LayoutWidget(
+        child: Visibility(
+          visible: !isLoggedIn,
+          replacement: const Column(
+            children: [TextWidget("Replace")],
+          ),
           child: Form(
             key: _formKey,
             child: Column(
