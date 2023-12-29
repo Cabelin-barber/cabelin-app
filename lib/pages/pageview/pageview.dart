@@ -5,13 +5,14 @@ import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 
 class PageViewApp extends StatelessWidget {
   const PageViewApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    PageViewController controller = PageViewController();
+    PageViewController controller = GetIt.instance<PageViewController>();
 
     return Scaffold(
       body: PageView(

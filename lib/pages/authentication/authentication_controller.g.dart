@@ -36,18 +36,14 @@ mixin _$AuthenticationController on _AuthenticationControllerBase, Store {
     return _$signInWithGoogleAsyncAction.run(() => super.signInWithGoogle());
   }
 
-  late final _$_AuthenticationControllerBaseActionController =
-      ActionController(name: '_AuthenticationControllerBase', context: context);
+  late final _$saveUserGoogleAsyncAction = AsyncAction(
+      '_AuthenticationControllerBase.saveUserGoogle',
+      context: context);
 
   @override
-  dynamic saveUser(UserCredential userGoogle) {
-    final _$actionInfo = _$_AuthenticationControllerBaseActionController
-        .startAction(name: '_AuthenticationControllerBase.saveUser');
-    try {
-      return super.saveUser(userGoogle);
-    } finally {
-      _$_AuthenticationControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future<void> saveUserGoogle(UserCredential userGoogle) {
+    return _$saveUserGoogleAsyncAction
+        .run(() => super.saveUserGoogle(userGoogle));
   }
 
   @override

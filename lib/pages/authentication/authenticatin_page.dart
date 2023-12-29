@@ -1,4 +1,7 @@
+import 'package:cabelin_v2/localstorage/models/user_model.dart';
+import 'package:cabelin_v2/localstorage/repositories/user_repository.dart';
 import 'package:cabelin_v2/pages/authentication/authentication_controller.dart';
+import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/socialLogin/google.dart';
@@ -7,22 +10,31 @@ import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 
 class AuthenticationPage extends StatelessWidget {
   AuthenticationPage({super.key});
   
   AuthenticationController authenticationController = AuthenticationController();
-    final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  UserRepository userStorageRepository = GetIt.instance<UserRepository>();
+  PageViewController pageViewController = GetIt.instance<PageViewController>();
+
 
   @override
   Widget build(BuildContext context) {
+
+    UserModel? currentUser = userStorageRepository.getUser();
     bool isLoggedIn = false;
+
     return Scaffold(
       body: LayoutWidget(
         child: Visibility(
-          visible: !isLoggedIn,
-          replacement: const Column(
-            children: [TextWidget("Replace")],
+          visible: currentUser == null,
+          replacement: Column(
+            children: [
+              TextWidget("Olá, ${currentUser?.name}")
+            ],
           ),
           child: Form(
             key: _formKey,
@@ -66,9 +78,8 @@ class AuthenticationPage extends StatelessWidget {
                   fullWidth: true,
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+                      // [TO-DO]
+                      // Implementar authenticaçaõ
                     }
                   }
                 )
