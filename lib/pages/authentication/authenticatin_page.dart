@@ -11,6 +11,7 @@ class AuthenticationPage extends StatelessWidget {
   AuthenticationPage({super.key});
   
   AuthenticationController authenticationController = AuthenticationController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,31 +24,56 @@ class AuthenticationPage extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Observer(builder: (_) {
-                return GoogleLoginSocialWidget(
-                  onTap: authenticationController.signInWithGoogle,
-                  isLoading: authenticationController.isLoadingSingInGoogle
-                );
-              }),
-              const Center(
-                child: TextWidget("ou", margin: EdgeInsets.only(top: 16, bottom: 16),)
-              ),
-              TextfieldWidget(
-                hintText: "Email",
-                suffixIcon: const Icon(Icons.email_outlined),
-              ),
-              TextfieldWidget(
-                hintText: "Senha",
-                isPasswordField: true,
-                margin: const EdgeInsets.symmetric(vertical: 16),
-              ),
-              TextButtonWidget(title: "Esqueci a minha senha", onTap: () {}),
-              ButtonWidget(fullWidth: true, title: "Entrar", onTap: () {})
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Observer(builder: (_) {
+                  return GoogleLoginSocialWidget(
+                    onTap: authenticationController.signInWithGoogle,
+                    isLoading: authenticationController.isLoadingSingInGoogle
+                  );
+                }),
+                const Center(
+                  child: TextWidget("ou", margin: EdgeInsets.only(top: 16, bottom: 16),)
+                ),
+                TextfieldWidget(
+                  hintText: "Email",
+                  suffixIcon: const Icon(Icons.email_outlined),
+                  validator: (String? value)  {
+                    if(value ==  null || value.isEmpty) {
+                      return "Campo obrigatório";
+                    }
+                    return null;
+                  },
+                ),
+                TextfieldWidget(
+                  label: "Senha",
+                  isPasswordField: true,
+                  margin: const EdgeInsets.symmetric(vertical: 16),
+                  validator: (String? value)  {
+                    if(value ==  null || value.isEmpty) {
+                      return "Campo obrigatório";
+                    }
+                    return null;
+                  },
+                ),
+                TextButtonWidget(title: "Esqueci a minha senha", onTap: () {}),
+                ButtonWidget(
+                  title: "Entrar",
+                  fullWidth: true,
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                    }
+                  }
+                )
+              ],
+            ),
           ),
         ),
       ),
