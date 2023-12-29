@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TextfieldWidget extends StatefulWidget {
-    TextfieldWidget(
-      {super.key,
+    TextfieldWidget({
+      super.key,
       this.label,
       this.hintText,
       this.suffixIcon,
@@ -24,7 +24,7 @@ class TextfieldWidget extends StatefulWidget {
   final String? hintText;
   final Icon? suffixIcon;
   final Icon? prefixIcon;
-  final TextEditingController? controller;
+  TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final EdgeInsets? margin;
@@ -50,6 +50,8 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
     }
   @override
   Widget build(BuildContext context) {
+
+    widget.controller ??= TextEditingController();
     return Container(
       margin: widget.margin,
       child: TextFormField(
@@ -65,17 +67,23 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
         decoration: InputDecoration(
           suffixIcon: widget.isPasswordField 
             ? Visibility(
-              visible: isObscureText,
-              replacement: IconButton(
-                onPressed: handleShowPassword,
-                icon: const Icon(Icons.visibility_off_outlined),
-              ),
-              child: IconButton(
-                onPressed: handleShowPassword, 
-                icon: const Icon(Icons.visibility_outlined)
-              )
-            ) 
-            : widget.suffixIcon,
+               visible: isObscureText,
+               replacement: IconButton(
+                 onPressed: handleShowPassword,
+                 icon: const Icon(Icons.visibility_off_outlined),
+               ),
+               child: IconButton(
+                 onPressed: handleShowPassword, 
+                 icon: const Icon(Icons.visibility_outlined)
+               )
+             ) 
+          
+            : IconButton(
+                icon: const Icon(Icons.cancel_outlined),
+                onPressed: () {
+                widget.controller?.clear();
+              },
+            ),
           prefixIcon: widget.prefixIcon,
           labelText: widget.label,
           hintText: widget.hintText,

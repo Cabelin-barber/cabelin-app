@@ -57,10 +57,23 @@ class MyApp extends StatelessWidget {
           prefixIconColor: const Color(0xFF272727).withOpacity(0.5),
           contentPadding:const EdgeInsets.only(left: 16, top: 23, right: 16, bottom: 23),
           hintStyle: TextStyle(
+            fontFamily: 'Sora',
             color: Colors.black.withOpacity(0.6),
             fontWeight: FontWeight.w300
           ),
-          labelStyle: TextStyle(color: const Color(0xFF272727).withOpacity(0.5)),
+          errorStyle: const TextStyle(
+            fontFamily: 'Sora',
+            fontWeight: FontWeight.w800,
+            color: Colors.red
+          ),
+          floatingLabelStyle: TextStyle(
+            fontFamily: 'Sora',
+            color: const Color(0xFF272727).withOpacity(0.5),
+          ),
+          labelStyle: TextStyle(
+            color: const Color(0xFF272727).withOpacity(0.5),
+            fontFamily: 'Sora'
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             borderSide:BorderSide(color: const Color(0xFF272727).withOpacity(0.5)),
