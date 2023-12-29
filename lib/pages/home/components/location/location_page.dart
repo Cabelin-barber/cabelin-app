@@ -56,7 +56,7 @@ class LocationPage extends StatelessWidget {
                       color: Colors.grey[600],
                       locationController.locationAddress == null 
                         ?  "Nenhuma" 
-                        : locationController.locationAddress!.locality!,
+                        : locationController.locationAddress!.subAdministrativeArea!,
                       )
                     )
                   ],
