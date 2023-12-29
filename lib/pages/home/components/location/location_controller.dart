@@ -1,3 +1,6 @@
+import 'package:cabelin_v2/utils/globalContext.dart';
+import 'package:cabelin_v2/widgets/text_widget.dart';
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
@@ -17,14 +20,22 @@ abstract class _LocationControllerBase with Store {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      ScaffoldMessenger.of(GlobalContext.context.currentContext!).showSnackBar(
+        const SnackBar(
+          content: TextWidget("Serviço de localização não disponivel")
+        )
+      );
     }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        ScaffoldMessenger.of(GlobalContext.context.currentContext!).showSnackBar(
+          const SnackBar(
+            content: TextWidget("Permissoes denied")
+          )
+        );
       }
     }
 
