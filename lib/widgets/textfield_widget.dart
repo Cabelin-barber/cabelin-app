@@ -65,7 +65,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
         maxLength: widget.maxLength,
         obscureText: widget.isPasswordField ? isObscureText : false,
         decoration: InputDecoration(
-          suffixIcon: widget.isPasswordField 
+          suffixIcon:widget.isPasswordField 
             ? Visibility(
                visible: isObscureText,
                replacement: IconButton(
@@ -77,12 +77,15 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
                  icon: const Icon(Icons.visibility_outlined)
                )
              ) 
-          
-            : IconButton(
-                icon: const Icon(Icons.cancel_outlined),
-                onPressed: () {
-                widget.controller?.clear();
-              },
+            : ValueListenableBuilder(
+              valueListenable: widget.controller!,
+              builder: (contenxt, value, _) => Visibility(
+                visible: value.text.isNotEmpty,
+                child: IconButton(
+                  icon: const Icon(Icons.cancel_outlined),
+                  onPressed: () => widget.controller?.clear()
+                ),
+              ),
             ),
           prefixIcon: widget.prefixIcon,
           labelText: widget.label,
