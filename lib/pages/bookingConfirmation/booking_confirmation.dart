@@ -129,7 +129,9 @@ class BookingConfirmationPage extends StatelessWidget {
                             ButtonWidget(
                               title: "Finalizar",
                               fullWidth: true,
-                              onTap: () {}
+                              onTap: () {
+                                context.push("/feedback");
+                              }
                             ),
                           ],
                         )
