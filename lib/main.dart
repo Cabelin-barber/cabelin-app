@@ -10,13 +10,22 @@ import 'package:get_it/get_it.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final getIt = GetIt.instance;
-  getIt.registerSingleton<UserStorageRepository>(UserStorageRepository());
-  getIt.registerSingleton<UserLocationStorageRepository>(UserLocationStorageRepository());
+  getIt.registerSingletonAsync<UserStorageRepository>(() async {
+    final userStorageRepository = UserStorageRepository();
+    await userStorageRepository.openDatabase();
+    return userStorageRepository;
+  });
+   getIt.registerSingletonAsync<UserLocationStorageRepository>(() async {
+    final userLocationStorageRepository = UserLocationStorageRepository();
+    await userLocationStorageRepository.openDatabase();
+    return userLocationStorageRepository;
+  });
   getIt.registerSingleton<PageViewController>(PageViewController());
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform 
   );
+  await getIt.allReady();
 
   runApp(const MyApp());
 }

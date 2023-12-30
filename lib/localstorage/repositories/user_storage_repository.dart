@@ -8,10 +8,6 @@ class UserStorageRepository {
   late Database db;
   var store = StoreRef.main();
 
-  UserStorageRepository() {
-    openDatabase();
-  }
-
   Future<UserModel> saveUser(UserModel newUser) async {
     await store.record('user').put(db, newUser.toJson());
     return newUser;

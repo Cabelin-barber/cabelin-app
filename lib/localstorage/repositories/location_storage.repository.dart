@@ -7,10 +7,6 @@ class UserLocationStorageRepository {
   late Database db;
   var store = StoreRef.main();
 
-  UserLocationStorageRepository() {
-    openDatabase();
-  }
-
   Future<LocationModel> saveUserLocation(LocationModel newLocation) async {
     await store.record('userLocation').put(db, newLocation.toJson());
     return newLocation;

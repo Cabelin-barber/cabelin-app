@@ -1,8 +1,10 @@
 import 'package:cabelin_v2/pages/home/components/location/location_page.dart';
+import 'package:cabelin_v2/pages/home/home_controller.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,20 +12,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    HomeController homeController = HomeController();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: TextButtonWidget(
-          title: "Buscar pela minha localização",
-          icon: Icons.arrow_drop_down_sharp,
-          onTap: () {
-            showModalBottomSheet(
-              useSafeArea: true,
-              isScrollControlled: true,
-              context: context,
-              builder: (context) => const LocationPage()
-            );
-          }
+        title: Observer(
+          builder: (contenxt) => TextButtonWidget(
+            title: homeController.currentLocation == null 
+              ? "Buscar pela minha localização"
+              : homeController.currentLocation!.city,
+            icon: Icons.arrow_drop_down_sharp,
+            onTap: () {
+              showModalBottomSheet(
+                useSafeArea: true,
+                isScrollControlled: true,
+                context: context,
+                builder: (context) => const LocationPage()
+              );
+            }
+          ),
         ),
       ),
       body: SingleChildScrollView(
