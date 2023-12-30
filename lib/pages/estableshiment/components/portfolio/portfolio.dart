@@ -44,10 +44,10 @@ class Portfolio extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22),
+      padding: const EdgeInsets.all(16),
       child: GridView.count(
-        mainAxisSpacing: 30,
-        crossAxisSpacing: 30,
+        mainAxisSpacing: 20,
+        crossAxisSpacing: 20,
         crossAxisCount: 2,
         children: List.generate(100, (index) {
           return InkWell(

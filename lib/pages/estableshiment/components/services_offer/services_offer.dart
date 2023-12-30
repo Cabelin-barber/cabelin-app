@@ -9,7 +9,7 @@ class ServicesOfferPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.all(16),
       child: ListView.separated(
       separatorBuilder: (_, __) => const Divider(),
       itemCount: 2,

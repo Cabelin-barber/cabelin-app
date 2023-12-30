@@ -9,6 +9,7 @@ class Informations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
       primary: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +55,6 @@ class Informations extends StatelessWidget {
             ),
             itemCount: 10
           ),
-      
         ],
       ),
     );
