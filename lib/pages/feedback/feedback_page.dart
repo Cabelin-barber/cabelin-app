@@ -19,7 +19,6 @@ class FeedbackPage extends StatelessWidget {
             return;
           }
           context.go("/");
-
         },
         child: LayoutWidget(
           child: Column(
@@ -52,7 +51,9 @@ class FeedbackPage extends StatelessWidget {
                 title: "Ir para agenda",
                 margin: const EdgeInsets.only(bottom: 16),
                 fullWidth: true,
-                onTap: () {}
+                onTap: () {
+                  context.go('/');
+                }
               )
             ],
           )
