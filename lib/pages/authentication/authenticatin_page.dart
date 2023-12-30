@@ -2,6 +2,7 @@ import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/pages/authentication/authentication_controller.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
+import 'package:cabelin_v2/pages/profile/profile_page.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/socialLogin/google.dart';
@@ -29,11 +30,7 @@ class AuthenticationPage extends StatelessWidget {
       body: LayoutWidget(
         child: Visibility(
           visible: currentUser == null,
-          replacement: Column(
-            children: [
-              TextWidget("Olá, ${currentUser?.name}")
-            ],
-          ),
+          replacement: const ProfilePage(),
           child: Form(
             key: _formKey,
             child: Column(
