@@ -107,8 +107,16 @@ class MyApp extends StatelessWidget {
           elevation: 0,
           selectedItemColor: Color(0XFF322938),
           unselectedItemColor: Color(0XFF322938),
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 13),
-          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 13)
+          selectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 13,
+            fontFamily: "Sora"
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 13,
+            fontFamily: "Sora"
+          )
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
