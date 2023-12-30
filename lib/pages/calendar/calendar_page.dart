@@ -1,6 +1,8 @@
+import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
 
 class CalendarPage extends StatelessWidget {
@@ -10,6 +12,7 @@ class CalendarPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     bool isThereBooking = true;
+    PageViewController pageViewController = GetIt.I<PageViewController>();
 
     return Scaffold(
       body: Visibility(
@@ -39,7 +42,13 @@ class CalendarPage extends StatelessWidget {
               ),
               ButtonWidget(
                 title: "Agendar agora",
-                onTap: () {}
+                onTap: () {
+                  pageViewController.pageController.animateToPage(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.linear
+                  );
+                }
               )
             ],
           ),
