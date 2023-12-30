@@ -25,7 +25,6 @@ class AuthenticationPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     UserModel? currentUser = userStorageRepository.getUser();
-    bool isLoggedIn = false;
     return Scaffold(
       body: LayoutWidget(
         child: Visibility(

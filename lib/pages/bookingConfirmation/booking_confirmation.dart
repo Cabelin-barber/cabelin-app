@@ -71,7 +71,7 @@ class BookingConfirmationPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        Container(
+                        SizedBox(
                           height: MediaQuery.of(context).size.height/2,
                           width: MediaQuery.of(context).size.width,
                           child: ListView.builder(
