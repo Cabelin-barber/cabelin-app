@@ -30,12 +30,12 @@ class CalendarPage extends StatelessWidget {
             children: [
               LottieBuilder.network("https://lottie.host/abd73192-94ce-4ed1-94f2-2f19440b1046/0TPpL0oGZL.json"),
               const TextWidget(
-                "Parece que você ainda não fez nenhum agendamento",
+                "Parece que você ainda não fez \nnenhum agendamento",
                 customWeight: FontWeight.w800,
                 textAlign: TextAlign.center
               ),
               const TextWidget(
-                "Faça o agendamento com os melhores em poucos clicks!",
+                "Faça o agendamento com os\n melhores em poucos rapidamente!",
                 textAlign: TextAlign.center,
                 customFontsize: 13,
                 margin: EdgeInsets.only(top: 16, bottom: 16),
