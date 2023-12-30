@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class TextButtonWidget extends StatelessWidget {
@@ -25,25 +26,29 @@ class TextButtonWidget extends StatelessWidget {
     return Container(
       margin: margin,
       child: TextButton(
-          style: ButtonStyle(
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-            )
-          ),
-          onPressed: isDisabled || isLoading ? null : onTap,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Visibility(
-                  visible: icon != null && isLoading == false,
-                  child: Icon(icon, size: 22)),
-              isLoading
-                  ? const SizedBox(
-                      height: 24, width: 24, child: CircularProgressIndicator())
-                  : Text(title),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          )
+        ),
+        onPressed: isDisabled || isLoading ? null : onTap,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isLoading
+              ? const SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: CircularProgressIndicator()
+                )
+              : TextWidget(title),
+            Visibility(
+              visible: icon != null && isLoading == false,
+              child: Icon(icon, size: 22)
+            ),
             ],
           )),
     );

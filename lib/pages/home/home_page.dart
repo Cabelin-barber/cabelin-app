@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
             title: homeController.currentLocation == null 
               ? "Buscar pela minha localização"
               : homeController.currentLocation!.city,
-            icon: Icons.arrow_drop_down_sharp,
+            icon: Icons.expand_more_rounded,
             onTap: () {
               showModalBottomSheet(
                 useSafeArea: true,
