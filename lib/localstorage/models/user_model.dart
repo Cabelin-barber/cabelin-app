@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
@@ -11,12 +12,14 @@ class UserModel {
   String email;
   Provider provider;
   String? phoneNumber;
+  LocationModel? location;
   
   UserModel({
     required this.id,
     required this.name,
     required this.email,
     required this.provider,
+    this.location,
     this.phoneNumber,
   });
 

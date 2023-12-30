@@ -10,8 +10,8 @@ class LocationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocationController locationController = LocationController();
-
+    LocationController locationController = LocationController();  
+  
     return Container(
       padding: const EdgeInsets.all(22),
       width: MediaQuery.of(context).size.width,
@@ -54,16 +54,16 @@ class LocationPage extends StatelessWidget {
                     ),
                     Observer(builder: (_)  => TextWidget(
                       color: Colors.grey[600],
-                      locationController.locationAddress == null 
+                      locationController.currentLocation == null 
                         ?  "Nenhuma" 
-                        : locationController.locationAddress!.subAdministrativeArea!,
+                        : locationController.currentLocation!.city,
                       )
                     )
                   ],
                 ),
                 Observer(
                   builder: (context) => Visibility(
-                    visible: locationController.locationAddress == null,
+                    visible: locationController.currentLocation == null,
                     child: ButtonWidget(
                       title: "Ativar",
                       onTap: () => locationController.getLocation()

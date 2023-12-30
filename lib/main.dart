@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/firebase_options.dart';
-import 'package:cabelin_v2/localstorage/repositories/user_repository.dart';
+import 'package:cabelin_v2/localstorage/repositories/location_storage.repository.dart';
+import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/routes/main.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 void main() async {
-  final getIt = GetIt.instance;
   WidgetsFlutterBinding.ensureInitialized();
-
-  getIt.registerSingleton<UserRepository>(UserRepository());
+  final getIt = GetIt.instance;
+  getIt.registerSingleton<UserStorageRepository>(UserStorageRepository());
+  getIt.registerSingleton<UserLocationStorageRepository>(UserLocationStorageRepository());
   getIt.registerSingleton<PageViewController>(PageViewController());
 
   await Firebase.initializeApp(

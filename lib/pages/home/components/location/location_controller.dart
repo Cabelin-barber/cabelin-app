@@ -1,8 +1,12 @@
+import 'package:cabelin_v2/localstorage/models/location_model.dart';
+import 'package:cabelin_v2/localstorage/repositories/location_storage.repository.dart';
+import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 part 'location_controller.g.dart';
 
@@ -10,8 +14,15 @@ class LocationController = _LocationControllerBase with _$LocationController;
 
 abstract class _LocationControllerBase with Store {
 
+  UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
+  UserLocationStorageRepository userLocationStorageRepository = GetIt.instance<UserLocationStorageRepository>();
+
   @observable
-  Placemark? locationAddress; 
+  LocationModel? currentLocation;
+
+  _LocationControllerBase() {
+    currentLocation = userLocationStorageRepository.getUserLocation();
+  }
 
   @action
   Future<void> getLocation() async {
@@ -46,8 +57,20 @@ abstract class _LocationControllerBase with Store {
     if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
       var current = await Geolocator.getCurrentPosition();
       List<Placemark> places = await placemarkFromCoordinates(current.latitude, current.longitude);
-      locationAddress = places[0];
-      print(locationAddress);
+      Placemark locationAddress = places[0];
+      await saveLocation(locationAddress, current.latitude, current.longitude);
     }
+  }
+
+  @action
+  Future<void> saveLocation(Placemark location, double latitude, double longitude) async {
+    LocationModel userLocation = LocationModel(
+      city: location.subLocality!,
+      state: location.administrativeArea!,
+      latitude: latitude.toString(),
+      longitude: longitude.toString(),
+    );
+    currentLocation = userLocation;
+    await userLocationStorageRepository.saveUserLocation(userLocation);
   }
 }

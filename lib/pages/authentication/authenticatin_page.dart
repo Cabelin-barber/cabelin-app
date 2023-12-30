@@ -1,5 +1,5 @@
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
-import 'package:cabelin_v2/localstorage/repositories/user_repository.dart';
+import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/pages/authentication/authentication_controller.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
@@ -17,7 +17,7 @@ class AuthenticationPage extends StatelessWidget {
   
   AuthenticationController authenticationController = AuthenticationController();
   final _formKey = GlobalKey<FormState>();
-  UserRepository userStorageRepository = GetIt.instance<UserRepository>();
+  UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
 
 
@@ -26,7 +26,6 @@ class AuthenticationPage extends StatelessWidget {
 
     UserModel? currentUser = userStorageRepository.getUser();
     bool isLoggedIn = false;
-
     return Scaffold(
       body: LayoutWidget(
         child: Visibility(

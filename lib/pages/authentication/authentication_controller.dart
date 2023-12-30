@@ -1,5 +1,5 @@
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
-import 'package:cabelin_v2/localstorage/repositories/user_repository.dart';
+import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +13,7 @@ part 'authentication_controller.g.dart';
 class AuthenticationController = _AuthenticationControllerBase with _$AuthenticationController;
 
 abstract class _AuthenticationControllerBase with Store {
-  UserRepository userStorageRepository = GetIt.instance<UserRepository>();
+  UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
   
   @observable
