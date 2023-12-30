@@ -57,6 +57,12 @@ class EstlableshimentPage extends StatelessWidget {
                   
                   const TabBar(
                     labelColor: Colors.black87,
+                    labelStyle: TextStyle(
+                      fontFamily: "Sora"
+                    ),
+                    unselectedLabelStyle: TextStyle(
+                      fontFamily: "Sora"
+                    ),
                     unselectedLabelColor: Colors.grey,
                     tabs: [
                       Tab(text: "Serviços"),
