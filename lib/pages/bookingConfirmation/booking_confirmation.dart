@@ -39,9 +39,10 @@ class BookingConfirmationPage extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
+                useSafeArea: true,
                 builder: (context) {
                   return Container(
-                    height: MediaQuery.of(context).size.height / 1.5,
+                    height: MediaQuery.of(context).size.height / 1.3,
                     width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.all(16),
                     color: Colors.white,
@@ -75,17 +76,63 @@ class BookingConfirmationPage extends StatelessWidget {
                           height: MediaQuery.of(context).size.height/2,
                           width: MediaQuery.of(context).size.width,
                           child: ListView.builder(
-                            itemCount: 30,
-                            itemBuilder: (_, index) => TextWidget("Teste")
+                            itemCount: 5,
+                            itemBuilder: (_, index) => ListTile(
+                              title: const Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextWidget(
+                                    "Rafael Barbeiro",
+                                    customWeight: FontWeight.w800,
+                                  ),
+                                  TextWidget(
+                                    "R\$ 60",
+                                    customWeight: FontWeight.w800,
+                                  ),
+                                ],
+                              ),
+                              subtitle:  TextWidget(
+                                "Corte Degradê",
+                                customFontsize: 14,
+                                color: Colors.grey[600],
+                              ),
+                              leading: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: const BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                //child: Image.network("src"),
+                              ),
+                            )
                           ),
                         ),
-                        const Spacer(),
-                        ButtonWidget(
-                          title: "Finalizar",
-                          fullWidth: true,
-                          onTap: () {}
+                        const Spacer(flex: 2,),
+                        Column(
+                          children: [
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TextWidget(
+                                  "Total",
+                                  customWeight: FontWeight.w900,
+                                  customFontsize: 20,
+                                ),
+                                TextWidget(
+                                  "R\$ 120",
+                                  customWeight: FontWeight.w900,
+                                  customFontsize: 20,
+                                )
+                              ],
+                            ),
+                            ButtonWidget(
+                              title: "Finalizar",
+                              fullWidth: true,
+                              onTap: () {}
+                            ),
+                          ],
                         )
-
                       ],
                     )
                   );  
