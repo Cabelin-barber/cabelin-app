@@ -4,6 +4,7 @@ import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
+import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     HomeController homeController = HomeController();
-    Api.dio.get("path");
+    String urlImage = "https://images.unsplash.com/photo-1546877625-cb8c71916608?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
     return Scaffold(
       appBar: AppBar(
@@ -44,51 +45,14 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TextWidget(
-                "Olá, Carlos! \no que temos para hoje?",
-                customFontsize: 16,
-                margin: EdgeInsets.only(bottom: 16),
-              ),
-              // Row(
-              //   children: [
-              //     Container(
-              //       margin: const EdgeInsets.only(right: 16),
-              //       child: CategoryWidget(
-              //         title: "Saloes",
-              //         imageUrl: "assets/salao.png",
-              //         onTap: () {},
-              //       ),
-              //     ),
-              //     Container(
-              //       margin: const EdgeInsets.only(right: 16),
-              //       child: CategoryWidget(
-              //         title: "Barba",
-              //         imageUrl: "assets/barbearia.png",
-              //         onTap: () {},
-              //       ),
-              //     ),
-              //     Container(
-              //       margin: const EdgeInsets.only(right: 16),
-              //       child: CategoryWidget(
-              //         title: "Tatto",
-              //         imageUrl: "assets/tatuagem.png",
-              //         onTap: () {},
-              //       ),
-              //     ),
-              //     CategoryWidget(
-              //       title: "SPA",
-              //       imageUrl: "assets/spa.png",
-              //       onTap: () {},
-              //     ),
-              //   ],
-              // ),
               Container(
                   width: MediaQuery.of(context).size.width,
                   height: 200,
                   margin: const EdgeInsets.symmetric(vertical: 22),
                   decoration: const BoxDecoration(
-                      color: Color(0XFFF8EDFF),
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                    color: Color(0XFFF8EDFF),
+                    borderRadius: BorderRadius.all(Radius.circular(8))
+                  ),
                   child: Stack(
                     children: [
                       Image.network(
@@ -108,122 +72,112 @@ class HomePage extends StatelessWidget {
                     ],
                   )),
               const TextWidget(
-                "Salões em destaque",
-                margin: EdgeInsets.only(bottom: 16)
+                "Agendamentos marcados",
+                customFontsize: 20,
+                customWeight: FontWeight.w800,
+                margin: EdgeInsets.only(bottom: 16),
               ),
 
-              TextButtonWidget(
-                title: "Buscar ",
-                onTap: () {
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 120,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  color: Colors.grey[300]
+                ),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextWidget("Dia 15, segunda-feira"),
+                    TextWidget("Salão do Marquinhos"),
+                    TextWidget("- Barba"),
+                    TextWidget("- Corte Degradê")
+                  ],
+                ),
+              ),
 
-                },
+
+              const TextWidget(
+                "Salões abertos hoje",
+                customFontsize: 20,
+                customWeight: FontWeight.w800,
+                margin: EdgeInsets.only(top: 16, bottom: 16),
               ),
               
               SizedBox(
-                height: 220,
+                height: 300,
                 child: ListWidget(
                   itemCount: 10,
                   scrollDirection: Axis.horizontal,
                   separatorBuilder: (_, __) => const SizedBox(width: 16),
-                  itemBuilder: (_, __) => Container(
-                      width: 220,
-                      decoration: const BoxDecoration(
-                        color: Color(0XFFF8EDFF),
-                        borderRadius: BorderRadius.all(Radius.circular(8))
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.network(
-                            "https://images.unsplash.com/photo-1546877625-cb8c71916608?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 12, right: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    TextWidget(
-                                      "Salão do Zé",
-                                      customFontsize: 16,
-                                      customWeight: FontWeight.w800,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star_rounded,
-                                          color: Colors.amber
-                                        ),
-                                        TextWidget(
-                                          "5.0",
-                                          customFontsize: 16,
-                                          customWeight: FontWeight.w800,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                TextWidget(
-                                  "10 - 19hrs",
-                                  customFontsize: 12,
-                                ),
-                                TextWidget(
-                                  "Av Rochedo, Qd. 22",
-                                  customFontsize: 12
-                                )
-                              ],
+                  itemBuilder: (_, __) => GestureDetector(
+                    onTap: () => context.push("/estableshiment"),
+                    child: Container(
+                        width: 300,
+                        decoration: const BoxDecoration(
+                          color: Color(0XFFF8EDFF),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.network(
+                              urlImage,
+                              height: 240,
+                              fit: BoxFit.cover,
                             ),
-                          )
-                        ],
-                      )
-                    ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 12, right: 12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const TextWidget(
+                                    "William Barbeiro",
+                                    customFontsize: 20,
+                                    customWeight: FontWeight.w800,
+                                  ),
+                                  TextWidget(
+                                    "1,6 km - Av Rochedo Quadra 28",
+                                    color: Colors.grey[700]
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        )
+                      ),
+                  ),
                 ),
               ),
               const TextWidget(
                 "Todos os salões",
-                margin: EdgeInsets.symmetric(vertical:22)
+                customWeight: FontWeight.w800,
+                customFontsize: 20,
+                margin: EdgeInsets.symmetric(vertical: 16)
               ),
               ListWidget(
                 itemCount: 15,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (_, __) => ListTile(
+                separatorBuilder: (_, __ ) => const Divider(),
+                itemBuilder: (_, __) => GestureDetector(
                   onTap: () => context.push("/estableshiment"),
-                  leading: Container(
-                    color: Colors.blue,
-                    width: 60,
-                    height: 60,
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite_outline_rounded)
-                  ),
-                  title: const TextWidget("Salão Manonzette", customFontsize: 16),
-                  subtitle: const Column(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          TextWidget("10 - 16hrs ⦿ ", customFontsize: 13),
-                            Row(
-                              children: [
-                                TextWidget(
-                                  "5.0",
-                                  customFontsize: 16,
-                                ),
-                                Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.amber
-                                ),
-                              ],
-                            ),
-                        ],
+                      Image.network(urlImage),
+                      const TextWidget(
+                        "William Barbeiro",
+                        customFontsize: 20,
+                        customWeight: FontWeight.w800,
                       ),
-                      TextWidget("Av. Plinio Valério", customFontsize: 13),
+                      TextWidget(
+                        "1,6 km - Av Rochedo Quadra 28",
+                        color: Colors.grey[700]
+                      )
                     ],
                   ),
-                ),
+                )
               )
             ],
           ),
