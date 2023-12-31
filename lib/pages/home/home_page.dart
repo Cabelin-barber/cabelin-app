@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/pages/home/components/location/location_page.dart';
 import 'package:cabelin_v2/pages/home/home_controller.dart';
+import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     HomeController homeController = HomeController();
+    Api.dio.get("path");
 
     return Scaffold(
       appBar: AppBar(

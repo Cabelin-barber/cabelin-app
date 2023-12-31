@@ -55,6 +55,7 @@ dependencies:
   localstorage: ^4.0.1+4
   json_annotation: ^4.8.1
   sembast: ^3.5.0+1
+  dio: ^5.4.0
 
 dev_dependencies:
   flutter_test:
