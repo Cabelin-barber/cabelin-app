@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         dividerTheme: DividerThemeData(
           space: 35,
-          color: Colors.grey.withOpacity(0.6)
+          color: Colors.grey.withOpacity(0.2)
         ),
         listTileTheme: const ListTileThemeData(
           contentPadding: EdgeInsets.zero,
