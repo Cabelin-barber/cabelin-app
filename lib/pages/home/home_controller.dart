@@ -27,7 +27,7 @@ abstract class _HomeControllerBase with Store {
   }
 
   Future<void> getEstablishments() async {
-    var res = await api.get("establishments?page=0222&size=1");
+    var res = await api.get("/establishments?page=0&size=1");
     print(res);
   }
 }
