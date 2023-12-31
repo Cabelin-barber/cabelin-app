@@ -5,6 +5,7 @@ import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 
@@ -31,68 +32,71 @@ class CalendarPage extends StatelessWidget {
             child: ListView.separated(
               separatorBuilder: (_, __) => Container(height: 20),
               shrinkWrap: true,
-              itemBuilder: (_, index) => Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  color: Colors.grey[100],
-                ),
-                height: 220,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 6),
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.2),
-                        borderRadius: const BorderRadius.all(Radius.circular(100))
-                      ),
-                      child: const TextWidget(
-                        "Confirmado",
-                        customFontsize: 13,
-                        color: Colors.green,
-                        customWeight: FontWeight.w800,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.network(
-                            urlImage,
-                            height: 50,
-                            width: 50,
-                            fit: BoxFit.cover,
-                          ),
+              itemBuilder: (_, index) => GestureDetector(
+                onTap: () => context.push("/bookingInformation"),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    color: Colors.grey[100],
+                  ),
+                  height: 220,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: Colors.green.withOpacity(0.2),
+                          borderRadius: const BorderRadius.all(Radius.circular(100))
                         ),
-                        const TextWidget(
-                          "Salão da Patricia",
+                        child: const TextWidget(
+                          "Confirmado",
+                          customFontsize: 13,
+                          color: Colors.green,
                           customWeight: FontWeight.w800,
-                          margin: EdgeInsets.only(left: 16)
                         ),
-                        const Expanded(
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Icon(Icons.chevron_right_rounded)
-                          )
-                        )
-                      ],
-                    ),
-                    const Divider(),
-                    const TextWidget("Corte Degradê"),
-            
-                    const Expanded(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: TextWidget(
-                          "1 de Janeiro, 13:00",
-                          customWeight: FontWeight.w800
-                        )
                       ),
-                    )
-                  ],
-                )
+                      Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.network(
+                              urlImage,
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const TextWidget(
+                            "Salão da Patricia",
+                            customWeight: FontWeight.w800,
+                            margin: EdgeInsets.only(left: 16)
+                          ),
+                          const Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(Icons.chevron_right_rounded)
+                            )
+                          )
+                        ],
+                      ),
+                      const Divider(),
+                      const TextWidget("Corte Degradê"),
+                            
+                      const Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TextWidget(
+                            "1 de Janeiro, 13:00",
+                            customWeight: FontWeight.w800
+                          )
+                        ),
+                      )
+                    ],
+                  )
+                ),
               ),
               itemCount: 25
             ),
