@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:cabelin_v2/widgets/button_widget.dart';
+import 'package:cabelin_v2/widgets/googleMap_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Informations extends StatelessWidget {
@@ -8,13 +14,19 @@ class Informations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final googleMapsController = Completer<GoogleMapController>();
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       primary: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TextWidget("Barbearia com mais 10 de anos de tradição sempre pensando no bem estar do cliente"),
+          const GoogleMapWidget(),
+          const TextWidget(
+            "Barbearia com mais 10 de anos de tradição sempre pensando no bem estar do cliente",
+            margin: EdgeInsets.only(top: 16),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

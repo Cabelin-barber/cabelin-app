@@ -29,6 +29,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAMLQBzSk9TW0DjnCwtCr-RDjp04ZbWpJ8"/>
     </application>
     <queries>
   <!-- If your app checks for SMS support -->

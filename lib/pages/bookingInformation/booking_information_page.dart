@@ -1,13 +1,18 @@
+import 'dart:async';
+
 import 'package:cabelin_v2/widgets/button_widget.dart';
+import 'package:cabelin_v2/widgets/googleMap_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class BookingInformationPage extends StatelessWidget {
   const BookingInformationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final googleMapsController = Completer<GoogleMapController>();
     return Scaffold(
       appBar: AppBar(
         title: const TextWidget(
@@ -17,11 +22,7 @@ class BookingInformationPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 250,
-            color: Colors.blue,
-          ),
+          const GoogleMapWidget(),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
