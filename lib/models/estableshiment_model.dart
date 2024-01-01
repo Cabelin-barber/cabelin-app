@@ -1,4 +1,5 @@
 import 'package:cabelin_v2/localstorage/models/location_model.dart';
+import 'package:cabelin_v2/models/picture_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'estableshiment_model.g.dart';
@@ -8,14 +9,14 @@ class EstablishmentModel {
 
   String id;
   String name;
-  String urlImage;
-  LocationModel location;
+  PictureModel profilePicture;
+  LocationModel address;
 
   EstablishmentModel({
     required this.id,
     required this.name,
-    required this.urlImage,
-    required this.location
+    required this.profilePicture,
+    required this.address
   });
 
   factory EstablishmentModel.fromJson(Map<String, dynamic> json) => _$EstablishmentModelFromJson(json);
