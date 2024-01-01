@@ -180,26 +180,30 @@ class HomePage extends StatelessWidget {
                   customFontsize: 20,
                   margin: EdgeInsets.symmetric(vertical: 16)
                 ),
-                ListWidget(
-                  itemCount: 15,
+                Observer(
+                  builder: (contenxt) => ListWidget(
+                  itemCount: homeController.allEstablishments.length,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, __) => const Divider(),
-                  itemBuilder: (_, __) => GestureDetector(
+                  itemBuilder: (_, index) => GestureDetector(
                     onTap: () => context.push("/estableshiment"),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Image.network(urlImage),
-                        const TextWidget(
-                          "William Barbeiro",
+                        TextWidget(
+                          homeController.allEstablishments[index].name,
                           customFontsize: 20,
                           customWeight: FontWeight.w800,
                         ),
-                        TextWidget("1,6 km - Av Rochedo Quadra 28", color: Colors.grey[700])
-                      ],
-                    ),
-                  )
+                        TextWidget(
+                          homeController.allEstablishments[index].address.city,
+                          color: Colors.grey[700]
+                        )
+                      ]),
+                    )
+                  ),
                 )
               ],
             ),
