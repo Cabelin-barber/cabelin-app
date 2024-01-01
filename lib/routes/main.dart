@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
 import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
+import 'package:cabelin_v2/pages/editAccount/edit_account_page.dart';
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
 import 'package:cabelin_v2/pages/feedback/feedback_page.dart';
 import 'package:cabelin_v2/pages/pageview/pageview.dart';
@@ -33,6 +34,24 @@ final router = GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           child: const BookingInformationPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0);
+            const end = Offset.zero;
+            final tween = Tween(begin: begin, end: end);
+            final offsetAnimation = animation.drive(tween);
+            return SlideTransition(
+              position: offsetAnimation,
+              child: child
+            );
+          }
+        );
+      },
+    ),
+    GoRoute(
+      path: "/editAccount",
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          child: const EditAccountPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(1.0, 0.0);
             const end = Offset.zero;
