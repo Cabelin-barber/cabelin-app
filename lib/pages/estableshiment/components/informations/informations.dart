@@ -4,17 +4,23 @@ import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/googleMap_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Informations extends StatelessWidget {
+class Informations extends StatefulWidget {
   const Informations({super.key});
 
   @override
+  State<Informations> createState() => _InformationsState();
+}
+
+class _InformationsState extends State<Informations> with AutomaticKeepAliveClientMixin {
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    final googleMapsController = Completer<GoogleMapController>();
+    super.build(context);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
