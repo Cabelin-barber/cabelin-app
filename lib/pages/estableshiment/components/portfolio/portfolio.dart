@@ -1,61 +1,103 @@
+import 'package:cabelin_v2/pages/estableshiment/components/portfolio/portfolio_controller.dart';
+import 'package:cabelin_v2/widgets/image_widget.dart';
+import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
+import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
-class Portfolio extends StatelessWidget {
-  const Portfolio({super.key});
+class Portfolio extends StatefulWidget {
+
+  Portfolio({
+    super.key,
+    required this.establishmentId
+  });
+
+  String establishmentId;
+
+  @override
+  State<Portfolio> createState() => _PortfolioState();
+}
+
+class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixin{
+  
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-
+    super.build(context);
+    final portfolioController = PortfolioController(establishmentId: widget.establishmentId);
+    
     showImageFullScreen(String urlImage) {
       showModalBottomSheet(
-        useSafeArea: true,
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: [
-                Center(child: Image.network(urlImage)),
-                GestureDetector(
-                  onTap: () {
-                    context.pop();
-                  },
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 16, top: 16),
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(50)
+          useSafeArea: true,
+          isScrollControlled: true,
+          context: context,
+          builder: (context) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  Center(child: Image.network(urlImage)),
+                  GestureDetector(
+                    onTap: () {
+                      context.pop();
+                    },
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 16, top: 16),
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: const Icon(Icons.close_rounded),
                       ),
-                      child: const Icon(Icons.close_rounded),
                     ),
-                  ),
-                )
-              ],
-            ),
-          );
-        }
-      );
+                  )
+                ],
+              ),
+            );
+          });
     }
 
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: GridView.count(
-        mainAxisSpacing: 20,
-        crossAxisSpacing: 20,
-        crossAxisCount: 2,
-        children: List.generate(100, (index) {
-          return InkWell(
-            onTap: () => showImageFullScreen("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.X6-9dBY_jMvvulC67C1MxgHaHa%26pid%3DApi&f=1&ipt=69951b32b3fa69c52caf2752ca959341b3041b3c2065e4a6251ed4b029ac389b&ipo=images"),
-            child: Image.network("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.X6-9dBY_jMvvulC67C1MxgHaHa%26pid%3DApi&f=1&ipt=69951b32b3fa69c52caf2752ca959341b3041b3c2065e4a6251ed4b029ac389b&ipo=images")
+      child: Observer(builder: (_) {
+        return ListRefreshWidget(
+          itemCount: portfolioController.photos.length,
+          isLoading: portfolioController.isLoading,
+          customEmpty: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                LottieBuilder.asset(
+                  "assets/empty.json",
+                ),
+                const TextWidget(
+                  "Sem fotos por enquanto",
+                ),
+              ],
+            ),
+          ),
+          onRefresh: () async {
+            portfolioController.getPortfolioPhotos();
+          },
+          itemBuilder: (_, index) => InkWell(
+            onTap: () => showImageFullScreen(portfolioController.photos[index].url),
+              child: ImageNetworkWidget(
+                url: portfolioController.photos[index].url,
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+              )
+            ),
           );
-        }),
-      ),
+        }
+      )
     );
   }
 }
