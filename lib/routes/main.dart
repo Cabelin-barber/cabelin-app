@@ -18,8 +18,10 @@ final router = GoRouter(
       builder: (context, state) => const PageViewApp(),
     ),
     GoRoute(
-      path: '/estableshiment',
-      builder: (context, state) => const EstlableshimentPage(),
+      path: '/estableshiment/:estableshimentId',
+      builder: (context, state) => EstlableshimentPage(
+        estableshimentId: state.pathParameters['estableshimentId']!,
+      ),
     ),
     GoRoute(
       path: '/bookingConfirmation',
