@@ -5,7 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class EstlableshimentPage extends StatelessWidget {
-  const EstlableshimentPage({super.key});
+  
+  EstlableshimentPage({
+    super.key,
+    required this.estableshimentId
+  });
+
+  String estableshimentId;
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +61,12 @@ class EstlableshimentPage extends StatelessWidget {
                 Tab(text: "Informações"),
               ],
             ),
-            const Expanded(
+            Expanded(
               child: TabBarView(
                 children: [
-                  ServicesOfferPage(),
-                  Portfolio(),
-                  Informations()
+                  const ServicesOfferPage(),
+                  Portfolio(establishmentId: estableshimentId),
+                  const Informations()
                 ]
               ),
             ),
