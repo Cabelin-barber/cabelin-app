@@ -64,7 +64,7 @@ class EstlableshimentPage extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  const ServicesOfferPage(),
+                  ServicesOfferPage(establishmentId: estableshimentId),
                   Portfolio(establishmentId: estableshimentId),
                   const Informations()
                 ]
