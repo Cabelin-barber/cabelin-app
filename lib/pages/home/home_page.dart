@@ -135,8 +135,10 @@ class HomePage extends StatelessWidget {
                         itemCount: 10,
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (_, __) => const SizedBox(width: 16),
-                        itemBuilder: (_, __) => GestureDetector(
-                          onTap: () => context.push("/estableshiment"),
+                        itemBuilder: (_, index) => GestureDetector(
+                          onTap: () => context.push(
+                            "/estableshiment/${homeController.todayEstablishments[index].id}"
+                          ),
                           child: Container(
                               width: 300,
                               decoration: const BoxDecoration(
@@ -180,13 +182,16 @@ class HomePage extends StatelessWidget {
                   customFontsize: 20,
                   margin: EdgeInsets.symmetric(vertical: 16)
                 ),
+
                 Observer(
                   builder: (contenxt) => ListWidget(
                   itemCount: homeController.allEstablishments.length,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, __) => const Divider(),
                   itemBuilder: (_, index) => GestureDetector(
-                    onTap: () => context.push("/estableshiment"),
+                    onTap: () => context.push(
+                      "/estableshiment/${homeController.allEstablishments[index].id}"
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
