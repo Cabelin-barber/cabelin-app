@@ -303,7 +303,9 @@ class BookingConfirmationPage extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 8),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        context.push("/allEstablishmentServices");
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

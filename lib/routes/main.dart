@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
 import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
 import 'package:cabelin_v2/pages/editAccount/edit_account_page.dart';
@@ -66,6 +67,10 @@ final router = GoRouter(
           }
         );
       },
+    ),
+    GoRoute(
+      path: "/allEstablishmentServices",
+      builder: (context, state) => const AllEstablishmentServicesPage(),
     )
   ],
 );
