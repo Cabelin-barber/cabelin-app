@@ -135,7 +135,7 @@ class BookingConfirmationPage extends StatelessWidget {
                               fullWidth: true,
                               onTap: () {
                                 UserModel? currentUser = userStorageRepository.getUser();
-                                currentUser == null ? context.push("/authentication") : context.push("/feedback");
+                                currentUser == null ? context.push("/authentication", extra: true) : context.push("/feedback");
                               }
                             ),
                           ],

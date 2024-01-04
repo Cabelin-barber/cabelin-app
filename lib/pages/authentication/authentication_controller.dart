@@ -5,6 +5,7 @@ import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
 
@@ -15,10 +16,13 @@ class AuthenticationController = _AuthenticationControllerBase with _$Authentica
 abstract class _AuthenticationControllerBase with Store {
   UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
+  final bool _shouldComeBack;
+
+  _AuthenticationControllerBase({required shouldComeBack}) : _shouldComeBack = shouldComeBack;
   
   @observable
   bool isLoadingSingInGoogle = false;
-
+  
   @action
   Future<void> signInWithGoogle() async {
   isLoadingSingInGoogle = true;
@@ -57,6 +61,8 @@ abstract class _AuthenticationControllerBase with Store {
       provider: Provider.google
     );
     await userStorageRepository.saveUser(user);
-    pageViewController.pageController.jumpToPage(0);
+    _shouldComeBack 
+      ? GlobalContext.context.currentContext?.pop() 
+      : pageViewController.pageController.jumpToPage(0);
   }
 }

@@ -71,7 +71,12 @@ final router = GoRouter(
     ),
     GoRoute(
       path: "/authentication",
-      builder: (context, state) => AuthenticationPage()
+      builder: (context, state) {
+        final shouldComeBack = state.extra as bool;
+        return AuthenticationPage(
+          shouldComeBack: shouldComeBack,
+        );
+      } 
     ),
 
     GoRoute(

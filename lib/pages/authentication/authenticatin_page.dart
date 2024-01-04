@@ -14,18 +14,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 
 class AuthenticationPage extends StatelessWidget {
-  AuthenticationPage({super.key});
   
-  AuthenticationController authenticationController = AuthenticationController();
+  AuthenticationPage({super.key, this.shouldComeBack = false});
   final _formKey = GlobalKey<FormState>();
   UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
-
+  bool shouldComeBack;
 
   @override
   Widget build(BuildContext context) {
-
+    AuthenticationController authenticationController = AuthenticationController(shouldComeBack: shouldComeBack);
     UserModel? currentUser = userStorageRepository.getUser();
+
     return Scaffold(
       body: LayoutWidget(
         child: Visibility(
