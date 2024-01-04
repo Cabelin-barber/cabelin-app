@@ -24,6 +24,10 @@ class UserStorageRepository {
     return UserModel.fromJson(userJSON as Map<String, dynamic>);
   }
 
+  Future<void> clearUser() async{
+    await store.record("user").delete(db);
+  }
+
   Future<void> openDatabase() async {
     final appDocumentDir = await getApplicationDocumentsDirectory();
     final dbPath = '${appDocumentDir.path}/sample.db';
