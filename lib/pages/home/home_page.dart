@@ -136,9 +136,10 @@ class HomePage extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (_, __) => const SizedBox(width: 16),
                         itemBuilder: (_, index) => GestureDetector(
-                          onTap: () => context.push(
-                            "/estableshiment/${homeController.todayEstablishments[index].id}"
-                          ),
+                          onTap: () => print("navegando...."),
+                          //context.push(
+                          //  "/estableshiment/${homeController.todayEstablishments[index].id}"
+                          //),
                           child: Container(
                               width: 300,
                               decoration: const BoxDecoration(
