@@ -1,3 +1,5 @@
+import 'package:cabelin_v2/localstorage/models/user_model.dart';
+import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
@@ -5,6 +7,7 @@ import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -14,12 +17,13 @@ class BookingConfirmationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final userStorageRepository = GetIt.instance<UserStorageRepository>();
     initializeDateFormatting();
     DateFormat formatter = DateFormat("d 'de' MMMM", 'pt_BR');
     DateTime todayDate = DateTime.now();
 
-    BookingConfirmationController calendarController =
-        BookingConfirmationController();
+    BookingConfirmationController calendarController = BookingConfirmationController();
 
     return Scaffold(
       appBar: AppbarWidget(
@@ -130,7 +134,8 @@ class BookingConfirmationPage extends StatelessWidget {
                               title: "Finalizar",
                               fullWidth: true,
                               onTap: () {
-                                context.push("/feedback");
+                                UserModel? currentUser = userStorageRepository.getUser();
+                                currentUser == null ? context.push("/authentication") : context.push("/feedback");
                               }
                             ),
                           ],
