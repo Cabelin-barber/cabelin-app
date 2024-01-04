@@ -42,6 +42,6 @@ abstract class _HomeControllerBase with Store {
     isLoadingEstablishment = true;
     isLoadingEstablishment = false;
     Response response = await api.get("/establishments?page=0&size=1");
-    allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
+    //allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
   }
 }
