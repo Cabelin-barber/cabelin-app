@@ -1,9 +1,13 @@
+import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
+import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/pages/profile/profile_controller.dart';
+import 'package:cabelin_v2/utils/feedback_snackbar.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 class ConfigOption {
@@ -26,6 +30,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final userStorageRepository = GetIt.instance<UserStorageRepository>();
+    final pageViewController = GetIt.instance<PageViewController>();
 
     List<ConfigOption> options = [
       ConfigOption(
@@ -58,7 +65,18 @@ class ProfilePage extends StatelessWidget {
         title: "Sair",
         description: "Deixar o app (necessário fazer login posteriormente)",
         icon: Icons.logout_outlined,
-        onTap: () {}
+        onTap: () async {
+          try {
+            await userStorageRepository.clearUser();
+            pageViewController.pageController.animateToPage(
+              0,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.linear
+            );
+          } catch (e) {
+            FeedbackSnackbar.error("Tivemos algum errinho, tente novamente");
+          }
+        }
       ),
     ];
 
