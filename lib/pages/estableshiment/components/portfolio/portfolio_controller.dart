@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/models/picture_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
+import 'package:cabelin_v2/utils/feedback_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 part 'portfolio_controller.g.dart';
@@ -24,46 +25,12 @@ abstract class _PortfolioControllerBase with Store {
 
   @action
   Future<void> getPortfolioPhotos() async {
-    print(establishmentId);
     try {
       isLoading = true;
-      Response response = await api.get("/establishments/$establishmentId/service-pictures?page=0&size=1");
-      Future.delayed(const Duration(seconds: 3));
-      photos.addAll([
-        PictureModel(
-          id: "1",
-          name: "generic name",
-          url: urlImage
-        ),
-        PictureModel(
-          id: "1",
-          name: "generic name",
-          url: urlImage
-        ),
-        PictureModel(
-          id: "1",
-          name: "generic name",
-          url: urlImage
-        ),
-        PictureModel(
-          id: "2",
-          name: "generic name",
-          url: urlImage
-        ),
-        PictureModel(
-          id: "2",
-          name: "generic name",
-          url: urlImage
-        ),
-        PictureModel(
-          id: "2",
-          name: "generic name",
-          url: urlImage
-        )
-      ]);
-      //photos.addAll(List.from(response.data['content'].map((model) => PictureModel.fromJson(model))));
+      Response response = await api.get("/establishments/$establishmentId/service-pictures?page=0&size=10");
+      photos.addAll(List.from(response.data['content'].map((model) => PictureModel.fromJson(model))));
     } catch (e) {
-      print("ERRO!");
+      FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     } finally{
       isLoading = false;
     }
