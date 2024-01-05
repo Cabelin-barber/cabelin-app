@@ -23,10 +23,10 @@ abstract class _ServiceOfferControllerBase with Store {
 
   @action
   Future<void> getServices() async {
-    print(establishmentId);
     try {
+      services.clear();
       isLoading = true;
-      Response response = await api.get("/establishments/$establishmentId/beauty-services?page=0&size=1");
+      Response response = await api.get("/establishments/$establishmentId/beauty-services?page=0&size=10");
       Future.delayed(const Duration(seconds: 3));
 
       services.addAll(List.from(response.data['content'].map((model) => ServiceModel.fromJson(model))));
