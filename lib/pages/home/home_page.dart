@@ -45,6 +45,7 @@ class HomePage extends StatelessWidget {
           homeController.getEstablishments();
         },
         child: SingleChildScrollView(
+          controller: homeController.scrollController,
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Column(
@@ -189,7 +190,11 @@ class HomePage extends StatelessWidget {
                   itemCount: homeController.allEstablishments.length,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, __) => const Divider(),
-                  itemBuilder: (_, index) => GestureDetector(
+                  itemBuilder: (_, index) {
+                    print("Index: $index");
+                    print(homeController.allEstablishments.length);
+                    if(index < homeController.allEstablishments.length) {
+                                          return GestureDetector(
                     onTap: () => context.push(
                       "/estableshiment/${homeController.allEstablishments[index].id}"
                     ),
@@ -208,8 +213,14 @@ class HomePage extends StatelessWidget {
                           color: Colors.grey[700]
                         )
                       ]),
-                    )
-                  ),
+                    );
+                    }else {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32),
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
                 )
               ],
             ),

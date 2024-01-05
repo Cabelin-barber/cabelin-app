@@ -82,6 +82,30 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$getEstablishmentsAsyncAction.run(() => super.getEstablishments());
   }
 
+  late final _$loadMoreEstablishmentsAsyncAction = AsyncAction(
+      '_HomeControllerBase.loadMoreEstablishments',
+      context: context);
+
+  @override
+  Future loadMoreEstablishments() {
+    return _$loadMoreEstablishmentsAsyncAction
+        .run(() => super.loadMoreEstablishments());
+  }
+
+  late final _$_HomeControllerBaseActionController =
+      ActionController(name: '_HomeControllerBase', context: context);
+
+  @override
+  dynamic infiniteScroll() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.infiniteScroll');
+    try {
+      return super.infiniteScroll();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
