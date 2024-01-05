@@ -12,8 +12,9 @@ ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) => ServiceModel(
       description: json['description'] as String,
       minutes: json['minutes'] as int,
       price: PriceModel.fromJson(json['price'] as Map<String, dynamic>),
-      professionals: ProfessionalModel.fromJson(
-          json['professionals'] as Map<String, dynamic>),
+      professionals: (json['professionals'] as List<dynamic>)
+          .map((e) => ProfessionalModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) =>

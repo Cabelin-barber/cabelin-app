@@ -1,6 +1,8 @@
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
+import 'package:cabelin_v2/notifications/push_notificaitions.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
+import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class AuthenticationController = _AuthenticationControllerBase with _$Authentica
 abstract class _AuthenticationControllerBase with Store {
   UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
+  final api = Api.dio;
   final bool _shouldComeBack;
 
   _AuthenticationControllerBase({required shouldComeBack}) : _shouldComeBack = shouldComeBack;
@@ -60,7 +63,24 @@ abstract class _AuthenticationControllerBase with Store {
       phoneNumber: userGoogle.user?.phoneNumber,
       provider: Provider.google
     );
+
+    // [ TO-DO ]
+    // Arrumar isso aki
+    //
+    var token = await FirebaseMessagingService.getDeviceFirebaseToken();
+    await api.post("/customers", data: {
+      "name": user.name,
+      "email": user.email,
+      "password": "123-123",
+      "provider": "GOOGLE",
+      "notificationToken": token,
+      "phone": {
+        "number": "+5562982331315",
+        "isMobile": true
+      }
+    });
     await userStorageRepository.saveUser(user);
+
     _shouldComeBack 
       ? GlobalContext.context.currentContext?.pop() 
       : pageViewController.pageController.jumpToPage(0);

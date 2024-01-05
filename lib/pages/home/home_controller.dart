@@ -41,7 +41,7 @@ abstract class _HomeControllerBase with Store {
   Future<void> getEstablishments() async {
     isLoadingEstablishment = true;
     isLoadingEstablishment = false;
-    Response response = await api.get("/establishments?page=0&size=1");
-    //allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
+    Response response = await api.get("/establishments?page=0&size=10");
+    allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
   }
 }

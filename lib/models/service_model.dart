@@ -12,7 +12,7 @@ class ServiceModel {
   String description;
   int minutes;
   PriceModel price;
-  ProfessionalModel professionals;
+  List<ProfessionalModel> professionals;
 
   ServiceModel({
     required this.id,

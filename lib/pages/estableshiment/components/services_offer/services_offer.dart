@@ -54,29 +54,30 @@ class _ServicesOfferPageState extends State<ServicesOfferPage> with AutomaticKee
           ),
         ),
         separatorBuilder: (_, __) => const Divider(),
-        itemCount: 2,
-        itemBuilder: (_, index) => ListTile(
-        leading: TextWidget(
-          "R\$ ${serviceOfferController.services[index].price.value.toString()}",
-          customWeight: FontWeight.w800,
-          customFontsize: 16,
-        ),
-        title: TextWidget(
-          serviceOfferController.services[index].name,
-          customWeight: FontWeight.w800,
-          customFontsize: 16,
-        ),
-        subtitle: TextWidget(
-          serviceOfferController.services[index].description,
-          customFontsize: 13,
-        ),
-        trailing: ButtonWidget(
-          title: "Escolher",
-          onTap: () {
-            context.push("/bookingConfirmation");
-          }
-        ),
-      ),
+        itemCount: 3,//serviceOfferController.services.length,
+        itemBuilder: (p0, p1) => TextWidget("content"),
+      //   itemBuilder: (_, index) => ListTile(
+      //   leading: TextWidget(
+      //     "R\$ ${serviceOfferController.services[index].price.value.toString()}",
+      //     customWeight: FontWeight.w800,
+      //     customFontsize: 16,
+      //   ),
+      //   title: TextWidget(
+      //     serviceOfferController.services[index].name,
+      //     customWeight: FontWeight.w800,
+      //     customFontsize: 16,
+      //   ),
+      //   subtitle: TextWidget(
+      //     serviceOfferController.services[index].description,
+      //     customFontsize: 13,
+      //   ),
+      //   trailing: ButtonWidget(
+      //     title: "Escolher",
+      //     onTap: () {
+      //       context.push("/bookingConfirmation");
+      //     }
+      //   ),
+      // ),
      )) 
     );
   }
