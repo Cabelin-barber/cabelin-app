@@ -60,6 +60,7 @@ abstract class _HomeControllerBase with Store {
       isLoadingEstablishment = false;
       Response response = await _api.get("/establishments?page=0&size=1");
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
+      _currentPage = 1;
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     }

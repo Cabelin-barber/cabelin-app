@@ -1,6 +1,7 @@
 import 'package:cabelin_v2/pages/home/components/location/location_page.dart';
 import 'package:cabelin_v2/pages/home/home_controller.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
+import 'package:cabelin_v2/widgets/smart_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomePage extends StatelessWidget {
@@ -38,11 +40,12 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: CustomMaterialIndicator(
-        withRotation: false,
-        indicatorBuilder: (context, controller) => const CupertinoActivityIndicator(),
+      body: SmartRefreshWidget(
+        loadMore: () async {
+          await homeController.loadMoreEstablishments();
+        },
         onRefresh: () async {
-          homeController.getEstablishments();
+          await homeController.getEstablishments();
         },
         child: SingleChildScrollView(
           controller: homeController.scrollController,
@@ -191,10 +194,7 @@ class HomePage extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (_, __) => const Divider(),
                   itemBuilder: (_, index) {
-                    print("Index: $index");
-                    print(homeController.allEstablishments.length);
-                    if(index < homeController.allEstablishments.length) {
-                                          return GestureDetector(
+                  return GestureDetector(
                     onTap: () => context.push(
                       "/estableshiment/${homeController.allEstablishments[index].id}"
                     ),
@@ -214,12 +214,6 @@ class HomePage extends StatelessWidget {
                         )
                       ]),
                     );
-                    }else {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32),
-                        child: CircularProgressIndicator(),
-                      );
-                    }
                   }),
                 )
               ],
@@ -230,3 +224,4 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
