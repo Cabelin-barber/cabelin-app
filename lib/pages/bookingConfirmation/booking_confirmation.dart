@@ -1,8 +1,13 @@
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
+import 'package:cabelin_v2/models/picture_model.dart';
+import 'package:cabelin_v2/models/price_model.dart';
+import 'package:cabelin_v2/models/professional_model.dart';
+import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
+import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -13,17 +18,18 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class BookingConfirmationPage extends StatelessWidget {
-  const BookingConfirmationPage({super.key});
+  BookingConfirmationPage({super.key, required this.servicePicked});
+
+  ServiceModel servicePicked;
 
   @override
   Widget build(BuildContext context) {
-
     final userStorageRepository = GetIt.instance<UserStorageRepository>();
     initializeDateFormatting();
     DateFormat formatter = DateFormat("d 'de' MMMM", 'pt_BR');
     DateTime todayDate = DateTime.now();
 
-    BookingConfirmationController calendarController = BookingConfirmationController();
+    final calendarController = BookingConfirmationController(firstServicePicked: servicePicked);
 
     return Scaffold(
       appBar: AppbarWidget(
@@ -39,113 +45,116 @@ class BookingConfirmationPage extends StatelessWidget {
               "R\$ 30,00",
               customWeight: FontWeight.w800,
             ),
-            ButtonWidget(title: "Finalizar", onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                builder: (context) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height / 1.3,
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.all(16),
-                    color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const TextWidget(
-                              "Finalização de pedido",
-                              customWeight: FontWeight.w800,
-                            ),
-
-                            GestureDetector(
-                              onTap: () {
-                                context.pop();
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(50)
-                                ),
-                                child: const Icon(Icons.close_rounded),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height/2,
-                          width: MediaQuery.of(context).size.width,
-                          child: ListView.builder(
-                            itemCount: 5,
-                            itemBuilder: (_, index) => ListTile(
-                              title: const Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextWidget(
-                                    "Rafael Barbeiro",
-                                    customWeight: FontWeight.w800,
-                                  ),
-                                  TextWidget(
-                                    "R\$ 60",
-                                    customWeight: FontWeight.w800,
-                                  ),
-                                ],
-                              ),
-                              subtitle:  TextWidget(
-                                "Corte Degradê",
-                                customFontsize: 14,
-                                color: Colors.grey[600],
-                              ),
-                              leading: Container(
-                                width: 50,
-                                height: 50,
-                                decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                                ),
-                                //child: Image.network("src"),
-                              ),
-                            )
-                          ),
-                        ),
-                        const Spacer(flex: 2,),
-                        Column(
-                          children: [
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ButtonWidget(
+                title: "Finalizar",
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      builder: (context) {
+                        return Container(
+                            height: MediaQuery.of(context).size.height / 1.3,
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.all(16),
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextWidget(
-                                  "Total",
-                                  customWeight: FontWeight.w900,
-                                  customFontsize: 20,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const TextWidget(
+                                      "Finalização de pedido",
+                                      customWeight: FontWeight.w800,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        context.pop();
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey.withOpacity(0.3),
+                                            borderRadius: BorderRadius.circular(50)
                                 ),
-                                TextWidget(
-                                  "R\$ 120",
-                                  customWeight: FontWeight.w900,
-                                  customFontsize: 20,
+                                        child: const Icon(Icons.close_rounded),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height/2,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: ListView.builder(
+                                      itemCount: 5,
+                                      itemBuilder: (_, index) => ListTile(
+                                            title: const Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                TextWidget(
+                                                  "Rafael Barbeiro",
+                                                  customWeight: FontWeight.w800,
+                                                ),
+                                                TextWidget(
+                                                  "R\$ 60",
+                                                  customWeight: FontWeight.w800,
+                                                ),
+                                              ],
+                                            ),
+                                            subtitle: TextWidget(
+                                              "Corte Degradê",
+                                              customFontsize: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                            leading: Container(
+                                              width: 50,
+                                              height: 50,
+                                              decoration: const BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:BorderRadius.all(
+                                                  Radius.circular(10)
+                                                )
+                                              ),
+                                              //child: Image.network("src"),
+                                            ),
+                                          )
+                                        ),
+                                ),
+                                const Spacer(flex: 2,),
+                                Column(
+                                  children: [
+                                    const Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        TextWidget(
+                                          "Total",
+                                          customWeight: FontWeight.w900,
+                                          customFontsize: 20,
+                                        ),
+                                        TextWidget(
+                                          "R\$ 120",
+                                          customWeight: FontWeight.w900,
+                                          customFontsize: 20,
+                                        )
+                                      ],
+                                    ),
+                                    ButtonWidget(
+                                        title: "Finalizar",
+                                        fullWidth: true,
+                                        onTap: () {
+                                          UserModel? currentUser = userStorageRepository.getUser();
+                                          currentUser == null ? context.push("/authentication", extra: true) : context.push("/feedback");
+                                        }
+                            ),
+                                  ],
                                 )
                               ],
-                            ),
-                            ButtonWidget(
-                              title: "Finalizar",
-                              fullWidth: true,
-                              onTap: () {
-                                UserModel? currentUser = userStorageRepository.getUser();
-                                currentUser == null ? context.push("/authentication", extra: true) : context.push("/feedback");
-                              }
-                            ),
-                          ],
-                        )
-                      ],
-                    )
-                  );  
-                }
+                            )
+                  );
+                      }
               );
-            })
+                })
           ],
         ),
       ),
@@ -250,13 +259,13 @@ class BookingConfirmationPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: calendarController.currentTimeSelected 
                                 !=null && calendarController.currentTimeSelected == index
-                                ? Colors.blue
-                                : Colors.white,
-                              border: Border.all(
-                                color: calendarController.currentTimeSelected 
-                                  != null && calendarController.currentTimeSelected == index
                                   ? Colors.blue
-                                  : Colors.grey),
+                                  : Colors.white,
+                              border: Border.all(
+                                  color: calendarController.currentTimeSelected 
+                                  != null && calendarController.currentTimeSelected == index
+                                          ? Colors.blue
+                                          : Colors.grey),
                               borderRadius: BorderRadius.circular(16)),
                           padding: const EdgeInsets.all(16),
                           child: const Row(
@@ -278,39 +287,49 @@ class BookingConfirmationPage extends StatelessWidget {
                       }));
                     },
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.grey.withOpacity(0.3),
-                    ),
-                    margin: const EdgeInsets.only(top: 22),
-                    padding: const EdgeInsets.all(22),
-                    child: const Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextWidget(
-                              "Corte Degradê",
-                              customWeight: FontWeight.w800,
-                              customFontsize: 16,
+                  const SizedBox(height: 22),
+                  Observer(
+                      builder: (_) => ListWidget(
+                            separatorBuilder: (_, __) =>
+                                const SizedBox(height: 12),
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount:
+                                calendarController.allServicesPicked.length,
+                            itemBuilder: (_, index) => Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: Colors.grey.withOpacity(0.3),
+                              ),
+                              padding: const EdgeInsets.all(22),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextWidget(
+                                        calendarController
+                                            .allServicesPicked[index].name,
+                                        customWeight: FontWeight.w800,
+                                        customFontsize: 16,
+                                      ),
+                                      TextWidget(
+                                        "R\$ ${calendarController.allServicesPicked[index].price.value.toString()}",
+                                        customWeight: FontWeight.w800,
+                                        customFontsize: 16,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                            TextWidget(
-                              "R\$ 25,00",
-                              customWeight: FontWeight.w800,
-                              customFontsize: 16,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                          )),
                   Container(
                     margin: const EdgeInsets.only(top: 8),
                     child: InkWell(
                       onTap: () {
                         context.push("/allEstablishmentServices");
-                      },
+                                              },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -49,6 +49,18 @@ mixin _$BookingConfirmationController
           name: '_BookingConfirmationControllerBase', context: context);
 
   @override
+  void addNewService(ServiceModel service) {
+    final _$actionInfo = _$_BookingConfirmationControllerBaseActionController
+        .startAction(name: '_BookingConfirmationControllerBase.addNewService');
+    try {
+      return super.addNewService(service);
+    } finally {
+      _$_BookingConfirmationControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setCurrentTimeSelected(int newTime) {
     final _$actionInfo =
         _$_BookingConfirmationControllerBaseActionController.startAction(

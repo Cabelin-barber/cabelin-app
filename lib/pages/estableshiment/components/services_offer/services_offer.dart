@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/pages/estableshiment/components/services_offer/service_offer_controller.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
@@ -73,7 +74,10 @@ class _ServicesOfferPageState extends State<ServicesOfferPage> with AutomaticKee
         trailing: ButtonWidget(
           title: "Escolher",
           onTap: () {
-            context.push("/bookingConfirmation");
+            context.push(
+              "/bookingConfirmation",
+              extra: serviceOfferController.services[index]
+            );
           }
         ),
       ),

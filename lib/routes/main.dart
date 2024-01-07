@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
 import 'package:cabelin_v2/pages/authentication/authenticatin_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
@@ -27,7 +28,10 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/bookingConfirmation',
-      builder: (context, state) => const BookingConfirmationPage(),
+      builder: (context, state) {
+        final servicePicked = state.extra as ServiceModel;
+        return BookingConfirmationPage(servicePicked: servicePicked); 
+      },
     ),
     GoRoute(
       path: "/feedback",
