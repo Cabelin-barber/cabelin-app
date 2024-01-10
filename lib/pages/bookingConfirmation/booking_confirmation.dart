@@ -134,7 +134,7 @@ class BookingConfirmationPage extends StatelessWidget {
                                           customFontsize: 20,
                                         ),
                                         TextWidget(
-                                          calendarController.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value).toString(),
+                                          "R\$ ${calendarController.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value).toString()}",
                                           customWeight: FontWeight.w900,
                                           customFontsize: 20,
                                         )
