@@ -16,9 +16,14 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class BookingConfirmationPage extends StatelessWidget {
-  BookingConfirmationPage({super.key, required this.servicePicked});
+  BookingConfirmationPage({
+    super.key,
+    required this.servicePicked,
+    required this.establishmentId
+  });
 
   ServiceModel servicePicked;
+  String establishmentId;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +44,11 @@ class BookingConfirmationPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Observer(builder: (_) =>             TextWidget(
-              calendarController.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value).toString(),
-              customWeight: FontWeight.w800,
-            ),
-            
+            Observer(
+              builder: (_) => TextWidget(
+                calendarController.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value).toString(),
+                customWeight: FontWeight.w800,
+              ),
             ),
 
             ButtonWidget(
@@ -335,7 +340,9 @@ class BookingConfirmationPage extends StatelessWidget {
                       onTap: () async {
                         ServiceModel? newService = await Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const AllEstablishmentServicesPage())
+                          MaterialPageRoute(
+                            builder: (_) => AllEstablishmentServicesPage(establishemntId: establishmentId)
+                          )
                         );
                         if(newService != null) {
                           calendarController.addNewService(newService);
