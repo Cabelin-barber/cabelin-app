@@ -61,6 +61,18 @@ mixin _$BookingConfirmationController
   }
 
   @override
+  void deleteService(String id) {
+    final _$actionInfo = _$_BookingConfirmationControllerBaseActionController
+        .startAction(name: '_BookingConfirmationControllerBase.deleteService');
+    try {
+      return super.deleteService(id);
+    } finally {
+      _$_BookingConfirmationControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setCurrentTimeSelected(int newTime) {
     final _$actionInfo =
         _$_BookingConfirmationControllerBaseActionController.startAction(

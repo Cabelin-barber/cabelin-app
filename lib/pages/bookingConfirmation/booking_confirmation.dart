@@ -299,39 +299,70 @@ class BookingConfirmationPage extends StatelessWidget {
                             separatorBuilder: (_, __) =>const SizedBox(height: 12),
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: calendarController.allServicesPicked.length,
-                            itemBuilder: (_, index) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: Colors.grey.withOpacity(0.3),
-                              ),
-                              padding: const EdgeInsets.all(22),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextWidget(
-                                        calendarController.allServicesPicked[index].name,
-                                        customWeight: FontWeight.w800,
-                                        customFontsize: 16,
-                                      ),
-                                      TextWidget(
-                                        "R\$ ${calendarController.allServicesPicked[index].price.value.toString()}",
-                                        customWeight: FontWeight.w800,
-                                        customFontsize: 16,
-                                      ),
-                                    ],
+                            itemBuilder: (_, index) => Stack(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.grey.withOpacity(0.3),
+                                    ),
+                                    padding: const EdgeInsets.all(22),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            TextWidget(
+                                              calendarController.allServicesPicked[index].name,
+                                              customWeight: FontWeight.w800,
+                                              customFontsize: 16,
+                                            ),
+                                            TextWidget(
+                                              "R\$ ${calendarController.allServicesPicked[index].price.value.toString()}",
+                                              customWeight: FontWeight.w800,
+                                              customFontsize: 16,
+                                            ),
+                                          ],
+                                        ),
+                                        const Divider(),
+                                        calendarController.allServicesPicked[index].professionals.length == 1 
+                                          ? TextWidget(
+                                            "Profissional: ${calendarController.allServicesPicked[index].professionals[0].name}",
+                                            color: Colors.grey[700],
+                                          )
+                                          : const TextWidget("Mais de um profissional")
+                                      ],
+                                    ),
                                   ),
-                                  const Divider(),
-                                  calendarController.allServicesPicked[index].professionals.length == 1 
-                                    ? TextWidget(
-                                      "Profissional: ${calendarController.allServicesPicked[index].professionals[0].name}",
-                                      color: Colors.grey[700],
-                                    )
-                                    : const TextWidget("Mais de um profissional")
-                                ],
-                              ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Positioned.fill(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        calendarController.deleteService(
+                                          calendarController.allServicesPicked[index].id
+                                        );
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.red[800],
+                                          borderRadius: BorderRadius.circular(50)
+                                        ),
+                                        padding: const EdgeInsets.all(6),
+                                        child: const Icon(
+                                          Icons.close_rounded,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           )),
                   Container(

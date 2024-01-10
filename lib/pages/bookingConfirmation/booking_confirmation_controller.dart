@@ -17,10 +17,12 @@ abstract class _BookingConfirmationControllerBase with Store {
 
   @action
   void addNewService(ServiceModel service) {
-    print("#####");
-    print(service.description);
-    print("#####");
     allServicesPicked.add(service);
+  }
+
+  @action
+  void deleteService(String id) {
+    allServicesPicked.removeWhere((element) => element.id == id);
   }
 
   @action
