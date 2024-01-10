@@ -21,8 +21,8 @@ abstract class _BookingConfirmationControllerBase with Store {
   }
 
   @action
-  void deleteService(String id) {
-    allServicesPicked.removeWhere((element) => element.id == id);
+  void deleteService(int index) {
+    allServicesPicked.removeAt(index);
   }
 
   @action

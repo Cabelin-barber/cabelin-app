@@ -61,11 +61,11 @@ mixin _$BookingConfirmationController
   }
 
   @override
-  void deleteService(String id) {
+  void deleteService(int index) {
     final _$actionInfo = _$_BookingConfirmationControllerBaseActionController
         .startAction(name: '_BookingConfirmationControllerBase.deleteService');
     try {
-      return super.deleteService(id);
+      return super.deleteService(index);
     } finally {
       _$_BookingConfirmationControllerBaseActionController
           .endAction(_$actionInfo);

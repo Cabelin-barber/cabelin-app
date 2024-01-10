@@ -3,9 +3,9 @@ import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dar
 import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
+import 'package:cabelin_v2/pages/bookingConfirmation/components/list_services.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
-import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -295,76 +295,13 @@ class BookingConfirmationPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 22),
                   Observer(
-                      builder: (_) => ListWidget(
-                            separatorBuilder: (_, __) =>const SizedBox(height: 12),
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: calendarController.allServicesPicked.length,
-                            itemBuilder: (_, index) => Stack(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: Colors.grey.withOpacity(0.3),
-                                    ),
-                                    padding: const EdgeInsets.all(22),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            TextWidget(
-                                              calendarController.allServicesPicked[index].name,
-                                              customWeight: FontWeight.w800,
-                                              customFontsize: 16,
-                                            ),
-                                            TextWidget(
-                                              "R\$ ${calendarController.allServicesPicked[index].price.value.toString()}",
-                                              customWeight: FontWeight.w800,
-                                              customFontsize: 16,
-                                            ),
-                                          ],
-                                        ),
-                                        const Divider(),
-                                        calendarController.allServicesPicked[index].professionals.length == 1 
-                                          ? TextWidget(
-                                            "Profissional: ${calendarController.allServicesPicked[index].professionals[0].name}",
-                                            color: Colors.grey[700],
-                                          )
-                                          : const TextWidget("Mais de um profissional")
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Positioned.fill(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        calendarController.deleteService(
-                                          calendarController.allServicesPicked[index].id
-                                        );
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.red[800],
-                                          borderRadius: BorderRadius.circular(50)
-                                        ),
-                                        padding: const EdgeInsets.all(6),
-                                        child: const Icon(
-                                          Icons.close_rounded,
-                                          color: Colors.white,
-                                          size: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
+                    builder: (_) => ListServices(
+                      services: calendarController.allServicesPicked,
+                      onDeleteService: (int index) {
+                        calendarController.deleteService(index);
+                      }
+                    )
+                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 8, bottom: 16),
                     child: InkWell(
