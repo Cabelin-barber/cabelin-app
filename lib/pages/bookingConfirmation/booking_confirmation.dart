@@ -1,12 +1,8 @@
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
-import 'package:cabelin_v2/models/picture_model.dart';
-import 'package:cabelin_v2/models/price_model.dart';
-import 'package:cabelin_v2/models/professional_model.dart';
 import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
-import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
