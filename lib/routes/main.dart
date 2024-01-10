@@ -27,10 +27,14 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/bookingConfirmation',
-            builder: (context, state) {
+      path: '/bookingConfirmation/:estableshimentId',
+        builder: (context, state) {
         final servicePicked = state.extra as ServiceModel;
-        return BookingConfirmationPage(servicePicked: servicePicked); 
+        final estableshimentId = state.pathParameters["estableshimentId"] as String;
+        return BookingConfirmationPage(
+          servicePicked: servicePicked,
+          establishmentId: estableshimentId,
+        ); 
       },
     ),
     GoRoute(
@@ -82,10 +86,12 @@ final router = GoRouter(
         );
       } 
     ),
-
+///establishmentId
     GoRoute(
-      path: "/allEstablishmentServices",
-      builder: (context, state) => const AllEstablishmentServicesPage(),
+      path: "/allEstablishmentServices/:estableshimentId",
+      builder: (context, state) => AllEstablishmentServicesPage(
+         establishemntId: state.pathParameters["estableshimentId"] as String,
+      ),
     )
   ],
 );

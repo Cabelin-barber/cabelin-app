@@ -75,7 +75,7 @@ class _ServicesOfferPageState extends State<ServicesOfferPage> with AutomaticKee
           title: "Escolher",
           onTap: () {
             context.push(
-              "/bookingConfirmation",
+              "/bookingConfirmation/${widget.establishmentId}",
               extra: serviceOfferController.services[index]
             );
           }
