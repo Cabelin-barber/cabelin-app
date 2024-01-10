@@ -1,59 +1,55 @@
-import 'package:cabelin_v2/models/picture_model.dart';
-import 'package:cabelin_v2/models/price_model.dart';
-import 'package:cabelin_v2/models/professional_model.dart';
-import 'package:cabelin_v2/models/service_model.dart';
+import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_service_controller.dart';
+import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 class AllEstablishmentServicesPage extends StatelessWidget {
-  const AllEstablishmentServicesPage({super.key});
+  AllEstablishmentServicesPage({super.key, required this.establishemntId});
+  String establishemntId;
 
   @override
   Widget build(BuildContext context) {
+    final controller = AllEstablishmentServiceController(establishmentId: establishemntId);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppbarWidget(title: "Todos os cortes"),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 6, bottom: 10),
-        child: ListRefreshWidget(
-          isLoading: false,
-          itemBuilder: (_, __) => ListTile(
-          leading: const TextWidget(
-            "R\$ 10",
-            customWeight: FontWeight.w800,
-            customFontsize: 16,
-          ),
-          title: const TextWidget(
-            "Corte Degradê",
-            customWeight: FontWeight.w800,
-            customFontsize: 16,
-          ),
-          subtitle: const TextWidget(
-            "Corte maneiro",
-            customFontsize: 13,
-          ),
-          trailing: ButtonWidget(
-            title: "Escolher",
-            onTap: () {
-              var service = ServiceModel(
-                id: "1",
-                name: "Corte Degrade",
-                description: "Corte pra ficar bonita",
-                minutes: 10,
-                price: PriceModel(value: 30),
-                professionals: [ProfessionalModel(id: "1", name: "Carlinhos", profilePicture: PictureModel(id: "a", url: "any-url"))]
-              );
-              context.pop(service);
-            }
-          ),
-        ),
-          itemCount: 10,
-          onRefresh: () async {
-        
-          }
-        ),
+        child: Observer(builder: (_) {
+          return ListRefreshWidget(
+            itemCount: controller.services.length,
+            onRefresh: () async {
+              controller.getAllServices();
+            },
+            isLoading: controller.isLoading,
+            itemBuilder: (_, index) => ListTile(
+              leading: TextWidget(
+                "R\$ ${controller.services[index].price.currency}",
+                customWeight: FontWeight.w800,
+                customFontsize: 16,
+              ),
+              title: TextWidget(
+                controller.services[index].name,
+                customWeight: FontWeight.w800,
+                customFontsize: 16,
+              ),
+              subtitle: TextWidget(
+                controller.services[index].description,
+                customFontsize: 13,
+              ),
+              trailing: ButtonWidget(
+                title: "Escolher",
+                onTap: () {
+                  var service = controller.services[index];
+                  context.pop(service);
+                }
+              ),
+            )
+          );
+        }),
       ),
     );
   }
