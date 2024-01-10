@@ -4,7 +4,9 @@ import 'package:cabelin_v2/models/picture_model.dart';
 import 'package:cabelin_v2/models/price_model.dart';
 import 'package:cabelin_v2/models/professional_model.dart';
 import 'package:cabelin_v2/models/service_model.dart';
+import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
+import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
@@ -41,10 +43,13 @@ class BookingConfirmationPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const TextWidget(
-              "R\$ 30,00",
+            Observer(builder: (_) =>             TextWidget(
+              calendarController.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value).toString(),
               customWeight: FontWeight.w800,
             ),
+            
+            ),
+
             ButtonWidget(
                 title: "Finalizar",
                 onTap: () {
@@ -87,23 +92,24 @@ class BookingConfirmationPage extends StatelessWidget {
                                   height: MediaQuery.of(context).size.height/2,
                                   width: MediaQuery.of(context).size.width,
                                   child: ListView.builder(
-                                      itemCount: 5,
+                                      itemCount: calendarController.allServicesPicked.length,
                                       itemBuilder: (_, index) => ListTile(
-                                            title: const Row(
+                                            title: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 TextWidget(
-                                                  "Rafael Barbeiro",
+                                                  "Barbeiro Ze",
+                                                  //calendarController.allServicesPicked[index].professionals[index].name,
                                                   customWeight: FontWeight.w800,
                                                 ),
                                                 TextWidget(
-                                                  "R\$ 60",
+                                                  calendarController.allServicesPicked[index].price.value.toString(),
                                                   customWeight: FontWeight.w800,
                                                 ),
                                               ],
                                             ),
                                             subtitle: TextWidget(
-                                              "Corte Degradê",
+                                              calendarController.allServicesPicked[index].name,
                                               customFontsize: 14,
                                               color: Colors.grey[600],
                                             ),
@@ -116,7 +122,6 @@ class BookingConfirmationPage extends StatelessWidget {
                                                   Radius.circular(10)
                                                 )
                                               ),
-                                              //child: Image.network("src"),
                                             ),
                                           )
                                         ),
@@ -124,16 +129,16 @@ class BookingConfirmationPage extends StatelessWidget {
                                 const Spacer(flex: 2,),
                                 Column(
                                   children: [
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        TextWidget(
+                                        const TextWidget(
                                           "Total",
                                           customWeight: FontWeight.w900,
                                           customFontsize: 20,
                                         ),
                                         TextWidget(
-                                          "R\$ 120",
+                                          calendarController.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value).toString(),
                                           customWeight: FontWeight.w900,
                                           customFontsize: 20,
                                         )
@@ -325,11 +330,15 @@ class BookingConfirmationPage extends StatelessWidget {
                             ),
                           )),
                   Container(
-                    margin: const EdgeInsets.only(top: 8),
+                    margin: const EdgeInsets.only(top: 8, bottom: 16),
                     child: InkWell(
-                      onTap: () {
-                        context.push("/allEstablishmentServices");
-                                              },
+                      onTap: () async {
+                        var res = await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const AllEstablishmentServicesPage())
+                        );
+                        calendarController.addNewService(res);
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -28,7 +28,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/bookingConfirmation',
-      builder: (context, state) {
+            builder: (context, state) {
         final servicePicked = state.extra as ServiceModel;
         return BookingConfirmationPage(servicePicked: servicePicked); 
       },

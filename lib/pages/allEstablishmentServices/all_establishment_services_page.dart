@@ -1,3 +1,7 @@
+import 'package:cabelin_v2/models/picture_model.dart';
+import 'package:cabelin_v2/models/price_model.dart';
+import 'package:cabelin_v2/models/professional_model.dart';
+import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
@@ -33,7 +37,15 @@ class AllEstablishmentServicesPage extends StatelessWidget {
           trailing: ButtonWidget(
             title: "Escolher",
             onTap: () {
-              context.pop();
+              var service = ServiceModel(
+                id: "1",
+                name: "Corte Degrade",
+                description: "Corte pra ficar bonita",
+                minutes: 10,
+                price: PriceModel(value: 30),
+                professionals: [ProfessionalModel(id: "1", name: "Carlinhos", profilePicture: PictureModel(id: "a", url: "any-url"))]
+              );
+              context.pop(service);
             }
           ),
         ),

@@ -27,7 +27,7 @@ class AuthenticationPage extends StatelessWidget {
     UserModel? currentUser = userStorageRepository.getUser();
 
     return Scaffold(
-      body: LayoutWidget(
+            body: LayoutWidget(
         child: Visibility(
           visible: currentUser == null,
           replacement: const ProfilePage(),
