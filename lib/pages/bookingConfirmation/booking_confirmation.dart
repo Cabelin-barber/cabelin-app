@@ -329,11 +329,13 @@ class BookingConfirmationPage extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 8, bottom: 16),
                     child: InkWell(
                       onTap: () async {
-                        var res = await Navigator.push(
+                        ServiceModel? newService = await Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => const AllEstablishmentServicesPage())
                         );
-                        calendarController.addNewService(res);
+                        if(newService != null) {
+                          calendarController.addNewService(newService);
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
