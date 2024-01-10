@@ -93,7 +93,7 @@ class BookingConfirmationPage extends StatelessWidget {
                                             title: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                TextWidget(
+                                                const TextWidget(
                                                   "Barbeiro Ze",
                                                   //calendarController.allServicesPicked[index].professionals[index].name,
                                                   customWeight: FontWeight.w800,
@@ -291,11 +291,9 @@ class BookingConfirmationPage extends StatelessWidget {
                   const SizedBox(height: 22),
                   Observer(
                       builder: (_) => ListWidget(
-                            separatorBuilder: (_, __) =>
-                                const SizedBox(height: 12),
+                            separatorBuilder: (_, __) =>const SizedBox(height: 12),
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount:
-                                calendarController.allServicesPicked.length,
+                            itemCount: calendarController.allServicesPicked.length,
                             itemBuilder: (_, index) => Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
@@ -303,14 +301,13 @@ class BookingConfirmationPage extends StatelessWidget {
                               ),
                               padding: const EdgeInsets.all(22),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       TextWidget(
-                                        calendarController
-                                            .allServicesPicked[index].name,
+                                        calendarController.allServicesPicked[index].name,
                                         customWeight: FontWeight.w800,
                                         customFontsize: 16,
                                       ),
@@ -320,7 +317,14 @@ class BookingConfirmationPage extends StatelessWidget {
                                         customFontsize: 16,
                                       ),
                                     ],
-                                  )
+                                  ),
+                                  const Divider(),
+                                  calendarController.allServicesPicked[index].professionals.length == 1 
+                                    ? TextWidget(
+                                      "Profissional: ${calendarController.allServicesPicked[index].professionals[0].name}",
+                                      color: Colors.grey[700],
+                                    )
+                                    : const TextWidget("Mais de um profissional")
                                 ],
                               ),
                             ),
