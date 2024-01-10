@@ -55,24 +55,24 @@ class ListServices extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Positioned.fill(
-                child: GestureDetector(
-                  onTap: () {
-                    onDeleteService(index);
-                    //calendarController.deleteService(services[index].id);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.red[800],
-                      borderRadius: BorderRadius.circular(50)
-                    ),
-                    padding: const EdgeInsets.all(6),
-                    child: const Icon(
-                      Icons.close_rounded,
-                      color: Colors.white,
-                      size: 16,
+            Visibility(
+              visible: services.length == 1 ? false : true,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Positioned.fill(
+                  child: GestureDetector(
+                    onTap: () => onDeleteService(index),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red[800],
+                        borderRadius: BorderRadius.circular(50)
+                      ),
+                      padding: const EdgeInsets.all(6),
+                      child: const Icon(
+                        Icons.close_rounded,
+                        color: Colors.white,
+                        size: 16,
+                      ),
                     ),
                   ),
                 ),

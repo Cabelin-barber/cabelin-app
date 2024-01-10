@@ -294,13 +294,11 @@ class BookingConfirmationPage extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 22),
-                  Observer(
-                    builder: (_) => ListServices(
-                      services: calendarController.allServicesPicked,
-                      onDeleteService: (int index) {
-                        calendarController.deleteService(index);
-                      }
-                    )
+                  ListServices(
+                    services: calendarController.allServicesPicked,
+                    onDeleteService: (int index) {
+                      calendarController.deleteService(index);
+                    }
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 8, bottom: 16),
