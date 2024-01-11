@@ -50,7 +50,15 @@ class ListServices extends StatelessWidget {
                             "Profissional: ${services[index].professionals[0].name}",
                             color: Colors.grey[700],
                           )
-                        : const TextWidget("Mais de um profissional")
+                        : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextWidget("Mais de um profissional"),
+                            GestureDetector(
+                              child: const Icon(Icons.chevron_right_rounded),
+                            )
+                          ],
+                        )
                   ],
                 ),
               ),
