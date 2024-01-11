@@ -4,6 +4,7 @@ import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/components/list_services.dart';
+import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
@@ -176,7 +177,10 @@ class BookingConfirmationPage extends StatelessWidget {
                 initialDate: DateTime.now(),
                 locale: "pt_Br",
                 activeColor: Colors.blue,
-                onDateChange: (dateSelected) {
+                onDateChange: (dateSelected) async {
+                  LoadingFullscreen.startLoading();
+                  await Future.delayed(const Duration(seconds: 3));
+                  LoadingFullscreen.stopLoading();
                   calendarController.changeDate(dateSelected);
                 },
                 itemBuilder: (context, dayNumber, dayName, monthName, fullDate,
