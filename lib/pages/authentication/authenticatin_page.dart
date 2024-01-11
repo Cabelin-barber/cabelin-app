@@ -3,6 +3,7 @@ import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dar
 import 'package:cabelin_v2/pages/authentication/authentication_controller.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/pages/profile/profile_page.dart';
+import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/socialLogin/google.dart';
@@ -27,7 +28,8 @@ class AuthenticationPage extends StatelessWidget {
     UserModel? currentUser = userStorageRepository.getUser();
 
     return Scaffold(
-            body: LayoutWidget(
+      appBar: AppbarWidget(),
+      body: LayoutWidget(
         child: Visibility(
           visible: currentUser == null,
           replacement: const ProfilePage(),

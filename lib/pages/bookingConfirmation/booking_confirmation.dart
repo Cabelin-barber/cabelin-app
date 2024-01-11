@@ -2,6 +2,7 @@ import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
+import 'package:cabelin_v2/pages/authentication/authenticatin_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/components/list_services.dart';
 import 'package:cabelin_v2/utils/loading_fullscreen.dart';
@@ -151,7 +152,14 @@ class BookingConfirmationPage extends StatelessWidget {
                                         fullWidth: true,
                                         onTap: () {
                                           UserModel? currentUser = userStorageRepository.getUser();
-                                          currentUser == null ? context.push("/authentication", extra: true) : context.push("/feedback");
+                                          currentUser == null 
+                                            ?  Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (_) => AuthenticationPage(shouldComeBack: true)
+                                                )
+                                              )
+                                            : context.push("/feedback");
                                         }
                             ),
                                   ],

@@ -68,17 +68,17 @@ abstract class _AuthenticationControllerBase with Store {
     // Arrumar isso aki
     //
     var token = await FirebaseMessagingService.getDeviceFirebaseToken();
-    await api.post("/customers", data: {
-      "name": user.name,
-      "email": user.email,
-      "password": "123-123",
-      "provider": "GOOGLE",
-      "notificationToken": token,
-      "phone": {
-        "number": "+5562982331315",
-        "isMobile": true
-      }
-    });
+    // await api.post("/customers", data: {
+    //   "name": user.name,
+    //   "email": user.email,
+    //   "password": "123-123",
+    //   "provider": "GOOGLE",
+    //   "notificationToken": token,
+    //   "phone": {
+    //     "number": "+5562982331315",
+    //     "isMobile": true
+    //   }
+    // });
     await userStorageRepository.saveUser(user);
 
     _shouldComeBack 
