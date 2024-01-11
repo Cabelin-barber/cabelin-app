@@ -8,6 +8,7 @@ import 'package:cabelin_v2/pages/bookingConfirmation/components/list_services.da
 import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
+import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -259,51 +260,50 @@ class BookingConfirmationPage extends StatelessWidget {
                     color: Colors.grey,
                     margin: EdgeInsets.only(bottom: 16),
                   ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: 6,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 20,
-                            crossAxisSpacing: 20,
-                            childAspectRatio: 4 / 2),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(onTap: () {
-                        calendarController.setCurrentTimeSelected(index);
-                      }, child: Observer(builder: (_) {
-                        return Container(
-                          decoration: BoxDecoration(
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: ListWidget(
+                      separatorBuilder: (_, __) => Container(width: 16),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (_, index) => GestureDetector(
+                        onTap: () => calendarController.setCurrentTimeSelected(index),
+                        child: Observer(builder: (_) {
+                          return Container(
+                            decoration: BoxDecoration(
                               color: calendarController.currentTimeSelected 
                                 !=null && calendarController.currentTimeSelected == index
                                   ? Colors.blue
                                   : Colors.white,
-                              border: Border.all(
+                                border: Border.all(
                                   color: calendarController.currentTimeSelected 
-                                  != null && calendarController.currentTimeSelected == index
-                                          ? Colors.blue
-                                          : Colors.grey),
-                              borderRadius: BorderRadius.circular(16)),
-                          padding: const EdgeInsets.all(16),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.wb_sunny_outlined,
-                                size: 16,
-                              ),
-                              TextWidget(
-                                "13:00",
-                                margin: EdgeInsets.only(left: 3),
-                                customFontsize: 13,
-                                isFontWeight: true,
-                              )
-                            ],
-                          ),
-                        );
-                      }));
-                    },
+                                    != null && calendarController.currentTimeSelected == index
+                                    ? Colors.blue
+                                    : Colors.grey
+                                ),
+                              borderRadius: BorderRadius.circular(16)
+                            ),
+                            padding: const EdgeInsets.all(16),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.wb_sunny_outlined,
+                                  size: 16,
+                                ),
+                                TextWidget(
+                                  "13:00",
+                                  margin: EdgeInsets.only(left: 3),
+                                  customFontsize: 13,
+                                  isFontWeight: true,
+                                )
+                              ],
+                            ),
+                          );
+                        })
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 22),
                   ListServices(
