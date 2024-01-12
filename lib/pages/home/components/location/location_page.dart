@@ -1,6 +1,8 @@
 import 'package:cabelin_v2/pages/home/components/location/location_controller.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
+import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +42,7 @@ class LocationPage extends StatelessWidget {
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(top: 16),
+            margin: const EdgeInsets.only(top: 16, bottom: 16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,6 +73,20 @@ class LocationPage extends StatelessWidget {
                   )
                 ),
               ],
+            ),
+          ),
+    
+          const CupertinoSearchTextField(
+            placeholder: "Insirir uma nova localização",
+          ),
+          Expanded(
+            child: ListWidget(
+              itemCount: 50,
+              itemBuilder: (_, __) => const ListTile(
+                leading: Icon(Icons.place_rounded),
+                title: TextWidget("Goiania"),
+                subtitle: TextWidget("Goiás"),
+              ),
             ),
           )
         ],
