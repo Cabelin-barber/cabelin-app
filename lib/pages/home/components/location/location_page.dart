@@ -1,4 +1,7 @@
+import 'package:cabelin_v2/localstorage/models/location_model.dart';
+import 'package:cabelin_v2/models/search_location_model.dart';
 import 'package:cabelin_v2/pages/home/components/location/location_controller.dart';
+import 'package:cabelin_v2/utils/debouncer.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
@@ -8,12 +11,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 class LocationPage extends StatelessWidget {
-  const LocationPage({super.key});
+  LocationPage({super.key});
 
+  final locationController = LocationController();
+  
   @override
   Widget build(BuildContext context) {
-    LocationController locationController = LocationController();  
-  
+    final debouncer = Debouncer(milliseconds: 1000);
     return Container(
       padding: const EdgeInsets.all(22),
       width: MediaQuery.of(context).size.width,
@@ -54,11 +58,12 @@ class LocationPage extends StatelessWidget {
                       "Localização atual",
                       customFontsize: 20,
                     ),
-                    Observer(builder: (_)  => TextWidget(
-                      color: Colors.grey[600],
-                      locationController.currentLocation == null 
-                        ?  "Nenhuma" 
-                        : locationController.currentLocation!.city,
+                    Observer(
+                      builder: (_) => TextWidget(
+                        color: Colors.grey[600],
+                        locationController.currentLocation == null
+                          ? "Nenhuma"
+                          : locationController.currentLocation!.city,
                       )
                     )
                   ],
@@ -68,27 +73,39 @@ class LocationPage extends StatelessWidget {
                     visible: locationController.currentLocation == null,
                     child: ButtonWidget(
                       title: "Ativar",
-                      onTap: () => locationController.getLocation()
-                    ),
+                      onTap: () => locationController.getLocation()),
                   )
                 ),
               ],
             ),
           ),
-    
-          const CupertinoSearchTextField(
+          CupertinoSearchTextField(
             placeholder: "Insirir uma nova localização",
+            controller: locationController.searchLocationTextfieldControler,
+            onChanged: (String? value) {
+              debouncer.run(() {
+                locationController.searchLocation(value);
+              });
+            },
           ),
-          Expanded(
-            child: ListWidget(
-              itemCount: 50,
-              itemBuilder: (_, __) => const ListTile(
-                leading: Icon(Icons.place_rounded),
-                title: TextWidget("Goiania"),
-                subtitle: TextWidget("Goiás"),
+          Observer(builder: (_) {
+            return Expanded(
+              child: ListWidget(
+                itemCount: locationController.locationsSearch.length,
+                itemBuilder: (_, index) {
+                  SearchLocationModel location = locationController.locationsSearch[index];
+                  return GestureDetector(
+                    child: ListTile(
+                      onTap: () => locationController.setLocationSearch(location),
+                      leading: const Icon(Icons.place_rounded),
+                      title: TextWidget(location.formattedAdress),
+                      subtitle: TextWidget(location.fullAdress),
+                    ),
+                  );
+                }
               ),
-            ),
-          )
+            );
+          })
         ],
       ),
     );

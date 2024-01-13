@@ -25,6 +25,22 @@ mixin _$LocationController on _LocationControllerBase, Store {
     });
   }
 
+  late final _$locationsSearchAtom =
+      Atom(name: '_LocationControllerBase.locationsSearch', context: context);
+
+  @override
+  ObservableList<SearchLocationModel> get locationsSearch {
+    _$locationsSearchAtom.reportRead();
+    return super.locationsSearch;
+  }
+
+  @override
+  set locationsSearch(ObservableList<SearchLocationModel> value) {
+    _$locationsSearchAtom.reportWrite(value, super.locationsSearch, () {
+      super.locationsSearch = value;
+    });
+  }
+
   late final _$getLocationAsyncAction =
       AsyncAction('_LocationControllerBase.getLocation', context: context);
 
@@ -38,15 +54,37 @@ mixin _$LocationController on _LocationControllerBase, Store {
 
   @override
   Future<void> saveLocation(
-      Placemark location, double latitude, double longitude) {
-    return _$saveLocationAsyncAction
-        .run(() => super.saveLocation(location, latitude, longitude));
+      {required String city,
+      required String state,
+      required double latitude,
+      required double longitude}) {
+    return _$saveLocationAsyncAction.run(() => super.saveLocation(
+        city: city, state: state, latitude: latitude, longitude: longitude));
+  }
+
+  late final _$searchLocationAsyncAction =
+      AsyncAction('_LocationControllerBase.searchLocation', context: context);
+
+  @override
+  Future<void> searchLocation(String? place) {
+    return _$searchLocationAsyncAction.run(() => super.searchLocation(place));
+  }
+
+  late final _$setLocationSearchAsyncAction = AsyncAction(
+      '_LocationControllerBase.setLocationSearch',
+      context: context);
+
+  @override
+  Future<void> setLocationSearch(SearchLocationModel locationModel) {
+    return _$setLocationSearchAsyncAction
+        .run(() => super.setLocationSearch(locationModel));
   }
 
   @override
   String toString() {
     return '''
-currentLocation: ${currentLocation}
+currentLocation: ${currentLocation},
+locationsSearch: ${locationsSearch}
     ''';
   }
 }

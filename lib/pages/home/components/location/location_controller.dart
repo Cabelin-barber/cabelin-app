@@ -3,8 +3,11 @@ import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/location_storage.repository.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/main.dart';
+import 'package:cabelin_v2/models/search_location_model.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
+import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -17,11 +20,17 @@ class LocationController = _LocationControllerBase with _$LocationController;
 
 abstract class _LocationControllerBase with Store {
 
-  UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
-  UserLocationStorageRepository userLocationStorageRepository = GetIt.instance<UserLocationStorageRepository>();
+  final userStorageRepository = GetIt.instance<UserStorageRepository>();
+  final userLocationStorageRepository = GetIt.instance<UserLocationStorageRepository>();
+  final api = Dio();
+  final searchLocationTextfieldControler = TextEditingController();
+
 
   @observable
   LocationModel? currentLocation;
+
+  @observable
+  ObservableList<SearchLocationModel> locationsSearch = ObservableList<SearchLocationModel>();
 
   _LocationControllerBase() {
     currentLocation = userLocationStorageRepository.getUserLocation();
@@ -63,15 +72,26 @@ abstract class _LocationControllerBase with Store {
       });
       List<Placemark> places = await placemarkFromCoordinates(current.latitude, current.longitude);
       Placemark locationAddress = places[0];
-      await saveLocation(locationAddress, current.latitude, current.longitude);
+      await saveLocation(
+        city: locationAddress.subAdministrativeArea!,
+        state: locationAddress.administrativeArea!,
+        latitude: current.latitude,
+        longitude: current.longitude,
+        //locationAddress.subAdministrativeArea!, current.latitude, current.longitude
+      );
     }
   }
 
   @action
-  Future<void> saveLocation(Placemark location, double latitude, double longitude) async {
+  Future<void> saveLocation({
+    required String city,
+    required String state,
+    required double latitude,
+    required double longitude
+  }) async {
     LocationModel userLocation = LocationModel(
-      city: location.subAdministrativeArea!,
-      state: location.administrativeArea!,
+      city: city,
+      state: state,
       latitude: latitude.toString(),
       longitude: longitude.toString(),
     );
@@ -85,5 +105,45 @@ abstract class _LocationControllerBase with Store {
     eventBus.fire(
       UserLocationChangedEvent(newLocation: newLocation)
     );
+  }
+
+  @action
+  Future<void> searchLocation(String? place) async  {
+    locationsSearch.clear();
+    Response result = await api.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", queryParameters: {
+      "key": "AIzaSyAMLQBzSk9TW0DjnCwtCr-RDjp04ZbWpJ8",
+      "input": place,
+      "type": "geocode",
+      "language": "pt_BR",
+      "components": "country:br"
+    });
+    locationsSearch.addAll(List.from(result.data['predictions'].map((model) => SearchLocationModel.fromJson({
+        "fullAdress": model["description"],
+        "formattedAdress": model["structured_formatting"]["secondary_text"]
+        }
+      )
+    )));
+  }
+
+  @action
+  Future<void> setLocationSearch(SearchLocationModel locationModel) async {
+    LoadingFullscreen.startLoading();
+    try {
+      List<Location> locations = await locationFromAddress(locationModel.fullAdress);
+      double latitude = locations[0].latitude;
+      double longitude = locations[0].longitude;
+      List<Placemark> places= await placemarkFromCoordinates(latitude, longitude);
+      await saveLocation(
+        city: places[0].subAdministrativeArea!,
+        state: places[0].administrativeArea!,
+        latitude: latitude,
+        longitude: longitude
+      );
+    } catch (e) {
+      //[ TODO ]
+      //COLOCAR PRA MOSTRAR ERRO
+    } finally {
+      LoadingFullscreen.stopLoading();
+    }
   }
 }

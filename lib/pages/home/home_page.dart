@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/pages/home/components/location/location_page.dart';
 import 'package:cabelin_v2/pages/home/home_controller.dart';
+import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/smart_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
@@ -8,6 +9,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -34,7 +36,7 @@ class HomePage extends StatelessWidget {
                 useSafeArea: true,
                 isScrollControlled: true,
                 context: context,
-                builder: (context) => const LocationPage()
+                builder: (context) =>  LocationPage()
               );
             }
           ),
@@ -55,6 +57,13 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ButtonWidget(
+                  title: "Teste",
+                  onTap: () async {
+                    var res = await locationFromAddress("Rua Carlos Smile - Soberbo, Teresópolis - RJ, Brasil");
+                    print(res);
+                  }
+                ),
                 Observer(builder: (_) {
                   return Skeletonizer(
                     enabled: homeController.isLoadingEstablishment,
