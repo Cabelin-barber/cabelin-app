@@ -1,5 +1,7 @@
+import 'package:cabelin_v2/events/user_location_changed_event.dart';
 import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/location_storage.repository.dart';
+import 'package:cabelin_v2/main.dart';
 import 'package:cabelin_v2/models/estableshiment_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/utils/feedback_snackbar.dart';
@@ -16,7 +18,7 @@ abstract class _HomeControllerBase with Store {
   final _api = Api.dio;
   final _userLocationStorageRepository = GetIt.I<UserLocationStorageRepository>();
   final scrollController = ScrollController();
-  int _currentPage = 1;
+  int _currentPage = 0;
 
   @observable
   bool isLoadingMore = false;
@@ -43,33 +45,61 @@ abstract class _HomeControllerBase with Store {
 
     getEstablishments();
     scrollController.addListener(infiniteScroll);
+
+    eventBus.on<UserLocationChangedEvent>().listen((event) {
+      _currentPage = 0;
+      getEstablishments();
+    });
   }
 
   @action
   infiniteScroll() {
     if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-      loadMoreEstablishments();
+      //loadMoreEstablishments();
     }
   }
 
   @action
   Future<void> getEstablishments() async {
+
+    Map<String, String?> params = {
+      "city": currentLocation?.city,
+      "page": _currentPage.toString(),
+      "size": "1"
+    };
+
+    params.removeWhere((_, value) => value == null);
+
+    print(params);
+
     try {
       allEstablishments.clear();
       isLoadingEstablishment = true;
-      isLoadingEstablishment = false;
-      Response response = await _api.get("/establishments?page=0&size=1");
+      Response response = await _api.get(
+        "/establishments", 
+        queryParameters: params
+      );
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
       _currentPage = 1;
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
+    } finally {
+      isLoadingEstablishment = false;
     }
   }
 
   @action
   loadMoreEstablishments() async {
+    Map<String, String?> params = {
+      "city": currentLocation?.city,
+      "page": _currentPage.toString(),
+      "size": "1"
+    };
+
+    params.removeWhere((_, value) => value == null);
+
     try {
-      Response response = await _api.get("/establishments?page=$_currentPage&size=1");
+      Response response = await _api.get("/establishments", queryParameters: params);
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
       _currentPage++;
     } catch (e) {
