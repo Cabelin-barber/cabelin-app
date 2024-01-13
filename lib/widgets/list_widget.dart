@@ -11,7 +11,8 @@ class ListWidget extends StatelessWidget {
     this.customEmpty,
     this.isLoading,
     this.scrollDirection = Axis.vertical,
-    this.physics
+    this.physics,
+    this.isEmpty
   });
 
   Widget? Function(BuildContext, int) itemBuilder;
@@ -21,11 +22,11 @@ class ListWidget extends StatelessWidget {
   ScrollPhysics? physics;
   int itemCount;
   bool? isLoading;
+  bool? isEmpty;
 
   @override
   Widget build(BuildContext context) {
-    return 
-    isLoading != null && isLoading == false && itemCount == 0 ? (
+    return isEmpty != null && isEmpty == true ? (
       customEmpty ?? const Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

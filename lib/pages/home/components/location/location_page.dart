@@ -1,4 +1,3 @@
-import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:cabelin_v2/models/search_location_model.dart';
 import 'package:cabelin_v2/pages/home/components/location/location_controller.dart';
 import 'package:cabelin_v2/utils/debouncer.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class LocationPage extends StatelessWidget {
   LocationPage({super.key});
@@ -17,7 +17,7 @@ class LocationPage extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final debouncer = Debouncer(milliseconds: 1000);
+    final debouncer = Debouncer(milliseconds: 400);
     return Container(
       padding: const EdgeInsets.all(22),
       width: MediaQuery.of(context).size.width,
@@ -91,7 +91,20 @@ class LocationPage extends StatelessWidget {
           Observer(builder: (_) {
             return Expanded(
               child: ListWidget(
+                isEmpty: locationController.searchLocationTextfieldControler.text.isNotEmpty 
+                  && locationController.locationsSearch.isEmpty,
                 itemCount: locationController.locationsSearch.length,
+                customEmpty: Column(
+                  children: [
+                    LottieBuilder.asset(
+                      "assets/empty.json",
+                    ),
+                    const TextWidget(
+                      "Parece que você escreveu\n a localizão errada",
+                      textAlign: TextAlign.center
+                    )
+                  ],
+                ),
                 itemBuilder: (_, index) {
                   SearchLocationModel location = locationController.locationsSearch[index];
                   return GestureDetector(
