@@ -1,12 +1,15 @@
+import 'package:cabelin_v2/events/user_location_changed_event.dart';
 import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/location_storage.repository.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
+import 'package:cabelin_v2/main.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobx/mobx.dart';
 part 'location_controller.g.dart';
 
@@ -55,7 +58,9 @@ abstract class _LocationControllerBase with Store {
     }
 
     if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
-      var current = await Geolocator.getCurrentPosition();
+      var current = await Geolocator.getCurrentPosition().catchError((e) {
+        print(e);
+      });
       List<Placemark> places = await placemarkFromCoordinates(current.latitude, current.longitude);
       Placemark locationAddress = places[0];
       await saveLocation(locationAddress, current.latitude, current.longitude);
@@ -65,12 +70,20 @@ abstract class _LocationControllerBase with Store {
   @action
   Future<void> saveLocation(Placemark location, double latitude, double longitude) async {
     LocationModel userLocation = LocationModel(
-      city: location.subLocality!,
+      city: location.subAdministrativeArea!,
       state: location.administrativeArea!,
       latitude: latitude.toString(),
       longitude: longitude.toString(),
     );
     currentLocation = userLocation;
     await userLocationStorageRepository.saveUserLocation(userLocation);
+    _closeAndTriggerEvent(currentLocation!);
+  }
+
+  _closeAndTriggerEvent(LocationModel newLocation) {
+    GlobalContext.context.currentContext!.pop();
+    eventBus.fire(
+      UserLocationChangedEvent(newLocation: newLocation)
+    );
   }
 }
