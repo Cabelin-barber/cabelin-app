@@ -5,12 +5,13 @@ import 'package:cabelin_v2/notifications/notification_service.dart';
 import 'package:cabelin_v2/notifications/push_notificaitions.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/routes/main.dart';
+import 'package:event_bus/event_bus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-
+EventBus eventBus = EventBus();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var notificationService = NotificationService();
