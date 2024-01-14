@@ -58,8 +58,14 @@ class ExplorePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextfieldWidget(
-                            hintText: "Nome do local",
+                          GestureDetector(
+                            onTap: () {
+                              context.push("/searchEstablishments");
+                            },
+                            child: TextfieldWidget(
+                              hintText: "Nome do local",
+                              enabled: false,
+                            ),
                           ),
                           const TextWidget(
                             "Quando?",
