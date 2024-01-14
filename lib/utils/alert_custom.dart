@@ -6,7 +6,11 @@ import 'package:go_router/go_router.dart';
 
 class CustomAlert {
   
-  static void alert({required String title, required String description,}) {
+  static void alert({
+    required String title,
+    required String description,
+    void Function()? onTapOk
+  }) {
     showDialog(
       barrierDismissible: false,
       context: GlobalContext.context.currentContext!,
@@ -37,7 +41,10 @@ class CustomAlert {
                       title: "Ok",
                       fullWidth: true,
                       onTap: () {
-                        context.pop();
+                        if(onTapOk == null) {
+                          return context.pop();
+                        }
+                        onTapOk();           
                       }
                     )
                   ],
