@@ -3,6 +3,7 @@ import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dar
 import 'package:cabelin_v2/pages/authentication/authentication_controller.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:cabelin_v2/pages/profile/profile_page.dart';
+import 'package:cabelin_v2/utils/alert_custom.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
@@ -18,6 +19,7 @@ class AuthenticationPage extends StatelessWidget {
   
   AuthenticationPage({super.key, this.shouldComeBack = false});
   final _formKey = GlobalKey<FormState>();
+  final _formFieldKey = GlobalKey<FormFieldState>();
   UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
   bool shouldComeBack;
@@ -48,12 +50,17 @@ class AuthenticationPage extends StatelessWidget {
                 const Center(
                   child: TextWidget("ou", margin: EdgeInsets.only(top: 16, bottom: 16),)
                 ),
-                TextfieldWidget(
-                  label: "Email",
-                  suffixIcon: const Icon(Icons.email_outlined),
+                TextFormField(
+                  key: _formFieldKey,
+                  decoration: const InputDecoration(
+                    labelText: "Email"
+                  ),
                   validator: (String? value)  {
                     if(value ==  null || value.isEmpty) {
                       return "Campo obrigatório";
+                    }
+                    if(!value.contains("@")) {
+                      return "Email inválido";
                     }
                     return null;
                   },
@@ -69,7 +76,14 @@ class AuthenticationPage extends StatelessWidget {
                     return null;
                   },
                 ),
-                TextButtonWidget(title: "Esqueci a minha senha", onTap: () {}),
+                TextButtonWidget(title: "Esqueci a minha senha", onTap: () {
+                  if(_formFieldKey.currentState!.validate()) {
+                    CustomAlert.alert(
+                      title: "Instruções enviadas",
+                      description: "Enviamos as intruções de mudança \n de senha para \n ${_formFieldKey.currentState?.value}.\n Verique sua caixa de entrada \n e de spam"
+                    );
+                  }
+                }),
                 ButtonWidget(
                   title: "Entrar",
                   fullWidth: true,
