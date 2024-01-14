@@ -19,7 +19,8 @@ class TextfieldWidget extends StatefulWidget {
       this.minLines,
       this.maxLength,
       this.hideKeyboardTapOutside = true,
-      this.autofocus = false
+      this.autofocus = false,
+      this.enabled = true
     });
 
   final String? label;
@@ -38,6 +39,7 @@ class TextfieldWidget extends StatefulWidget {
   bool isPasswordField = false;
   bool hideKeyboardTapOutside = true;
   bool autofocus = false;
+  bool enabled = true;
 
   @override
   State<TextfieldWidget> createState() => _TextfieldWidgetState();
@@ -59,6 +61,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
     return Container(
       margin: widget.margin,
       child: TextFormField(
+        enabled: widget.enabled,
         autofocus: widget.autofocus,
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
