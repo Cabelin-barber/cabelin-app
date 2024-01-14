@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_controller.dart';
+part of 'explore_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'home_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$HomeController on _HomeControllerBase, Store {
+mixin _$ExploreController on _ExploreControllerBase, Store {
   late final _$isLoadingMoreAtom =
-      Atom(name: '_HomeControllerBase.isLoadingMore', context: context);
+      Atom(name: '_ExploreControllerBase.isLoadingMore', context: context);
 
   @override
   bool get isLoadingMore {
@@ -26,7 +26,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   late final _$currentLocationAtom =
-      Atom(name: '_HomeControllerBase.currentLocation', context: context);
+      Atom(name: '_ExploreControllerBase.currentLocation', context: context);
 
   @override
   LocationModel? get currentLocation {
@@ -42,7 +42,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   late final _$isLoadingEstablishmentAtom = Atom(
-      name: '_HomeControllerBase.isLoadingEstablishment', context: context);
+      name: '_ExploreControllerBase.isLoadingEstablishment', context: context);
 
   @override
   bool get isLoadingEstablishment {
@@ -59,7 +59,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   late final _$allEstablishmentsAtom =
-      Atom(name: '_HomeControllerBase.allEstablishments', context: context);
+      Atom(name: '_ExploreControllerBase.allEstablishments', context: context);
 
   @override
   ObservableList<EstablishmentModel> get allEstablishments {
@@ -74,8 +74,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  late final _$todayEstablishmentsAtom =
-      Atom(name: '_HomeControllerBase.todayEstablishments', context: context);
+  late final _$todayEstablishmentsAtom = Atom(
+      name: '_ExploreControllerBase.todayEstablishments', context: context);
 
   @override
   ObservableList<EstablishmentModel> get todayEstablishments {
@@ -91,7 +91,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   late final _$getEstablishmentsAsyncAction =
-      AsyncAction('_HomeControllerBase.getEstablishments', context: context);
+      AsyncAction('_ExploreControllerBase.getEstablishments', context: context);
 
   @override
   Future<void> getEstablishments() {
@@ -99,7 +99,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   late final _$loadMoreEstablishmentsAsyncAction = AsyncAction(
-      '_HomeControllerBase.loadMoreEstablishments',
+      '_ExploreControllerBase.loadMoreEstablishments',
       context: context);
 
   @override
@@ -108,17 +108,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
         .run(() => super.loadMoreEstablishments());
   }
 
-  late final _$_HomeControllerBaseActionController =
-      ActionController(name: '_HomeControllerBase', context: context);
+  late final _$_ExploreControllerBaseActionController =
+      ActionController(name: '_ExploreControllerBase', context: context);
 
   @override
   dynamic infiniteScroll() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.infiniteScroll');
+    final _$actionInfo = _$_ExploreControllerBaseActionController.startAction(
+        name: '_ExploreControllerBase.infiniteScroll');
     try {
       return super.infiniteScroll();
     } finally {
-      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+      _$_ExploreControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/pages/authentication/authenticatin_page.dart';
 import 'package:cabelin_v2/pages/calendar/calendar_page.dart';
+import 'package:cabelin_v2/pages/explore/explore_page.dart';
 import 'package:cabelin_v2/pages/home/home_page.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class PageViewApp extends StatelessWidget {
         },
         children: [
           const HomePage(),
+          const ExplorePage(),
           const CalendarPage(),
           AuthenticationPage()
         ],
@@ -37,10 +39,10 @@ class PageViewApp extends StatelessWidget {
               icon: SvgPicture.asset("assets/home.svg"),
               label: "Home",
             ),
-            // BottomNavigationBarItem(
-            //   icon: SvgPicture.asset("assets/search.svg"),
-            //   label: "Buscar"
-            // ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset("assets/search_lupa.svg"),
+              label: "Buscar",
+            ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset("assets/calendar.svg"),
               label: "Agenda"

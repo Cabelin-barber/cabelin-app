@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:sembast/sembast.dart';
-part 'home_controller.g.dart';
+part 'explore_controller.g.dart';
 
-class HomeController = _HomeControllerBase with _$HomeController;
+class ExploreController = _ExploreControllerBase with _$ExploreController;
 
-abstract class _HomeControllerBase with Store {
+abstract class _ExploreControllerBase with Store {
   final _api = Api.dio;
   final _userLocationStorageRepository = GetIt.I<UserLocationStorageRepository>();
   final scrollController = ScrollController();
@@ -35,7 +35,7 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableList<EstablishmentModel> todayEstablishments = ObservableList<EstablishmentModel>();
 
-  _HomeControllerBase() {
+  _ExploreControllerBase() {
     currentLocation = _userLocationStorageRepository.getUserLocation();
     _userLocationStorageRepository.store.record("userLocation").onSnapshot(_userLocationStorageRepository.db).listen((event) {
       if(event?.value != null) {

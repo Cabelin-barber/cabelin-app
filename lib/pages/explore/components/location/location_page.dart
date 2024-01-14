@@ -1,5 +1,5 @@
 import 'package:cabelin_v2/models/search_location_model.dart';
-import 'package:cabelin_v2/pages/home/components/location/location_controller.dart';
+import 'package:cabelin_v2/pages/explore/components/location/location_controller.dart';
 import 'package:cabelin_v2/utils/debouncer.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
