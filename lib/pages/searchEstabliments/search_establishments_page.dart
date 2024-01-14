@@ -40,7 +40,13 @@ class SearchEstablishmentsPage extends StatelessWidget {
                         );
                       },
                       icon: const Icon(Icons.location_pin),
-                      label: const TextWidget("Goiânia")
+                      label: Observer(builder: (_) {
+                        return TextWidget(
+                          controller.currentLocation == null
+                          ? "Buscar pela minha localização"
+                          : controller.currentLocation!.city,
+                        );
+                      })
                     )
                   ],
                 ),
