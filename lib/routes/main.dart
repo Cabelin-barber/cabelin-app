@@ -4,6 +4,7 @@ import 'package:cabelin_v2/pages/authentication/authenticatin_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
 import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
 import 'package:cabelin_v2/pages/editAccount/edit_account_page.dart';
+import 'package:cabelin_v2/pages/email_confirmation/pages/email_confirmation_page.dart';
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
 import 'package:cabelin_v2/pages/feedback/feedback_page.dart';
 import 'package:cabelin_v2/pages/pageview/pageview.dart';
@@ -92,6 +93,10 @@ final router = GoRouter(
       builder: (context, state) => AllEstablishmentServicesPage(
          establishemntId: state.pathParameters["estableshimentId"] as String,
       ),
+    ),
+    GoRoute(
+      path: "/emailConfirmation",
+      builder: (context, state) => const EmailConfirmationPage(),
     )
   ],
 );
