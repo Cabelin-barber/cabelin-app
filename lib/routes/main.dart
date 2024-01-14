@@ -8,6 +8,7 @@ import 'package:cabelin_v2/pages/email_confirmation/pages/email_confirmation_pag
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
 import 'package:cabelin_v2/pages/feedback/feedback_page.dart';
 import 'package:cabelin_v2/pages/pageview/pageview.dart';
+import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_page.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,10 @@ final router = GoRouter(
     GoRoute(
       path: "/emailConfirmation",
       builder: (context, state) => const EmailConfirmationPage(),
+    ),
+    GoRoute(
+      path: "/searchEstablishments",
+      builder: (context, state) => const SearchEstablishmentsPage(),
     )
   ],
 );
