@@ -17,7 +17,9 @@ class TextfieldWidget extends StatefulWidget {
       this.initialValue,
       this.maxLines,
       this.minLines,
-      this.maxLength
+      this.maxLength,
+      this.hideKeyboardTapOutside = true,
+      this.autofocus = false
     });
 
   final String? label;
@@ -34,6 +36,8 @@ class TextfieldWidget extends StatefulWidget {
   final int? minLines;
   final int? maxLength;
   bool isPasswordField = false;
+  bool hideKeyboardTapOutside = true;
+  bool autofocus = false;
 
   @override
   State<TextfieldWidget> createState() => _TextfieldWidgetState();
@@ -55,6 +59,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
     return Container(
       margin: widget.margin,
       child: TextFormField(
+        autofocus: widget.autofocus,
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,
@@ -91,12 +96,14 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
           labelText: widget.label,
           hintText: widget.hintText,
         ),
-        onTapOutside: (event) {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-            FocusManager.instance.primaryFocus?.unfocus();
+        onTapOutside: widget.hideKeyboardTapOutside ?
+          (event) {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
           }
-        },
+          : null
       ),
     );
   }
