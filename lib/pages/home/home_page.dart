@@ -1,17 +1,13 @@
 import 'package:cabelin_v2/pages/home/components/location/location_page.dart';
 import 'package:cabelin_v2/pages/home/home_controller.dart';
-import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/smart_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,6 +20,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.teal[900],
         centerTitle: true,
         title: Observer(
           builder: (contenxt) => TextButtonWidget(
@@ -41,7 +38,25 @@ class HomePage extends StatelessWidget {
             }
           ),
         ),
-      ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(90.0),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextfieldWidget(
+                  hintText: "Nome do local",
+                ),
+                const TextWidget(
+                  "Quando?",
+                  color: Colors.white,
+                  margin: EdgeInsets.only(top: 6),
+                )
+              ],
+            ),
+          )
+      )),
       body: SmartRefreshWidget(
         loadMore: () async {
           await homeController.loadMoreEstablishments();
@@ -121,69 +136,69 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 }),
-                Observer(builder: (_) {
-                  return Skeletonizer(
-                    enabled: homeController.isLoadingEstablishment,
-                    child: const TextWidget(
-                      "Salões abertos hoje",
-                      customFontsize: 20,
-                      customWeight: FontWeight.w800,
-                      margin: EdgeInsets.only(top: 16, bottom: 16),
-                    ),
-                  );
-                }),
-                Observer(builder: (_) {
-                  return Skeletonizer(
-                    enabled: homeController.isLoadingEstablishment,
-                    child: SizedBox(
-                      height: 300,
-                      child: ListWidget(
-                        itemCount: 10,
-                        scrollDirection: Axis.horizontal,
-                        separatorBuilder: (_, __) => const SizedBox(width: 16),
-                        itemBuilder: (_, index) => GestureDetector(
-                          onTap: () => print("navegando...."),
-                          //context.push(
-                          //  "/estableshiment/${homeController.todayEstablishments[index].id}"
-                          //),
-                          child: Container(
-                              width: 300,
-                              decoration: const BoxDecoration(
-                                color: Color(0XFFF8EDFF),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.network(
-                                    urlImage,
-                                    height: 240,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 12, right: 12),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const TextWidget(
-                                          "William Barbeiro",
-                                          customFontsize: 20,
-                                          customWeight: FontWeight.w800,
-                                        ),
-                                        TextWidget(
-                                            "1,6 km - Av Rochedo Quadra 28",
-                                            color: Colors.grey[700])
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
+                // Observer(builder: (_) {
+                //   return Skeletonizer(
+                //     enabled: homeController.isLoadingEstablishment,
+                //     child: const TextWidget(
+                //       "Salões abertos hoje",
+                //       customFontsize: 20,
+                //       customWeight: FontWeight.w800,
+                //       margin: EdgeInsets.only(top: 16, bottom: 16),
+                //     ),
+                //   );
+                // }),
+                // Observer(builder: (_) {
+                //   return Skeletonizer(
+                //     enabled: homeController.isLoadingEstablishment,
+                //     child: SizedBox(
+                //       height: 300,
+                //       child: ListWidget(
+                //         itemCount: 10,
+                //         scrollDirection: Axis.horizontal,
+                //         separatorBuilder: (_, __) => const SizedBox(width: 16),
+                //         itemBuilder: (_, index) => GestureDetector(
+                //           onTap: () => print("navegando...."),
+                //           //context.push(
+                //           //  "/estableshiment/${homeController.todayEstablishments[index].id}"
+                //           //),
+                //           child: Container(
+                //               width: 300,
+                //               decoration: const BoxDecoration(
+                //                 color: Color(0XFFF8EDFF),
+                //               ),
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Image.network(
+                //                     urlImage,
+                //                     height: 240,
+                //                     fit: BoxFit.cover,
+                //                   ),
+                //                   Padding(
+                //                     padding: const EdgeInsets.only(
+                //                         left: 12, right: 12),
+                //                     child: Column(
+                //                       crossAxisAlignment:
+                //                           CrossAxisAlignment.start,
+                //                       children: [
+                //                         const TextWidget(
+                //                           "William Barbeiro",
+                //                           customFontsize: 20,
+                //                           customWeight: FontWeight.w800,
+                //                         ),
+                //                         TextWidget(
+                //                             "1,6 km - Av Rochedo Quadra 28",
+                //                             color: Colors.grey[700])
+                //                       ],
+                //                     ),
+                //                   )
+                //                 ],
+                //               )),
+                //         ),
+                //       ),
+                //     ),
+                //   );
+                // }),
                 const TextWidget("Todos os salões",
                   customWeight: FontWeight.w800,
                   customFontsize: 20,
