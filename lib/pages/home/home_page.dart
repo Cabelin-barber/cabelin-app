@@ -57,13 +57,6 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ButtonWidget(
-                  title: "Teste",
-                  onTap: () async {
-                    var res = await locationFromAddress("Rua Carlos Smile - Soberbo, Teresópolis - RJ, Brasil");
-                    print(res);
-                  }
-                ),
                 Observer(builder: (_) {
                   return Skeletonizer(
                     enabled: homeController.isLoadingEstablishment,
