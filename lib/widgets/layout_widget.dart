@@ -8,12 +8,9 @@ class LayoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: child
-        ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: child
       ),
     );
   }
