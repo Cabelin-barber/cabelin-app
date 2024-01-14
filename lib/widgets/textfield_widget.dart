@@ -91,6 +91,12 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
           labelText: widget.label,
           hintText: widget.hintText,
         ),
+        onTapOutside: (event) {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
+        },
       ),
     );
   }
