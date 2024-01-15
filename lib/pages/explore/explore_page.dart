@@ -15,20 +15,20 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ExploreController homeController = ExploreController();
+    ExploreController explorerControler = ExploreController();
     String urlImage =
         "https://images.unsplash.com/photo-1546877625-cb8c71916608?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
     return Scaffold(
       body: SmartRefreshWidget(
         loadMore: () async {
-          await homeController.loadMoreEstablishments();
+          await explorerControler.loadMoreEstablishments();
         },
         onRefresh: () async {
-          await homeController.getEstablishments();
+          await explorerControler.getEstablishments();
         },
         child: CustomScrollView(
-          controller: homeController.scrollController,
+          controller: explorerControler.scrollController,
           slivers: [
             SliverAppBar(
                 backgroundColor: Colors.teal[900],
@@ -40,9 +40,9 @@ class ExplorePage extends StatelessWidget {
                 title: Observer(
                   builder: (contenxt) => TextButtonWidget(
                       icon: Icons.expand_more_rounded,
-                      title: homeController.currentLocation == null
+                      title: explorerControler.currentLocation == null
                           ? "Buscar pela minha localização"
-                          : homeController.currentLocation!.city,
+                          : explorerControler.currentLocation!.city,
                       onTap: () {
                         showModalBottomSheet(
                             useSafeArea: true,
@@ -59,11 +59,16 @@ class ExplorePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              context.push("/searchEstablishments");
+                            onTap: () async {
+                              String? search = await context.push<String?>("/searchEstablishments");
+                              if(search != null && search.isNotEmpty) {
+                                explorerControler.nameEstablishmentController.text = search;
+                                explorerControler.searchEstablishmentByName(search);
+                              }
                             },
                             child: TextfieldWidget(
                               hintText: "Nome do local",
+                              controller: explorerControler.nameEstablishmentController,
                               enabled: false,
                             ),
                           ),
@@ -83,7 +88,7 @@ class ExplorePage extends StatelessWidget {
                             (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () => context.push(
-                                "/estableshiment/${homeController.allEstablishments[index].id}"
+                                "/estableshiment/${explorerControler.allEstablishments[index].id}"
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -91,18 +96,18 @@ class ExplorePage extends StatelessWidget {
                                 children: [
                           Image.network(urlImage),
                           TextWidget(
-                            homeController.allEstablishments[index].name,
+                            explorerControler.allEstablishments[index].name,
                             customFontsize: 20,
                             customWeight: FontWeight.w800,
                           ),
                           TextWidget(
-                            homeController.allEstablishments[index].address.city,
+                            explorerControler.allEstablishments[index].address.city,
                             color: Colors.grey[700]
                           )
                         ]),
                       );
                     },
-                                        childCount: homeController.allEstablishments.length,
+                                        childCount: explorerControler.allEstablishments.length,
                                       ),
                                     );
                                   }),
