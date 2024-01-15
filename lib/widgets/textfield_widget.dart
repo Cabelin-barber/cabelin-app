@@ -20,7 +20,8 @@ class TextfieldWidget extends StatefulWidget {
       this.maxLength,
       this.hideKeyboardTapOutside = true,
       this.autofocus = false,
-      this.enabled = true
+      this.enabled = true,
+      this.onSubmit
     });
 
   final String? label;
@@ -29,6 +30,7 @@ class TextfieldWidget extends StatefulWidget {
   final Icon? prefixIcon;
   TextEditingController? controller;
   final String? Function(String?)? validator;
+  Function(String)? onSubmit;
   final TextInputType? keyboardType;
   final EdgeInsets? margin;
   final List<TextInputFormatter>? inputFormatters;
@@ -103,6 +105,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
           labelText: widget.label,
           hintText: widget.hintText,
         ),
+        onFieldSubmitted: widget.onSubmit,
         onTapOutside: widget.hideKeyboardTapOutside ?
           (event) {
             FocusScopeNode currentFocus = FocusScope.of(context);
