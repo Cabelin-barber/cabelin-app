@@ -123,6 +123,17 @@ mixin _$ExploreController on _ExploreControllerBase, Store {
   }
 
   @override
+  dynamic searchEstablishmentByName(String? value) {
+    final _$actionInfo = _$_ExploreControllerBaseActionController.startAction(
+        name: '_ExploreControllerBase.searchEstablishmentByName');
+    try {
+      return super.searchEstablishmentByName(value);
+    } finally {
+      _$_ExploreControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 isLoadingMore: ${isLoadingMore},

@@ -19,6 +19,7 @@ abstract class _ExploreControllerBase with Store {
   final _userLocationStorageRepository = GetIt.I<UserLocationStorageRepository>();
   final scrollController = ScrollController();
   int _currentPage = 0;
+  final nameEstablishmentController = TextEditingController();
 
   @observable
   bool isLoadingMore = false;
@@ -105,5 +106,10 @@ abstract class _ExploreControllerBase with Store {
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     }
+  }
+
+  @action
+  searchEstablishmentByName(String? value) {
+
   }
 }

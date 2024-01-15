@@ -29,6 +29,9 @@ class SearchEstablishmentsPage extends StatelessWidget {
                     TextfieldWidget(
                       hintText: "Pesquisa pela empresa ou serviço",
                       autofocus: true,
+                      onSubmit: (String? value) {
+                        context.pop(value);
+                      },
                     ),
                     TextButton.icon(
                       onPressed: () {
