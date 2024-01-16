@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/pages/explore/components/location/location_page.dart';
 import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_controller.dart';
+import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -59,10 +60,11 @@ class SearchEstablishmentsPage extends StatelessWidget {
             Observer(
               builder: (_) => SliverPadding(
               padding: const EdgeInsets.all(16),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: controller.allEstablishments.length,
-                  (BuildContext context, int index) {
+              sliver: SliverFillRemaining(
+                child: ListWidget(
+                  isEmpty: controller.allEstablishments.isEmpty && controller.isLoadingEstablishment == false,
+                  isLoading: controller.isLoadingEstablishment,
+                  itemBuilder: (_, index) {
                     final establishment = controller.allEstablishments[index];
                     return ListTile(
                       onTap: () => context.push(
@@ -80,8 +82,9 @@ class SearchEstablishmentsPage extends StatelessWidget {
                       subtitle: TextWidget(establishment.address.city),
                     );
                   },
+                  itemCount: controller.allEstablishments.length
                 ),
-              ),
+              )
             ),
           ),
         ],

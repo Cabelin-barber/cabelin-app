@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class ListWidget extends StatelessWidget {
 
@@ -39,8 +40,11 @@ class ListWidget extends StatelessWidget {
         )
       ):
     isLoading != null && isLoading == true ? 
-      const Align(
-        child: CircularProgressIndicator()
+      Align(
+        child: LottieBuilder.asset(
+          "assets/loading.json",
+          width: 100,
+        ),
       )
       : ListView.separated(
         shrinkWrap: true,

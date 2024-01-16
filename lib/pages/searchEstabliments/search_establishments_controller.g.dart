@@ -27,6 +27,24 @@ mixin _$SearchEstablishmentsController
     });
   }
 
+  late final _$isLoadingEstablishmentAtom = Atom(
+      name: '_SearchEstablishmentsControllerBase.isLoadingEstablishment',
+      context: context);
+
+  @override
+  bool get isLoadingEstablishment {
+    _$isLoadingEstablishmentAtom.reportRead();
+    return super.isLoadingEstablishment;
+  }
+
+  @override
+  set isLoadingEstablishment(bool value) {
+    _$isLoadingEstablishmentAtom
+        .reportWrite(value, super.isLoadingEstablishment, () {
+      super.isLoadingEstablishment = value;
+    });
+  }
+
   late final _$allEstablishmentsAtom = Atom(
       name: '_SearchEstablishmentsControllerBase.allEstablishments',
       context: context);
@@ -58,6 +76,7 @@ mixin _$SearchEstablishmentsController
   String toString() {
     return '''
 currentLocation: ${currentLocation},
+isLoadingEstablishment: ${isLoadingEstablishment},
 allEstablishments: ${allEstablishments}
     ''';
   }

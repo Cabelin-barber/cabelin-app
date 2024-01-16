@@ -3,6 +3,7 @@ import 'package:cabelin_v2/localstorage/repositories/location_storage.repository
 import 'package:cabelin_v2/models/estableshiment_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/utils/feedback_snackbar.dart';
+import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
@@ -21,6 +22,9 @@ abstract class _SearchEstablishmentsControllerBase with Store {
   final _userLocationStorageRepository = GetIt.I<UserLocationStorageRepository>();
   
   @observable
+  bool isLoadingEstablishment = false;
+  
+  @observable
   ObservableList<EstablishmentModel> allEstablishments = ObservableList<EstablishmentModel>();
   
   _SearchEstablishmentsControllerBase() {
@@ -35,7 +39,6 @@ abstract class _SearchEstablishmentsControllerBase with Store {
 
   @action
   Future<void> _getEstablishments() async {
-
     Map<String, String?> params = {
       "city": currentLocation?.city,
       "page": _currentPage.toString(),
@@ -46,7 +49,7 @@ abstract class _SearchEstablishmentsControllerBase with Store {
 
     try {
       allEstablishments.clear();
-      //isLoadingEstablishment = true;
+      isLoadingEstablishment = true;
       Response response = await _api.get(
         "/establishments", 
         queryParameters: params
@@ -56,7 +59,7 @@ abstract class _SearchEstablishmentsControllerBase with Store {
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     } finally {
-      //isLoadingEstablishment = false;
+      isLoadingEstablishment = false;
     }
   }
 }
