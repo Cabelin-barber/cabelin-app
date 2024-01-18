@@ -40,7 +40,7 @@ class SearchEstablishmentsPage extends StatelessWidget {
                       hintText: "Pesquise pela empresa ou serviço",
                       autofocus: true,
                       onSubmit: (String? value) {
-                        context.pop(value);
+                        Navigator.of(context).pop(value);
                       },
                       onChange: (String value) {
                         debouncer.run(() {

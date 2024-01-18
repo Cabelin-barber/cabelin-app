@@ -72,6 +72,8 @@ class ExplorePage extends StatelessWidget {
                               if(search != null && search.isNotEmpty) {
                                 explorerControler.nameEstablishmentController.text = search;
                                 explorerControler.searchEstablishmentByName(search);
+                              }else {
+                                explorerControler.nameEstablishmentController.clear();
                               }
                             },
                             child: TextfieldWidget(
