@@ -62,14 +62,14 @@ mixin _$SearchEstablishmentsController
     });
   }
 
-  late final _$_getEstablishmentsAsyncAction = AsyncAction(
-      '_SearchEstablishmentsControllerBase._getEstablishments',
+  late final _$searchEstablishmentsAsyncAction = AsyncAction(
+      '_SearchEstablishmentsControllerBase.searchEstablishments',
       context: context);
 
   @override
-  Future<void> _getEstablishments() {
-    return _$_getEstablishmentsAsyncAction
-        .run(() => super._getEstablishments());
+  Future<void> searchEstablishments(String name) {
+    return _$searchEstablishmentsAsyncAction
+        .run(() => super.searchEstablishments(name));
   }
 
   @override

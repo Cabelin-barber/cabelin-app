@@ -1,5 +1,7 @@
 import 'package:cabelin_v2/pages/explore/components/location/location_page.dart';
 import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_controller.dart';
+import 'package:cabelin_v2/utils/debouncer.dart';
+import 'package:cabelin_v2/widgets/chip_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:cabelin_v2/widgets/textfield_widget.dart';
@@ -8,11 +10,17 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchEstablishmentsPage extends StatelessWidget {
-  const SearchEstablishmentsPage({super.key});
+
+  String? currentSearch;
+
+  SearchEstablishmentsPage({super.key, this.currentSearch});
+  final controller = SearchEstablishmentsController();
 
   @override
   Widget build(BuildContext context) {
-    final controller = SearchEstablishmentsController();
+    final textfieldController = TextEditingController(text: currentSearch);
+    final debouncer = Debouncer(milliseconds: 400);
+
     return Scaffold(
       body:  CustomScrollView(
         slivers: [
@@ -28,10 +36,16 @@ class SearchEstablishmentsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextfieldWidget(
-                      hintText: "Pesquisa pela empresa ou serviço",
+                      controller: textfieldController,
+                      hintText: "Pesquise pela empresa ou serviço",
                       autofocus: true,
                       onSubmit: (String? value) {
                         context.pop(value);
+                      },
+                      onChange: (String value) {
+                        debouncer.run(() {
+                          controller.searchEstablishments(value);
+                        });
                       },
                     ),
                     TextButton.icon(
@@ -57,11 +71,35 @@ class SearchEstablishmentsPage extends StatelessWidget {
               )
             )
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TextWidget("Serviços populares", margin: EdgeInsets.only(bottom: 6),),
+                  Wrap(
+                    spacing: 16,
+                    runSpacing: 10,
+                    children: ["Barba", "Degrade", "Cabelo", "Social", "Alisamento", "Pintura", "Regua"].map((e) {
+                      return ChipWidget(title: e, onTap: () {
+                        Navigator.of(context).pop(e);
+                        // context.pop(e);
+                        textfieldController.text = e.toString();
+                        controller.searchEstablishments(e);
+                      });
+                    }).toList()
+                  )
+                ],
+              ),
+            ),
+          ),
             Observer(
               builder: (_) => SliverPadding(
               padding: const EdgeInsets.all(16),
               sliver: SliverFillRemaining(
                 child: ListWidget(
+                  customEmpty: Container(),
                   isEmpty: controller.allEstablishments.isEmpty && controller.isLoadingEstablishment == false,
                   isLoading: controller.isLoadingEstablishment,
                   itemBuilder: (_, index) {

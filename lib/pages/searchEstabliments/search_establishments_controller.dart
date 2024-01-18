@@ -3,7 +3,6 @@ import 'package:cabelin_v2/localstorage/repositories/location_storage.repository
 import 'package:cabelin_v2/models/estableshiment_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/utils/feedback_snackbar.dart';
-import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
@@ -33,18 +32,14 @@ abstract class _SearchEstablishmentsControllerBase with Store {
         currentLocation = LocationModel.fromJson(event!.value as Map<String, dynamic>);
       }
     });
-
-    _getEstablishments();
   }
 
   @action
-  Future<void> _getEstablishments() async {
+  Future<void> searchEstablishments(String name) async {
     Map<String, String?> params = {
       "city": currentLocation?.city,
-      "page": _currentPage.toString(),
-      "size": "1"
+      "name": name
     };
-
     params.removeWhere((_, value) => value == null);
 
     try {

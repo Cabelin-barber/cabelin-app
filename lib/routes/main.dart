@@ -101,7 +101,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: "/searchEstablishments",
-      builder: (context, state) => const SearchEstablishmentsPage(),
+      builder: (context, state) =>  SearchEstablishmentsPage(),
     )
   ],
 );

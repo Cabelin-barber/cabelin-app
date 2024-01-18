@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/pages/explore/components/location/location_page.dart';
 import 'package:cabelin_v2/pages/explore/explore_controller.dart';
+import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_page.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/smart_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
@@ -60,7 +61,14 @@ class ExplorePage extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () async {
-                              String? search = await context.push<String?>("/searchEstablishments");
+                              String? search = await  Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => SearchEstablishmentsPage(
+                                    currentSearch: explorerControler.nameEstablishmentController.text
+                                  ),
+                                )
+                              );
                               if(search != null && search.isNotEmpty) {
                                 explorerControler.nameEstablishmentController.text = search;
                                 explorerControler.searchEstablishmentByName(search);
