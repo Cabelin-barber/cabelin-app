@@ -21,7 +21,8 @@ class TextfieldWidget extends StatefulWidget {
       this.hideKeyboardTapOutside = true,
       this.autofocus = false,
       this.enabled = true,
-      this.onSubmit
+      this.onSubmit,
+      this.onChange
     });
 
   final String? label;
@@ -42,6 +43,7 @@ class TextfieldWidget extends StatefulWidget {
   bool hideKeyboardTapOutside = true;
   bool autofocus = false;
   bool enabled = true;
+  void Function(String value)? onChange;
 
   @override
   State<TextfieldWidget> createState() => _TextfieldWidgetState();
@@ -106,6 +108,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
           hintText: widget.hintText,
         ),
         onFieldSubmitted: widget.onSubmit,
+        onChanged: widget.onChange,
         onTapOutside: widget.hideKeyboardTapOutside ?
           (event) {
             FocusScopeNode currentFocus = FocusScope.of(context);
