@@ -1,10 +1,24 @@
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:sembast/sembast.dart';
 
 class ListableRefreshWidget extends StatefulWidget {
 
-  ListableRefreshWidget ({super.key, required this.items});
+  ListableRefreshWidget({
+    super.key,
+    required this.onRefresh,
+    required this.onLoadMore,
+    required this.itemBuilder,
+    required this.itemCount,
+    required this.items,
+  });
+
+
+  Future Function() onRefresh;
+  Future Function() onLoadMore;
+  Widget? Function(BuildContext, int) itemBuilder;
+  int itemCount;
   List items;
 
   @override
@@ -14,16 +28,19 @@ class ListableRefreshWidget extends StatefulWidget {
 class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
   ScrollController scrollController = ScrollController();
   bool isLoadingMore = false;
+  late int countOld;
     
   @override
   Widget build(BuildContext context) {
-
+    countOld = widget.itemCount;
+    
     scrollController.addListener(() async {
       if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
         setState(() {
           isLoadingMore = true;
         });
-        await Future.delayed(const Duration(seconds: 2));
+        await Future.delayed(const Duration(milliseconds: 500));
+        await widget.onLoadMore();
         setState(() {
           isLoadingMore = false;
         });
@@ -33,9 +50,7 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
     return CustomMaterialIndicator(
       indicatorBuilder: (_, __) => const CircularProgressIndicator.adaptive(),
       onRefresh: () async {
-        print(widget.items);
-        print(widget.items.length);
-        print("REFRESH...");
+        widget.onRefresh();
       },
       
       child: Stack(
@@ -43,7 +58,7 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
           Visibility(
             visible: isLoadingMore,
             child: const Positioned.fill(
-              bottom: 30,
+              bottom: 20,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: CircularProgressIndicator()
@@ -52,8 +67,8 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
           ),
           ListView.builder(
             controller: scrollController,
-            itemCount: 50,
-            itemBuilder: (_, __) => const TextWidget("Item")
+            itemCount: widget.itemCount,
+            itemBuilder: widget.itemBuilder
           ),
         ],
       )
