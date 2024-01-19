@@ -57,7 +57,7 @@ abstract class _ExploreControllerBase with Store {
   @action
   infiniteScroll() {
     if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-      //loadMoreEstablishments();
+      loadMoreEstablishments();
     }
   }
 
@@ -67,12 +67,10 @@ abstract class _ExploreControllerBase with Store {
     Map<String, String?> params = {
       "city": currentLocation?.city,
       "page": _currentPage.toString(),
-      "size": "1"
+      "size": "2"
     };
 
     params.removeWhere((_, value) => value == null);
-
-    print(params);
 
     try {
       allEstablishments.clear();
@@ -82,7 +80,7 @@ abstract class _ExploreControllerBase with Store {
         queryParameters: params
       );
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
-      _currentPage = 1;
+      _currentPage = 0;
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     } finally {

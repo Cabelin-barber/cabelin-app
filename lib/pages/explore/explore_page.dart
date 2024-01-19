@@ -2,10 +2,12 @@ import 'package:cabelin_v2/pages/explore/components/location/location_page.dart'
 import 'package:cabelin_v2/pages/explore/explore_controller.dart';
 import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_page.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
+import 'package:cabelin_v2/widgets/listable_refresh.dart';
 import 'package:cabelin_v2/widgets/smart_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:cabelin_v2/widgets/textfield_widget.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
@@ -21,12 +23,10 @@ class ExplorePage extends StatelessWidget {
         "https://images.unsplash.com/photo-1546877625-cb8c71916608?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
     return Scaffold(
-      body: SmartRefreshWidget(
-        loadMore: () async {
-          await explorerControler.loadMoreEstablishments();
-        },
+      body: CustomMaterialIndicator(
+        indicatorBuilder: (_, __) => const CircularProgressIndicator.adaptive(),
         onRefresh: () async {
-          await explorerControler.getEstablishments();
+          explorerControler.getEstablishments();
         },
         child: CustomScrollView(
           controller: explorerControler.scrollController,
