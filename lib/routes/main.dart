@@ -8,6 +8,9 @@ import 'package:cabelin_v2/pages/email_confirmation/pages/email_confirmation_pag
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
 import 'package:cabelin_v2/pages/feedback/feedback_page.dart';
 import 'package:cabelin_v2/pages/pageview/pageview.dart';
+import 'package:cabelin_v2/pages/permissions.request/location/location_request_page.dart';
+import 'package:cabelin_v2/pages/permissions.request/notification/notification_request_page.dart';
+import 'package:cabelin_v2/pages/presentation/presentation_page.dart';
 import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_page.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,11 +20,25 @@ import 'package:go_router/go_router.dart';
 // GoRouter configuration
 final router = GoRouter(
   navigatorKey: GlobalContext.context,
+  initialLocation: "/presentation",
   routes: [
     GoRoute(
       path: '/',
       builder: (context, state) => const PageViewApp(),
+  ),
+    GoRoute(
+      path: '/presentation',
+      builder: (context, state) => PresentationPage(),
     ),
+    GoRoute(
+      path: '/request_location',
+      builder: (context, state) => const RequestLocationPage(),
+    ),
+    GoRoute(
+      path: '/request_notification',
+      builder: (context, state) => const NotificationRequestPage(),
+    ),
+    
     GoRoute(
       path: '/estableshiment/:estableshimentId',
       builder: (context, state) => EstlableshimentPage(
