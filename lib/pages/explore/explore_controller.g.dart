@@ -108,6 +108,16 @@ mixin _$ExploreController on _ExploreControllerBase, Store {
         .run(() => super.loadMoreEstablishments());
   }
 
+  late final _$searchEstablishmentByNameAsyncAction = AsyncAction(
+      '_ExploreControllerBase.searchEstablishmentByName',
+      context: context);
+
+  @override
+  Future searchEstablishmentByName(String? value) {
+    return _$searchEstablishmentByNameAsyncAction
+        .run(() => super.searchEstablishmentByName(value));
+  }
+
   late final _$_ExploreControllerBaseActionController =
       ActionController(name: '_ExploreControllerBase', context: context);
 
@@ -117,17 +127,6 @@ mixin _$ExploreController on _ExploreControllerBase, Store {
         name: '_ExploreControllerBase.infiniteScroll');
     try {
       return super.infiniteScroll();
-    } finally {
-      _$_ExploreControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic searchEstablishmentByName(String? value) {
-    final _$actionInfo = _$_ExploreControllerBaseActionController.startAction(
-        name: '_ExploreControllerBase.searchEstablishmentByName');
-    try {
-      return super.searchEstablishmentByName(value);
     } finally {
       _$_ExploreControllerBaseActionController.endAction(_$actionInfo);
     }

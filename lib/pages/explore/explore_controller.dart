@@ -5,6 +5,7 @@ import 'package:cabelin_v2/main.dart';
 import 'package:cabelin_v2/models/estableshiment_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/utils/feedback_snackbar.dart';
+import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -109,7 +110,26 @@ abstract class _ExploreControllerBase with Store {
   }
 
   @action
-  searchEstablishmentByName(String? value) {
+  searchEstablishmentByName(String? value) async {
+    allEstablishments.clear();
+    LoadingFullscreen.startLoading();
+    Map<String, String?> params = {
+      //"city": currentLocation?.city,
+      //"page": _currentPage.toString(),
+      //"size": "1",
+      "name": value
+    };
 
+    params.removeWhere((_, value) => value == null);
+
+    try {
+      Response response = await _api.get("/establishments", queryParameters: params);
+      allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
+      _currentPage++;
+    } catch (e) {
+      FeedbackSnackbar.error("Algo aconteceu, tente novamente");
+    } finally {
+      LoadingFullscreen.stopLoading();
+    }
   }
 }
