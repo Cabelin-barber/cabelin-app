@@ -103,7 +103,7 @@ mixin _$ExploreController on _ExploreControllerBase, Store {
       context: context);
 
   @override
-  Future loadMoreEstablishments() {
+  Future<void> loadMoreEstablishments() {
     return _$loadMoreEstablishmentsAsyncAction
         .run(() => super.loadMoreEstablishments());
   }

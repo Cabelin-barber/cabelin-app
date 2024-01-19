@@ -89,7 +89,7 @@ abstract class _ExploreControllerBase with Store {
   }
 
   @action
-  loadMoreEstablishments() async {
+  Future<void> loadMoreEstablishments() async {
     Map<String, String?> params = {
       "city": currentLocation?.city,
       "page": _currentPage.toString(),
