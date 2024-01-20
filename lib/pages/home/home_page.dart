@@ -9,19 +9,36 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: 300,
-              height: 300,
-              color: Colors.blue,
-            ),
-            const TextWidget("Parece que você ainda não fez \n nenhum agendamento"),
-            ButtonWidget(
-              title: "Agendar agora",
-              onTap: () {}
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                color: Colors.blue,
+              ),
+          
+              Container(
+                margin: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.all(18),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.3)
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const TextWidget("Parece que você ainda não fez \n nenhum agendamento"),
+                    ButtonWidget(
+                      title: "Agendar agora",
+                      onTap: () {}
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
