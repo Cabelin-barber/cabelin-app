@@ -8,12 +8,14 @@ class ProfessionalModel {
 
   String id;
   String name;
-  PictureModel profilePicture;
+  bool active;
+  //PictureModel profilePicture;
 
   ProfessionalModel({
     required this.id,
     required this.name,
-    required this.profilePicture
+    required this.active
+    //required this.profilePicture
   });
 
   factory ProfessionalModel.fromJson(Map<String, dynamic> json) => _$ProfessionalModelFromJson(json);

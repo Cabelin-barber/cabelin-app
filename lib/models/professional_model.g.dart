@@ -10,13 +10,12 @@ ProfessionalModel _$ProfessionalModelFromJson(Map<String, dynamic> json) =>
     ProfessionalModel(
       id: json['id'] as String,
       name: json['name'] as String,
-      profilePicture:
-          PictureModel.fromJson(json['profilePicture'] as Map<String, dynamic>),
+      active: json['active'] as bool,
     );
 
 Map<String, dynamic> _$ProfessionalModelToJson(ProfessionalModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'profilePicture': instance.profilePicture,
+      'active': instance.active,
     };
