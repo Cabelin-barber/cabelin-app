@@ -30,14 +30,12 @@ class ListableRefreshWidget extends StatefulWidget {
 class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
   ScrollController scrollController = ScrollController();
   bool isLoadingMore = false;
-  late int countOld;
     
   @override
   Widget build(BuildContext context) {
-    countOld = widget.itemCount;
     
     scrollController.addListener(() async {
-      if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+      if(scrollController.position.pixels == scrollController.position.maxScrollExtent && !isLoadingMore){
         setState(() {
           isLoadingMore = true;
         });

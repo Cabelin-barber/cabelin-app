@@ -66,12 +66,12 @@ abstract class _ExploreControllerBase with Store {
 
     Map<String, String?> params = {
       "city": currentLocation?.city,
-      "page": _currentPage.toString(),
-      "size": "2"
+      "page": "0",
+      "size": "5"
     };
 
     params.removeWhere((_, value) => value == null);
-
+    allEstablishments.clear();
     try {
       allEstablishments.clear();
       isLoadingEstablishment = true;
@@ -80,7 +80,7 @@ abstract class _ExploreControllerBase with Store {
         queryParameters: params
       );
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
-      _currentPage = 0;
+      _currentPage = 1;
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     } finally {
@@ -93,7 +93,7 @@ abstract class _ExploreControllerBase with Store {
     Map<String, String?> params = {
       "city": currentLocation?.city,
       "page": _currentPage.toString(),
-      "size": "1"
+      "size": "5"
     };
 
     params.removeWhere((_, value) => value == null);
@@ -101,6 +101,7 @@ abstract class _ExploreControllerBase with Store {
     try {
       Response response = await _api.get("/establishments", queryParameters: params);
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
+      print(response.data["content"]);
       _currentPage++;
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
