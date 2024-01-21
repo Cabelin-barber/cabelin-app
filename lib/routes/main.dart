@@ -3,6 +3,7 @@ import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_serv
 import 'package:cabelin_v2/pages/authentication/authenticatin_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
 import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
+import 'package:cabelin_v2/pages/createAccount/create_account_email.dart';
 import 'package:cabelin_v2/pages/editAccount/edit_account_page.dart';
 import 'package:cabelin_v2/pages/email_confirmation/pages/email_confirmation_page.dart';
 import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
@@ -20,7 +21,7 @@ import 'package:go_router/go_router.dart';
 // GoRouter configuration
 final router = GoRouter(
   navigatorKey: GlobalContext.context,
-  initialLocation: "/presentation",
+  initialLocation: "/",
   routes: [
     GoRoute(
       path: '/',
@@ -119,6 +120,10 @@ final router = GoRouter(
     GoRoute(
       path: "/searchEstablishments",
       builder: (context, state) =>  SearchEstablishmentsPage(),
+    ),
+    GoRoute(
+      path: "/createAccount",
+      builder: (context, state) =>  CreateAccountEmail(),
     )
   ],
 );
