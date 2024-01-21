@@ -12,6 +12,7 @@ class ListableRefreshWidget extends StatefulWidget {
     required this.itemBuilder,
     required this.itemCount,
     required this.items,
+    this.customEmpty
   });
 
 
@@ -20,6 +21,7 @@ class ListableRefreshWidget extends StatefulWidget {
   Widget? Function(BuildContext, int) itemBuilder;
   int itemCount;
   List items;
+  Widget? customEmpty;
 
   @override
   State<ListableRefreshWidget> createState() => _ListableRefreshWidgetState();
@@ -53,7 +55,14 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
         widget.onRefresh();
       },
       
-      child: Stack(
+      child: widget.itemCount == 0 
+      ? widget.customEmpty ?? const Center(
+          child: TextWidget(
+            "Não encontramos nada por aqui :(",
+            textAlign: TextAlign.center,
+          )
+        )
+      : Stack(
         children: [
           Visibility(
             visible: isLoadingMore,
@@ -66,6 +75,7 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
             )
           ),
           ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             controller: scrollController,
             itemCount: widget.itemCount,
             itemBuilder: widget.itemBuilder

@@ -86,29 +86,34 @@ class ExplorePage extends StatelessWidget {
               return SliverFillRemaining(
                 child: Observer(builder: (_) {
                   return ListableRefreshWidget(
+                    customEmpty: const Center(
+                      child: TextWidget(
+                        "Não encontramos nenhum \n estabelecimento na sua cidade :(",
+                        textAlign: TextAlign.center
+                      ),
+                    ),
                     onLoadMore: explorerControler.loadMoreEstablishments,
                     onRefresh: explorerControler.getEstablishments,
                     itemCount: explorerControler.allEstablishments.length,
                     items: explorerControler.allEstablishments,
                     itemBuilder: (_, index) => GestureDetector(
-                             onTap: () => context.push(
-                               "/estableshiment/${explorerControler.allEstablishments[index].id}"
-                             ),
-                             child: Column(
-                               mainAxisAlignment: MainAxisAlignment.start,
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               children: [
-                         Image.network(urlImage),
-                         TextWidget(
-                           explorerControler.allEstablishments[index].name,
-                           customFontsize: 20,
-                           customWeight: FontWeight.w800,
-                         ),
-                         TextWidget(
-                           explorerControler.allEstablishments[index].address.city,
-                           color: Colors.grey[700]
-                         )
-                       ]),
+                      onTap: () => context.push("/estableshiment/${explorerControler.allEstablishments[index].id}"),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.network(urlImage),
+                            TextWidget(
+                              explorerControler.allEstablishments[index].name,
+                              customFontsize: 20,
+                              customWeight: FontWeight.w800,
+                            ),
+                            TextWidget(
+                              explorerControler.allEstablishments[index].address.city,
+                              color: Colors.grey[700]
+                            )
+                          ]
+                       ),
                      ),
                   );
                 }),
