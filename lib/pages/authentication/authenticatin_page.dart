@@ -14,6 +14,7 @@ import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthenticationPage extends StatelessWidget {
   
@@ -84,6 +85,12 @@ class AuthenticationPage extends StatelessWidget {
                     );
                   }
                 }),
+                TextButtonWidget(
+                  title: "Criar conta",
+                  onTap: () {
+                    context.push("/createAccount");
+                  }
+                ),
                 ButtonWidget(
                   title: "Entrar",
                   fullWidth: true,
