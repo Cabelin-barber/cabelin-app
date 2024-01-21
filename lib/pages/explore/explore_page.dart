@@ -31,7 +31,8 @@ class ExplorePage extends StatelessWidget {
               centerTitle: true,
               title: Observer(
                 builder: (contenxt) => TextButtonWidget(
-                    icon: Icons.expand_more_rounded,
+                    color: Colors.white,
+                    icon: const Icon(Icons.expand_more_rounded, color: Colors.white),
                     title: explorerControler.currentLocation == null
                         ? "Buscar pela minha localização"
                         : explorerControler.currentLocation!.city,

@@ -41,7 +41,7 @@ class FeedbackPage extends StatelessWidget {
               ),
               
               TextButtonWidget(
-                icon: Icons.calendar_month,
+                icon: const Icon(Icons.calendar_month),
                 title: "Adicionar lembrete",
                 onTap: () {}
               ),

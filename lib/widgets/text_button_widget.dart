@@ -11,15 +11,17 @@ class TextButtonWidget extends StatelessWidget {
     this.isLoading = false,
     this.fullWidth = false,
     this.margin,
+    this.color,
   });
 
   final String title;
   final void Function() onTap;
-  final IconData? icon;
+  final Icon? icon;
   final bool isDisabled;
   final bool isLoading;
   final bool fullWidth;
   final EdgeInsets? margin;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +46,10 @@ class TextButtonWidget extends StatelessWidget {
                   width: 24,
                   child: CircularProgressIndicator()
                 )
-              : TextWidget(title),
+              : TextWidget(title, color: color),
             Visibility(
               visible: icon != null && isLoading == false,
-              child: Icon(icon, size: 22)
+              child: icon ?? Container()
             ),
             ],
           )),
