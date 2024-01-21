@@ -27,7 +27,6 @@ class ExplorePage extends StatelessWidget {
               pinned: false,
               snap: true,
               floating: true,
-              expandedHeight: 160.0,
               centerTitle: true,
               title: Observer(
                 builder: (contenxt) => TextButtonWidget(
@@ -45,7 +44,7 @@ class ExplorePage extends StatelessWidget {
                     }),
               ),
               bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(90.0),
+                  preferredSize: const Size.fromHeight(60.0),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -73,11 +72,6 @@ class ExplorePage extends StatelessWidget {
                             enabled: false,
                           ),
                         ),
-                        const TextWidget(
-                          "Quando?",
-                          color: Colors.white,
-                          margin: EdgeInsets.only(top: 6),
-                        )
                       ],
                     ),
                   ))),
