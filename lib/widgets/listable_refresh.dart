@@ -75,7 +75,6 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
             )
           ),
           ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
             controller: scrollController,
             itemCount: widget.itemCount,
             itemBuilder: widget.itemBuilder
