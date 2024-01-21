@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/localstorage/models/phone_model.dart';
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/notifications/push_notificaitions.dart';
@@ -60,8 +61,8 @@ abstract class _AuthenticationControllerBase with Store {
       id: userGoogle.user!.uid,
       name: userGoogle.user!.displayName!,
       email: userGoogle.user!.email!,
-      phoneNumber: userGoogle.user?.phoneNumber,
-      provider: Provider.google
+      phoneNumber: PhoneModel(number: "12",),
+      provider: "GOOGLE"
     );
 
     // [ TO-DO ]
