@@ -45,19 +45,27 @@ abstract class _CreateAccountControllerBase with Store {
           "isMobile": true
         },
       });
+      UserModel userModel = UserModel(
+        id: result.data["id"],
+        name: name,
+        email: email,
+        phone: brazilianPhone,
+        provider: "APPLICATION"
+      );
 
-      UserModel user = UserModel.fromJson(result.data);
-      await saveUserInLocal(user);
+      await saveUserInLocal(userModel);
       if(_shouldGoToRoute != null){
         FeedbackSnackbar.success("Conta criada com sucesso!");
         return GlobalContext.context.currentContext?.go(_shouldGoToRoute);
       }
-      LoadingFullscreen.stopLoading();
       _pageViewController.pageController.jumpToPage(0);
       GlobalContext.context.currentContext?.go("/");
       FeedbackSnackbar.success("Conta criada com sucesso!");
     } catch (e) {
+      print(e);
       FeedbackSnackbar.error("Erro ao criar sua conta, tente novamente");
+    } finally {
+      LoadingFullscreen.stopLoading();
     }
   }
 

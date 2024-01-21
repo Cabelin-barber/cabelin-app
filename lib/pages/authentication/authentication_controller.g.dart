@@ -36,6 +36,15 @@ mixin _$AuthenticationController on _AuthenticationControllerBase, Store {
     return _$signInWithGoogleAsyncAction.run(() => super.signInWithGoogle());
   }
 
+  late final _$loginProvisorioAsyncAction = AsyncAction(
+      '_AuthenticationControllerBase.loginProvisorio',
+      context: context);
+
+  @override
+  Future loginProvisorio() {
+    return _$loginProvisorioAsyncAction.run(() => super.loginProvisorio());
+  }
+
   late final _$saveUserGoogleAsyncAction = AsyncAction(
       '_AuthenticationControllerBase.saveUserGoogle',
       context: context);

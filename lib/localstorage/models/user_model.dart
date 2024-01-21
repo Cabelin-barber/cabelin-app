@@ -1,5 +1,4 @@
 import 'package:cabelin_v2/localstorage/models/location_model.dart';
-import 'package:cabelin_v2/localstorage/models/phone_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
@@ -12,7 +11,7 @@ class UserModel {
   String name;
   String email;
   String provider;
-  PhoneModel? phoneNumber;
+  String? phone;
   LocationModel? location;
   
   UserModel({
@@ -21,7 +20,7 @@ class UserModel {
     required this.email,
     required this.provider,
     this.location,
-    this.phoneNumber,
+    this.phone,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);

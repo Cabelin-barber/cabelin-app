@@ -1,4 +1,4 @@
-import 'package:cabelin_v2/localstorage/models/phone_model.dart';
+import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/notifications/push_notificaitions.dart';
@@ -29,7 +29,7 @@ abstract class _AuthenticationControllerBase with Store {
   
   @action
   Future<void> signInWithGoogle() async {
-  isLoadingSingInGoogle = true;
+        isLoadingSingInGoogle = true;
   try {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -56,12 +56,25 @@ abstract class _AuthenticationControllerBase with Store {
   }
 
   @action
+  loginProvisorio() async {
+    UserModel user = UserModel(
+      id: "2a777126-84ce-493f-964a-d48f6d4de31a",
+      name: "Ze Macueba",
+      email: "augusto.dev@proton.me",
+      //phone: PhoneModel(number: "62982399800"),
+      provider: "GOOGLE"
+    );
+
+    await userStorageRepository.saveUser(user);
+  }
+
+  @action
   Future<void> saveUserGoogle(UserCredential userGoogle) async {
     UserModel user = UserModel(
       id: userGoogle.user!.uid,
       name: userGoogle.user!.displayName!,
       email: userGoogle.user!.email!,
-      phoneNumber: PhoneModel(number: "12",),
+      phone: userGoogle.user!.phoneNumber,
       provider: "GOOGLE"
     );
 

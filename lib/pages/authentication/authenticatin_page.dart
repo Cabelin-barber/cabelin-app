@@ -42,6 +42,9 @@ class AuthenticationPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                ButtonWidget(title: "Login provisorio", onTap: () {
+                  authenticationController.loginProvisorio();
+                }),
                 Observer(builder: (_) {
                   return GoogleLoginSocialWidget(
                     onTap: authenticationController.signInWithGoogle,
