@@ -17,7 +17,7 @@ class EmailConfirmationPage extends StatelessWidget {
     final emailController = TextEditingController(text: "carlos@gmail.com");
     
     return Scaffold(
-      appBar: AppbarWidget(title: "Confirmar email de contato"),
+      appBar: AppbarWidget(title: "Alterar email"),
       body: LayoutWidget(
         child: Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,
