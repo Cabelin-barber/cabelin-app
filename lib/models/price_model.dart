@@ -6,7 +6,7 @@ part 'price_model.g.dart';
 class PriceModel {
 
   String currency = "brl";
-  int value;
+  double value;
 
   PriceModel({
     this.currency = "brl",
