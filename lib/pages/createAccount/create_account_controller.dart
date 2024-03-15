@@ -1,4 +1,3 @@
-import 'package:cabelin_v2/enums/enums_provider_account.dart';
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
@@ -8,21 +7,17 @@ import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobx/mobx.dart';
-part 'create_account_controller.g.dart';
-
-class CreateAccountController = _CreateAccountControllerBase with _$CreateAccountController;
-
-abstract class _CreateAccountControllerBase with Store {
+class CreateAccountController extends GetxController {
   
   Dio _api = Api.dio;
   final String? _shouldGoToRoute;
   PageViewController _pageViewController = GetIt.instance<PageViewController>();
   UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
 
-  _CreateAccountControllerBase({required shouldGoToRoute}) : _shouldGoToRoute = shouldGoToRoute;
+  CreateAccountController({required shouldGoToRoute}) : _shouldGoToRoute = shouldGoToRoute;
 
   Future<void> createAccount({
     required String name,
@@ -33,7 +28,7 @@ abstract class _CreateAccountControllerBase with Store {
     var brazilianPhone = "+55$phone";
     LoadingFullscreen.startLoading();
     try {
-      Response result = await _api.post("/customers", data: {
+      var result = await _api.post("/customers", data: {
         "name": name,
         "email": email,
         "password": password,

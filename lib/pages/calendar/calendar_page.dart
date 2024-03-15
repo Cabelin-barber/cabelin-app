@@ -4,8 +4,8 @@ import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 
@@ -33,7 +33,7 @@ class CalendarPage extends StatelessWidget {
               separatorBuilder: (_, __) => Container(height: 20),
               shrinkWrap: true,
               itemBuilder: (_, index) => GestureDetector(
-                onTap: () => context.push("/bookingInformation"),
+                onTap: () => Get.toNamed("/bookingInformation"),
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
