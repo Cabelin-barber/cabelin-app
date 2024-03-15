@@ -65,7 +65,6 @@ class ExplorePage extends StatelessWidget {
                       onLoadMore: (currentPage) => controller.loadMoreEstablishments(currentPage),
                       onRefresh: controller.getEstablishments,
                       itemCount: controller.allEstablishments.length,
-                      items: controller.allEstablishments,
                       itemBuilder: (_, index) => GestureDetector(
                         onTap: () => Get.toNamed(
                           "/estableshiment",

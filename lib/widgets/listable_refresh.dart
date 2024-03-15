@@ -10,7 +10,6 @@ class ListableRefreshWidget extends StatefulWidget {
     required this.onLoadMore,
     required this.itemBuilder,
     required this.itemCount,
-    required this.items,
     this.customEmpty
   });
 
@@ -19,7 +18,6 @@ class ListableRefreshWidget extends StatefulWidget {
   Future Function(int page) onLoadMore;
   Widget? Function(BuildContext, int) itemBuilder;
   int itemCount;
-  List items;
   Widget? customEmpty;
 
   @override
@@ -74,10 +72,11 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
               )
             )
           ),
-          ListView.builder(
+          ListView.separated(
             controller: scrollController,
             itemCount: widget.itemCount,
-            itemBuilder: widget.itemBuilder
+            itemBuilder: widget.itemBuilder,
+            separatorBuilder: (_, __) => const SizedBox(height: 20),
           ),
         ],
       )

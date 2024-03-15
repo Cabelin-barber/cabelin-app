@@ -16,6 +16,7 @@ class CalendarController extends GetxController {
 
   Future<void> getAllBookings() async {
     isLoading = true;
+    bookings.clear();
     update();
     try {
       List<BookingModel> res = await _customerRepository.getAllBookings();
@@ -27,6 +28,10 @@ class CalendarController extends GetxController {
       isLoading = false;
       update();
     }
+  }
+
+  Future<void> loadMoreBookings(int page) async {
+
   }
   
   String formatDate(DateTime dateTime) {

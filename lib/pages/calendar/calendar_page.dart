@@ -2,12 +2,10 @@ import 'package:cabelin_v2/models/booking_model.dart';
 import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
 import 'package:cabelin_v2/pages/calendar/calendar_controller.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
-import 'package:cabelin_v2/widgets/list_widget.dart';
+import 'package:cabelin_v2/widgets/listable_refresh.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({super.key});
@@ -22,15 +20,13 @@ class CalendarPage extends StatelessWidget {
       init: CalendarController(),
       builder: (controller) => Scaffold(
         body: LayoutWidget(
-          child: CustomMaterialIndicator(
-              indicatorBuilder: (context, controller) => const CupertinoActivityIndicator(),
-              onRefresh: () => controller.getAllBookings(),
-              child: ListWidget(
-                itemCount: controller.bookings.length,
-                isLoading: controller.isLoading,
-                itemBuilder: (_, index) {
-                  BookingModel booking = controller.bookings[index];
-                  return GestureDetector(
+          child: ListableRefreshWidget(
+            onLoadMore: (page) => controller.loadMoreBookings(page),
+            onRefresh: controller.getAllBookings,
+            itemCount: controller.bookings.length,
+            itemBuilder: (_, index) {
+                BookingModel booking = controller.bookings[index];
+                return GestureDetector(
                     onTap: () => Get.to(BookingInformationPage(booking: booking)),
                     child: Container(
                       padding: const EdgeInsets.all(16),
@@ -96,7 +92,6 @@ class CalendarPage extends StatelessWidget {
                     ),
                   );
                 }
-              ),
             )          
         ),
       ),
