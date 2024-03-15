@@ -1,9 +1,10 @@
+import 'package:cabelin_v2/pages/pageview/pageview.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class FeedbackPage extends StatelessWidget {
@@ -18,7 +19,7 @@ class FeedbackPage extends StatelessWidget {
           if(didPop) {
             return;
           }
-          context.go("/");
+          Get.offAll(const PageViewApp());
         },
         child: LayoutWidget(
           child: Column(
@@ -52,7 +53,7 @@ class FeedbackPage extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 16),
                 fullWidth: true,
                 onTap: () {
-                  context.go('/');
+                  Get.offAll(const PageViewApp());
                 }
               )
             ],

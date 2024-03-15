@@ -3,7 +3,6 @@ import 'package:cabelin_v2/pages/estableshiment/components/portfolio/portfolio.d
 import 'package:cabelin_v2/pages/estableshiment/components/services_offer/services_offer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class EstlableshimentPage extends StatelessWidget {
   
