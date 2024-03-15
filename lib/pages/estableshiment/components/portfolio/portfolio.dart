@@ -3,7 +3,7 @@ import 'package:cabelin_v2/widgets/image_widget.dart';
 import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
@@ -29,7 +29,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final portfolioController = PortfolioController(establishmentId: widget.establishmentId);
+    final portfolioController = Get.put(PortfolioController(establishmentId: widget.establishmentId));
     
     showImageFullScreen(String urlImage) {
       showModalBottomSheet(
@@ -44,9 +44,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                 children: [
                   Center(child: Image.network(urlImage)),
                   GestureDetector(
-                    onTap: () {
-                      context.pop();
-                    },
+                    onTap: () => Get.back(),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: Container(
@@ -67,8 +65,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
 
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Observer(builder: (_) {
-        return ListRefreshWidget(
+      child: ListRefreshWidget(
           itemCount: portfolioController.photos.length,
           isLoading: portfolioController.isLoading,
           customEmpty: Center(
@@ -88,16 +85,14 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
             portfolioController.getPortfolioPhotos();
           },
           itemBuilder: (_, index) => InkWell(
-            onTap: () => showImageFullScreen(portfolioController.photos[index].url),
+            onTap: () => showImageFullScreen(portfolioController.photos[index].id),
               child: ImageNetworkWidget(
-                url: portfolioController.photos[index].url,
+                url: portfolioController.photos[index].id,
                 width: MediaQuery.of(context).size.width,
                 height: 300,
               )
             ),
-          );
-        }
-      )
+          )
     );
   }
 }
