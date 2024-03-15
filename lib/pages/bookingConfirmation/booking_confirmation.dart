@@ -14,7 +14,6 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -37,7 +36,7 @@ class BookingConfirmationPage extends StatelessWidget {
       ),
       builder: (controller) => Scaffold(
         appBar: AppbarWidget(
-          title: "Dia e o horário da reserva",
+          title: "Dia e horário da reserva",
         ),
         bottomNavigationBar: Container(
           color: Colors.grey.withOpacity(0.3),
@@ -308,15 +307,7 @@ class BookingConfirmationPage extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 8, bottom: 16),
                       child: InkWell(
                         onTap: () async {
-                          ServiceModel? newService = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => AllEstablishmentServicesPage(establishemntId: establishmentId)
-                            )
-                          );
-                          if(newService != null) {
-                            controller.addNewService(newService);
-                          }
+                          Get.to(() => AllEstablishmentServicesPage(establishemntId: establishmentId));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

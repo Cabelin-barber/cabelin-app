@@ -11,21 +11,25 @@ class BookingConfirmationController extends GetxController {
 
   int? currentTimeSelected;
 
-  void addNewService(ServiceModel service) {
+  void didAddNewService(ServiceModel service) {
     allServicesPicked.add(service);
+    update();
   }
 
   void deleteService(int index) {
     allServicesPicked.removeAt(index);
+    update();
   }
 
   void setCurrentTimeSelected(int newTime) {
     currentTimeSelected = newTime;
+    update();
   } 
 
   DateTime currentSelectedDate = DateTime.now();
 
   void changeDate(DateTime newDate) {
     currentSelectedDate = newDate;
+    update();
   }
 }

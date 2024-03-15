@@ -1,6 +1,7 @@
 import 'package:cabelin_v2/models/service_model.dart';
+import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 
 class AllEstablishmentServiceController extends GetxController {
   final api = Api.dio;
@@ -29,5 +30,9 @@ class AllEstablishmentServiceController extends GetxController {
       isLoading = false;
       update();
     }    
+  }
+
+  void selectSevice(ServiceModel service) {
+    Get.find<BookingConfirmationController>().didAddNewService(service);
   }
 }

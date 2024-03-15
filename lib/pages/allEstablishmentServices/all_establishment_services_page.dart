@@ -5,7 +5,6 @@ import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class AllEstablishmentServicesPage extends StatelessWidget {
   AllEstablishmentServicesPage({super.key, required this.establishemntId});
@@ -43,9 +42,8 @@ class AllEstablishmentServicesPage extends StatelessWidget {
               trailing: ButtonWidget(
                 title: "Escolher",
                 onTap: () {
-                  var service = controller.services[index];
+                  controller.selectSevice(controller.services[index]);
                   Get.back();
-                  //context.pop(service);
                 }
               ),
             )
