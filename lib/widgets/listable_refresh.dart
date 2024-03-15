@@ -1,7 +1,6 @@
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:sembast/sembast.dart';
 
 class ListableRefreshWidget extends StatefulWidget {
 
@@ -17,7 +16,7 @@ class ListableRefreshWidget extends StatefulWidget {
 
 
   Future Function() onRefresh;
-  Future Function() onLoadMore;
+  Future Function(int page) onLoadMore;
   Widget? Function(BuildContext, int) itemBuilder;
   int itemCount;
   List items;
@@ -28,6 +27,7 @@ class ListableRefreshWidget extends StatefulWidget {
 }
 
 class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
+  int currentPage = 0;
   ScrollController scrollController = ScrollController();
   bool isLoadingMore = false;
     
@@ -40,8 +40,9 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
           isLoadingMore = true;
         });
         await Future.delayed(const Duration(milliseconds: 500));
-        await widget.onLoadMore();
+        await widget.onLoadMore(currentPage);
         setState(() {
+          currentPage++;
           isLoadingMore = false;
         });
       }
@@ -50,6 +51,7 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
     return CustomMaterialIndicator(
       indicatorBuilder: (_, __) => const CircularProgressIndicator.adaptive(),
       onRefresh: () async {
+        currentPage = 0;
         widget.onRefresh();
       },
       

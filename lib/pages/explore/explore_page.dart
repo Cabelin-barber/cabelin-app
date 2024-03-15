@@ -19,7 +19,7 @@ class ExplorePage extends StatelessWidget {
       init: ExploreController(),
       builder: (controller) => Scaffold(
         body: CustomScrollView(
-          controller: controller.scrollController,
+          //controller: controller.scrollController,
           slivers: [
             SliverAppBar(
                 backgroundColor: Colors.teal[900],
@@ -62,13 +62,7 @@ class ExplorePage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               sliver: SliverFillRemaining(
                   child: ListableRefreshWidget(
-                      customEmpty: const Center(
-                        child: TextWidget(
-                          "Não encontramos nenhum \n estabelecimento na sua cidade :(",
-                          textAlign: TextAlign.center
-                        ),
-                      ),
-                      onLoadMore: controller.loadMoreEstablishments,
+                      onLoadMore: (currentPage) => controller.loadMoreEstablishments(currentPage),
                       onRefresh: controller.getEstablishments,
                       itemCount: controller.allEstablishments.length,
                       items: controller.allEstablishments,

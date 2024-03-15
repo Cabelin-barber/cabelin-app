@@ -13,8 +13,6 @@ import 'package:sembast/sembast.dart';
 class ExploreController extends GetxController {
   final _api = Api.dio;
   final _userLocationStorageRepository = GetIt.I<UserLocationStorageRepository>();
-  final scrollController = ScrollController();
-  int _currentPage = 0;
   final nameEstablishmentController = TextEditingController();
 
   bool isLoadingMore = false;
@@ -36,18 +34,10 @@ class ExploreController extends GetxController {
     });
 
     getEstablishments();
-    scrollController.addListener(infiniteScroll);
 
     eventBus.on<UserLocationChangedEvent>().listen((event) {
-      _currentPage = 0;
       getEstablishments();
     });
-  }
-
-  infiniteScroll() {
-    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-      loadMoreEstablishments();
-    }
   }
 
   Future<void> getEstablishments() async {
@@ -55,7 +45,7 @@ class ExploreController extends GetxController {
     Map<String, String?> params = {
       "city": currentLocation?.city,
       "page": "0",
-      "size": "5"
+      "size": "3"
     };
 
     params.removeWhere((_, value) => value == null);
@@ -68,7 +58,6 @@ class ExploreController extends GetxController {
         queryParameters: params
       );
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
-      _currentPage = 1;
       update();
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
@@ -77,11 +66,11 @@ class ExploreController extends GetxController {
     }
   }
 
-  Future<void> loadMoreEstablishments() async {
+  Future<void> loadMoreEstablishments(int page) async {
     Map<String, String?> params = {
       "city": currentLocation?.city,
-      "page": _currentPage.toString(),
-      "size": "5"
+      "page": page.toString(),
+      "size": "1"
     };
 
     params.removeWhere((_, value) => value == null);
@@ -89,8 +78,7 @@ class ExploreController extends GetxController {
     try {
       var response = await _api.get("/establishments", queryParameters: params);
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
-      print(response.data["content"]);
-      _currentPage++;
+      update();
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     }
@@ -113,7 +101,6 @@ class ExploreController extends GetxController {
     try {
       var response = await _api.get("/establishments", queryParameters: params);
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
-      _currentPage++;
       update();
     } catch (e) {
       print(e);
