@@ -74,7 +74,10 @@ class ExplorePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.network(urlImage),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.network(urlImage)
+                              ),
                               TextWidget(
                                 controller.allEstablishments[index].name,
                                 customFontsize: 20,
