@@ -27,39 +27,37 @@ class ListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return itemCount == 0 && isLoading == false 
-      ? Expanded(
-          child: Center(
-            child: (
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:  [
-                    Visibility(
-                      visible: customEmpty == null,
-                      replacement: Container(child: customEmpty),
-                      child: const TextWidget(
-                        "Encontramos nada por aqui",
-                        textAlign: TextAlign.center,
-                      )
-                    )
-                ],
-              )
-            ),
-          ),
-        ) 
-      : Expanded(
-        child: isLoading != null && isLoading == true 
-          ? const Center(
-            child: CircularProgressIndicator.adaptive()
+      ? Center(
+        child: (
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:  [
+                Visibility(
+                  visible: customEmpty == null,
+                  replacement: Container(child: customEmpty),
+                  child: const TextWidget(
+                    "Encontramos nada por aqui",
+                    textAlign: TextAlign.center,
+                  )
+                )
+            ],
           )
-          : ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: scrollDirection,
-            physics: physics,
-            itemBuilder: itemBuilder,
-            separatorBuilder: separatorBuilder ?? (_, __) =>  Container(height: 16),
-            itemCount: itemCount
+        ),
+      ) 
+      : isLoading != null && isLoading == true 
+        ? const Expanded(
+          child: Center(
+            child: CircularProgressIndicator.adaptive()
+          ),
         )
+        : ListView.separated(
+          shrinkWrap: true,
+          scrollDirection: scrollDirection,
+          physics: physics,
+          itemBuilder: itemBuilder,
+          separatorBuilder: separatorBuilder ?? (_, __) =>  Container(height: 16),
+          itemCount: itemCount
       );
     }
 }
