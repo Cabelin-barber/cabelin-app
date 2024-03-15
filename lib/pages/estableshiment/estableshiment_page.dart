@@ -2,20 +2,18 @@ import 'package:cabelin_v2/pages/estableshiment/components/informations/informat
 import 'package:cabelin_v2/pages/estableshiment/components/portfolio/portfolio.dart';
 import 'package:cabelin_v2/pages/estableshiment/components/services_offer/services_offer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class EstlableshimentPage extends StatelessWidget {
   
-  EstlableshimentPage({
-    super.key,
-    required this.estableshimentId
-  });
-
-  String estableshimentId;
+  EstlableshimentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     String urlImage = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.5323gYZjoqFwr0zrN28KPAHaE8%26pid%3DApi&f=1&ipt=96d6cb3c800087f979dcfed334aaa919f198619cfcf66cec8e9bfe1f65920957&ipo=images";
+
+    String establishmentId = Get.arguments;
 
     return DefaultTabController(
       length: 3,
@@ -40,7 +38,7 @@ class EstlableshimentPage extends StatelessWidget {
                     ),
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                      onPressed: () => context.pop(),
+                      onPressed: () => Get.back(),
                       icon: const Icon(
                         Icons.chevron_left_rounded,
                         size: 42,
@@ -64,8 +62,8 @@ class EstlableshimentPage extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  ServicesOfferPage(establishmentId: estableshimentId),
-                  Portfolio(establishmentId: estableshimentId),
+                  ServicesOfferPage(establishmentId: establishmentId),
+                  Portfolio(establishmentId: establishmentId),
                   const Informations()
                 ]
               ),
