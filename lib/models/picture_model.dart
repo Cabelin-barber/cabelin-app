@@ -5,13 +5,11 @@ part 'picture_model.g.dart';
 @JsonSerializable()
 class PictureModel {
 
-  String id;
   String? name;
-  String url;
+  String id;
 
   PictureModel({
     required this.id,
-    required this.url,
     this.name,
   });
 
