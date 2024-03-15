@@ -24,7 +24,12 @@ class BookingInformationPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const GoogleMapWidget(),
+          GoogleMapWidget(
+            latitude: double.parse(booking.establishment.address.latitude),
+            longitude: double.parse(booking.establishment.address.longitude),
+            address: "{{endereço do estabelecimento}}",
+            city: booking.establishment.address.city,
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 16),

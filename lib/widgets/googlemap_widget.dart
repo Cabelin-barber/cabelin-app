@@ -5,13 +5,26 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GoogleMapWidget extends StatelessWidget {
-  const GoogleMapWidget({super.key});
+
+  double latitude;
+  double longitude;
+  String address;
+  String city;
+
+  GoogleMapWidget({
+    super.key,
+    required this.latitude,
+    required this.longitude,
+    required this.address,
+    required this.city
+  });
+
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=-3.823216,-38.481700");
+        final uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=${longitude},${latitude}");
         if (await canLaunchUrl(uri)) {
           await launchUrl(uri);
         } else {
@@ -23,11 +36,11 @@ class GoogleMapWidget extends StatelessWidget {
           SizedBox(
             height: 250,
             width: MediaQuery.of(context).size.width,
-            child: const GoogleMap(
+            child: GoogleMap(
               zoomControlsEnabled: false,
               mapType: MapType.normal,
               initialCameraPosition: CameraPosition(
-                target: LatLng(37.42796133580664, -122.085749655962),
+                target: LatLng(latitude, longitude),
                 zoom: 14.4746,
               ),
             ),
@@ -46,12 +59,12 @@ class GoogleMapWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
+                    Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextWidget("Quadra 27, Lote 2 Casa 1", customFontsize: 13),
-                        TextWidget("Goiânia", customFontsize: 13),
+                        TextWidget(address, customFontsize: 13),
+                        TextWidget(city, customFontsize: 13),
                       ],
                     ),
                     SvgPicture.asset("assets/send.svg"),

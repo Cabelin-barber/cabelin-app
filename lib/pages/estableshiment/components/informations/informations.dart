@@ -28,7 +28,12 @@ class _InformationsState extends State<Informations> with AutomaticKeepAliveClie
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const GoogleMapWidget(),
+          GoogleMapWidget(
+            latitude: -16.6869,
+            longitude: -49.2648,
+            address: "{{endereço do estabelecimento}}",
+            city: "{{cidade do estabelecimento}}"//booking.establishment.address.city,
+          ),
           const TextWidget(
             "Barbearia com mais 10 de anos de tradição sempre pensando no bem estar do cliente",
             margin: EdgeInsets.only(top: 16),
