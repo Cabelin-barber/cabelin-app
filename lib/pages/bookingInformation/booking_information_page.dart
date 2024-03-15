@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:cabelin_v2/models/booking_model.dart';
+import 'package:cabelin_v2/utils/real_formatter.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/googleMap_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
@@ -32,21 +31,21 @@ class BookingInformationPage extends StatelessWidget {
               child: ListWidget(
                 separatorBuilder: (_, __) => const Divider(),
                 itemCount: 10,
-                itemBuilder: (_, __) => const ListTile(
-                  title: TextWidget(
-                    "Pintar as unhas",
+                itemBuilder: (_, __) => ListTile(
+                  title: const TextWidget(
+                    "{{nome do serviço}}",
                     customWeight: FontWeight.w800,
                   ),
-                  subtitle: TextWidget("Patricia"),
+                  subtitle: const TextWidget("{{nome do profissional}}"),
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TextWidget(
-                        "R\$ 30",
+                        RealFormat.format(booking.price.value),
                         customWeight: FontWeight.w800,
                       ),
                       TextWidget(
-                        "13:00 - 14:00",
+                        "${booking.hourOfService.startHour} - ${booking.hourOfService.endHour}",
                         customFontsize: 12,
                       )
                     ],
