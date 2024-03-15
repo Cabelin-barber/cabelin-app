@@ -144,28 +144,24 @@ class BookingConfirmationPage extends StatelessWidget {
                                         ],
                                       ),
                                       ButtonWidget(
-                                          title: "Finalizar",
-                                          fullWidth: true,
-                                          onTap: () {
-                                            UserModel? currentUser = userStorageRepository.getUser();
-                                            currentUser == null 
-                                              ?  Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (_) => AuthenticationPage(shouldComeBack: true)
-                                                  )
-                                                )
-                                              : Get.toNamed("/feedback");
-                                          }
-                              ),
+                                        title: "Finalizar",
+                                        fullWidth: true,
+                                        onTap: () {
+                                          UserModel? currentUser = userStorageRepository.getUser();
+                                          currentUser == null 
+                                            ?  Get.to(AuthenticationPage(shouldComeBack: true))
+                                            : Get.toNamed("/feedback");
+                                        }
+                                      ),
                                     ],
                                   )
                                 ],
                               )
-                    );
+                          );
                         }
-                );
-                  })
+                    );
+                  }
+                )
             ],
           ),
         ),
