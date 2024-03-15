@@ -1,8 +1,10 @@
+import 'package:cabelin_v2/enums/enum_stauts_booking.dart';
 import 'package:cabelin_v2/models/booking_model.dart';
 import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
 import 'package:cabelin_v2/pages/calendar/calendar_controller.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/listable_refresh.dart';
+import 'package:cabelin_v2/widgets/status_chip_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,20 +40,7 @@ class CalendarPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 6),
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                            decoration: BoxDecoration(
-                              color: Colors.green.withOpacity(0.2),
-                              borderRadius: const BorderRadius.all(Radius.circular(100))
-                            ),
-                            child: const TextWidget(
-                              "Confirmado",
-                              customFontsize: 13,
-                              color: Colors.green,
-                              customWeight: FontWeight.w800,
-                            ),
-                          ),
+                          StatusChipWidget(status: StatusBooking.CLOSED),
                           Row(
                             children: [
                               ClipRRect(
@@ -82,7 +71,7 @@ class CalendarPage extends StatelessWidget {
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: TextWidget(controller.formatDate(booking.date),
+                              child: TextWidget("${controller.formatDate(booking.date)}, ${booking.hourOfService.startHour}",
                                 customWeight: FontWeight.w800
                               )
                             ),

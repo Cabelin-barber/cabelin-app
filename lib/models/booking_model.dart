@@ -1,3 +1,4 @@
+import 'package:cabelin_v2/enums/enum_stauts_booking.dart';
 import 'package:cabelin_v2/models/estableshiment_model.dart';
 import 'package:cabelin_v2/models/hour_of_service_model.dart';
 import 'package:cabelin_v2/models/price_model.dart';
@@ -11,7 +12,7 @@ class BookingModel {
   String id;
   EstablishmentModel establishment;
   PriceModel price;
-  String status;
+  StatusBooking status;
   DateTime date;
   HourOfServiceModel hourOfService;
 
