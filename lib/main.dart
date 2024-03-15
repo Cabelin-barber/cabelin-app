@@ -3,11 +3,27 @@ import 'package:cabelin_v2/localstorage/repositories/location_storage.repository
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/notifications/notification_service.dart';
 import 'package:cabelin_v2/notifications/push_notificaitions.dart';
+import 'package:cabelin_v2/pages/allEstablishmentServices/all_establishment_services_page.dart';
+import 'package:cabelin_v2/pages/authentication/authenticatin_page.dart';
+import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation.dart';
+import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
+import 'package:cabelin_v2/pages/createAccount/create_account_email.dart';
+import 'package:cabelin_v2/pages/editAccount/edit_account_page.dart';
+import 'package:cabelin_v2/pages/email_confirmation/pages/email_confirmation_page.dart';
+import 'package:cabelin_v2/pages/estableshiment/estableshiment_page.dart';
+import 'package:cabelin_v2/pages/feedback/feedback_page.dart';
+import 'package:cabelin_v2/pages/pageview/pageview.dart';
 import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
+import 'package:cabelin_v2/pages/permissions.request/location/location_request_page.dart';
+import 'package:cabelin_v2/pages/permissions.request/notification/notification_request_page.dart';
+import 'package:cabelin_v2/pages/presentation/presentation_page.dart';
+import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_page.dart';
 import 'package:cabelin_v2/routes/main.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get_it/get_it.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -46,8 +62,67 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: router,
+    return GetMaterialApp(
+      getPages: [
+    GetPage(
+      name: '/',
+      page: () => const PageViewApp(),
+  ),
+    GetPage(
+      name: '/presentation',
+      page: () => PresentationPage(),
+    ),
+    GetPage(
+      name: '/request_location',
+      page: () => const RequestLocationPage(),
+    ),
+    GetPage(
+      name: '/request_notification',
+      page: () => const NotificationRequestPage(),
+    ),
+    
+    GetPage(
+      name: '/estableshiment',
+      page: () => EstlableshimentPage(),
+    ),
+    GetPage(
+      name: '/bookingConfirmation',
+        page: () => BookingConfirmationPage(),
+    ),
+    GetPage(
+      name: "/feedback",
+      page: () => const FeedbackPage(),
+    ),
+    GetPage(
+      name: "/bookingInformation",
+      page: () => BookingInformationPage(),
+    ),
+    GetPage(
+      name: "/editAccount",
+      page: () => EditAccountPage()
+    ),
+    GetPage(
+      name: "/authentication",
+      page: () => AuthenticationPage(shouldComeBack: false)
+    ),
+///establishmentId
+    GetPage(
+      name: "/allEstablishmentServices/:estableshimentId",
+      page: () => AllEstablishmentServicesPage(establishemntId: "teste",),
+    ),
+    GetPage(
+      name: "/emailConfirmation",
+      page: () => const EmailConfirmationPage(),
+    ),
+    GetPage(
+      name: "/searchEstablishments",
+      page: () =>  SearchEstablishmentsPage(),
+    ),
+    GetPage(
+      name: "/createAccount",
+      page: () =>  CreateAccountEmail(),
+    )
+  ],
       title: 'Flutter Demo',
       theme: ThemeData(
         dividerTheme: DividerThemeData(
