@@ -6,38 +6,28 @@ import 'package:cabelin_v2/models/estableshiment_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/utils/feedback_snackbar.dart';
 import 'package:cabelin_v2/utils/loading_fullscreen.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mobx/mobx.dart';
 import 'package:sembast/sembast.dart';
-part 'explore_controller.g.dart';
-
-class ExploreController = _ExploreControllerBase with _$ExploreController;
-
-abstract class _ExploreControllerBase with Store {
+class ExploreController extends GetxController {
   final _api = Api.dio;
   final _userLocationStorageRepository = GetIt.I<UserLocationStorageRepository>();
   final scrollController = ScrollController();
   int _currentPage = 0;
   final nameEstablishmentController = TextEditingController();
 
-  @observable
   bool isLoadingMore = false;
 
-  @observable
   LocationModel? currentLocation;
 
-  @observable
   bool isLoadingEstablishment = false;
 
-  @observable
-  ObservableList<EstablishmentModel> allEstablishments = ObservableList<EstablishmentModel>();
+  List<EstablishmentModel> allEstablishments = [];
 
-  @observable
-  ObservableList<EstablishmentModel> todayEstablishments = ObservableList<EstablishmentModel>();
+  List<EstablishmentModel> todayEstablishments = [];
 
-  _ExploreControllerBase() {
+  ExploreController() {
     currentLocation = _userLocationStorageRepository.getUserLocation();
     _userLocationStorageRepository.store.record("userLocation").onSnapshot(_userLocationStorageRepository.db).listen((event) {
       if(event?.value != null) {
@@ -54,14 +44,12 @@ abstract class _ExploreControllerBase with Store {
     });
   }
 
-  @action
   infiniteScroll() {
     if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
       loadMoreEstablishments();
     }
   }
 
-  @action
   Future<void> getEstablishments() async {
 
     Map<String, String?> params = {
@@ -75,12 +63,13 @@ abstract class _ExploreControllerBase with Store {
     try {
       allEstablishments.clear();
       isLoadingEstablishment = true;
-      Response response = await _api.get(
+      var response = await _api.get(
         "/establishments", 
         queryParameters: params
       );
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
       _currentPage = 1;
+      update();
     } catch (e) {
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     } finally {
@@ -88,7 +77,6 @@ abstract class _ExploreControllerBase with Store {
     }
   }
 
-  @action
   Future<void> loadMoreEstablishments() async {
     Map<String, String?> params = {
       "city": currentLocation?.city,
@@ -99,7 +87,7 @@ abstract class _ExploreControllerBase with Store {
     params.removeWhere((_, value) => value == null);
 
     try {
-      Response response = await _api.get("/establishments", queryParameters: params);
+      var response = await _api.get("/establishments", queryParameters: params);
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
       print(response.data["content"]);
       _currentPage++;
@@ -108,7 +96,6 @@ abstract class _ExploreControllerBase with Store {
     }
   }
 
-  @action
   searchEstablishmentByName(String? value) async {
     allEstablishments.clear();
     LoadingFullscreen.startLoading();
@@ -122,7 +109,7 @@ abstract class _ExploreControllerBase with Store {
     params.removeWhere((_, value) => value == null);
 
     try {
-      Response response = await _api.get("/establishments", queryParameters: params);
+      var response = await _api.get("/establishments", queryParameters: params);
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
       _currentPage++;
     } catch (e) {

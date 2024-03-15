@@ -4,9 +4,9 @@ import 'package:cabelin_v2/pages/profile/profile_controller.dart';
 import 'package:cabelin_v2/utils/feedback_snackbar.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
-import 'package:cabelin_v2/widgets/text_button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
@@ -40,7 +40,7 @@ class ProfilePage extends StatelessWidget {
         description: "Editar nome, número de celular, email e muito mais ",
         icon: Icons.edit_outlined,
         onTap: () {
-          context.push("/editAccount");
+          Get.toNamed("/editAccount");
         }
       ),
       ConfigOption(
@@ -79,37 +79,38 @@ class ProfilePage extends StatelessWidget {
         }
       ),
     ];
-
-    ProfileController profileController = ProfileController();
     
-    return Scaffold(
-      appBar: AppBar(
-        title: TextWidget(
-          profileController.currentUser!.name,
-          customFontsize: 22,
-          customWeight: FontWeight.w800,
+    return GetBuilder(
+      init: ProfileController(),
+      builder: (controller) => Scaffold(
+        appBar: AppBar(
+          title: TextWidget(
+            controller.currentUser!.name,
+            customFontsize: 22,
+            customWeight: FontWeight.w800,
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: LayoutWidget(
-          child: ListWidget(
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (_, __) => const Divider(),
-            itemCount: options.length,
-            itemBuilder: (_, index) => ListTile(
-              onTap: options[index].onTap,
-              leading: Icon(options[index].icon),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              title: TextWidget(
-                options[index].title,
-                customWeight: FontWeight.w800,
+        body: SingleChildScrollView(
+          child: LayoutWidget(
+            child: ListWidget(
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (_, __) => const Divider(),
+              itemCount: options.length,
+              itemBuilder: (_, index) => ListTile(
+                onTap: options[index].onTap,
+                leading: Icon(options[index].icon),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                title: TextWidget(
+                  options[index].title,
+                  customWeight: FontWeight.w800,
+                ),
+                subtitle: TextWidget(
+                  options[index].description,
+                  customFontsize: 14,
+                ),
               ),
-              subtitle: TextWidget(
-                options[index].description,
-                customFontsize: 14,
-              ),
-            ),
-          )
+            )
+          ),
         ),
       ),
     );

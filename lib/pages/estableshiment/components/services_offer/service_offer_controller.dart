@@ -1,41 +1,35 @@
 import 'package:cabelin_v2/models/service_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
-import 'package:dio/dio.dart';
-import 'package:mobx/mobx.dart';
-part 'service_offer_controller.g.dart';
+import 'package:get/get.dart';
 
-class ServiceOfferController = _ServiceOfferControllerBase
-    with _$ServiceOfferController;
-
-abstract class _ServiceOfferControllerBase with Store {
+class ServiceOfferController extends GetxController {
   final api = Api.dio;
   late String establishmentId;
 
-  _ServiceOfferControllerBase({required this.establishmentId}) {
+  ServiceOfferController({required this.establishmentId}) {
     getServices();
   }
 
-  @observable
   bool isLoading = false;
 
-  @observable
-  ObservableList<ServiceModel> services = ObservableList<ServiceModel>();
+  List<ServiceModel> services = [];
 
-  @action
   Future<void> getServices() async {
     try {
       services.clear();
       isLoading = true;
-      Response response = await api.get("/establishments/$establishmentId/beauty-services?page=0&size=10");
-      Future.delayed(const Duration(seconds: 3));
-
+      var response = await api.get("/establishments/$establishmentId/beauty-services?page=0&size=10");
+      print(response.data);
       services.addAll(List.from(response.data['content'].map((model) => ServiceModel.fromJson(model))));
       isLoading = false;
+      update();
     } catch (e) {
+      print(e);
             //[TO-DO implementar Catch]
       print("ERRO!");
     } finally{
       isLoading = false;
+      update();
     }
   }
 }

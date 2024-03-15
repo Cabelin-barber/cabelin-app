@@ -11,32 +11,24 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobx/mobx.dart';
-part 'location_controller.g.dart';
-
-class LocationController = _LocationControllerBase with _$LocationController;
-
-abstract class _LocationControllerBase with Store {
+class LocationController extends GetxController {
 
   final userStorageRepository = GetIt.instance<UserStorageRepository>();
   final userLocationStorageRepository = GetIt.instance<UserLocationStorageRepository>();
   final api = Dio();
   final searchLocationTextfieldControler = TextEditingController();
 
-
-  @observable
   LocationModel? currentLocation;
 
-  @observable
-  ObservableList<SearchLocationModel> locationsSearch = ObservableList<SearchLocationModel>();
+  List<SearchLocationModel> locationsSearch = [];
 
-  _LocationControllerBase() {
+  LocationController() {
     currentLocation = userLocationStorageRepository.getUserLocation();
   }
 
-  @action
   Future<void> getLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -82,7 +74,6 @@ abstract class _LocationControllerBase with Store {
     }
   }
 
-  @action
   Future<void> saveLocation({
     required String city,
     required String state,
@@ -101,16 +92,15 @@ abstract class _LocationControllerBase with Store {
   }
 
   _closeAndTriggerEvent(LocationModel newLocation) {
-    GlobalContext.context.currentContext!.pop();
+    Get.back();
     eventBus.fire(
       UserLocationChangedEvent(newLocation: newLocation)
     );
   }
 
-  @action
   Future<void> searchLocation(String? place) async  {
     locationsSearch.clear();
-    Response result = await api.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", queryParameters: {
+    var result = await api.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", queryParameters: {
       "key": "AIzaSyAMLQBzSk9TW0DjnCwtCr-RDjp04ZbWpJ8",
       "input": place,
       "type": "geocode",
@@ -125,7 +115,6 @@ abstract class _LocationControllerBase with Store {
     )));
   }
 
-  @action
   Future<void> setLocationSearch(SearchLocationModel locationModel) async {
     LoadingFullscreen.startLoading();
     try {

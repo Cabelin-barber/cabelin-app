@@ -4,29 +4,22 @@ import 'package:cabelin_v2/models/estableshiment_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:cabelin_v2/utils/feedback_snackbar.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mobx/mobx.dart';
 import 'package:sembast/sembast.dart';
-part 'search_establishments_controller.g.dart';
-
-class SearchEstablishmentsController = _SearchEstablishmentsControllerBase with _$SearchEstablishmentsController;
-
-abstract class _SearchEstablishmentsControllerBase with Store {
+class SearchEstablishmentsController extends GetxController {
   final Dio _api = Api.dio;
 
-  @observable
   LocationModel? currentLocation;
 
   int _currentPage = 0;
   final _userLocationStorageRepository = GetIt.I<UserLocationStorageRepository>();
   
-  @observable
   bool isLoadingEstablishment = false;
   
-  @observable
-  ObservableList<EstablishmentModel> allEstablishments = ObservableList<EstablishmentModel>();
+  List<EstablishmentModel> allEstablishments = [];
   
-  _SearchEstablishmentsControllerBase() {
+  SearchEstablishmentsController() {
     _userLocationStorageRepository.store.record("userLocation").onSnapshot(_userLocationStorageRepository.db).listen((event) {
       if(event?.value != null) {
         currentLocation = LocationModel.fromJson(event!.value as Map<String, dynamic>);
@@ -34,7 +27,6 @@ abstract class _SearchEstablishmentsControllerBase with Store {
     });
   }
 
-  @action
   Future<void> searchEstablishments(String name) async {
     Map<String, String?> params = {
       "city": currentLocation?.city,
@@ -45,7 +37,7 @@ abstract class _SearchEstablishmentsControllerBase with Store {
     try {
       allEstablishments.clear();
       isLoadingEstablishment = true;
-      Response response = await _api.get(
+      var response = await _api.get(
         "/establishments", 
         queryParameters: params
       );

@@ -2,6 +2,7 @@ import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomAlert {
@@ -42,7 +43,7 @@ class CustomAlert {
                       fullWidth: true,
                       onTap: () {
                         if(onTapOk == null) {
-                          return context.pop();
+                          return Get.back();
                         }
                         onTapOk();           
                       }
