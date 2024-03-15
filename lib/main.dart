@@ -18,22 +18,25 @@ import 'package:cabelin_v2/pages/permissions.request/location/location_request_p
 import 'package:cabelin_v2/pages/permissions.request/notification/notification_request_page.dart';
 import 'package:cabelin_v2/pages/presentation/presentation_page.dart';
 import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_page.dart';
-import 'package:cabelin_v2/routes/main.dart';
+import 'package:cabelin_v2/repositories/customer_repository.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 EventBus eventBus = EventBus();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('pt_BR');
   var notificationService = NotificationService();
   await notificationService.initNotification();
   tz.initializeTimeZones();
   final getIt = GetIt.instance;
+
+  Get.put(CustomerRepository());
   getIt.registerSingletonAsync<UserStorageRepository>(() async {
     final userStorageRepository = UserStorageRepository();
     await userStorageRepository.openDatabase();
