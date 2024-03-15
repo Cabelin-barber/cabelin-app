@@ -97,10 +97,6 @@ class MyApp extends StatelessWidget {
       page: () => const FeedbackPage(),
     ),
     GetPage(
-      name: "/bookingInformation",
-      page: () => BookingInformationPage(),
-    ),
-    GetPage(
       name: "/editAccount",
       page: () => EditAccountPage()
     ),

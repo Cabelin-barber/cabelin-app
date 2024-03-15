@@ -1,22 +1,25 @@
 import 'dart:async';
 
+import 'package:cabelin_v2/models/booking_model.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/googleMap_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 class BookingInformationPage extends StatelessWidget {
-  const BookingInformationPage({super.key});
+  BookingInformationPage({super.key, required this.booking});
+
+  BookingModel booking;
 
   @override
   Widget build(BuildContext context) {
-    final googleMapsController = Completer<GoogleMapController>();
+
     return Scaffold(
       appBar: AppBar(
-        title: const TextWidget(
-          "Salão da Patricia",
+        title: TextWidget(
+          booking.establishment.name,
           customWeight: FontWeight.w800,
         ),
       ),

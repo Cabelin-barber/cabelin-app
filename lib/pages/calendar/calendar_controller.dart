@@ -15,6 +15,8 @@ class CalendarController extends GetxController {
   }
 
   Future<void> getAllBookings() async {
+    isLoading = true;
+    update();
     try {
       List<BookingModel> res = await _customerRepository.getAllBookings();
       bookings.addAll(res);

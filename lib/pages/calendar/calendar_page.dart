@@ -1,14 +1,12 @@
 import 'package:cabelin_v2/models/booking_model.dart';
+import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
 import 'package:cabelin_v2/pages/calendar/calendar_controller.dart';
-import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
-import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
+import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
-import 'package:lottie/lottie.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 
 class CalendarPage extends StatelessWidget {
@@ -17,8 +15,6 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bool isThereBooking = false;
-    PageViewController pageViewController = GetIt.I<PageViewController>();
     String urlImage = "https://images.unsplash.com/photo-1546877625-cb8c71916608?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 
@@ -26,21 +22,16 @@ class CalendarPage extends StatelessWidget {
       init: CalendarController(),
       builder: (controller) => Scaffold(
         body: LayoutWidget(
-          child: Visibility(
-            visible: isThereBooking,
-          replacement: CustomMaterialIndicator(
+          child: CustomMaterialIndicator(
               indicatorBuilder: (context, controller) => const CupertinoActivityIndicator(),
-              onRefresh: () async {
-      
-              },
-              child: ListView.separated(
+              onRefresh: () => controller.getAllBookings(),
+              child: ListWidget(
                 itemCount: controller.bookings.length,
-                separatorBuilder: (_, __) => Container(height: 20),
-                shrinkWrap: true,
+                isLoading: controller.isLoading,
                 itemBuilder: (_, index) {
                   BookingModel booking = controller.bookings[index];
                   return GestureDetector(
-                    onTap: () => Get.toNamed("/bookingInformation"),
+                    onTap: () => Get.to(BookingInformationPage(booking: booking)),
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -106,36 +97,7 @@ class CalendarPage extends StatelessWidget {
                   );
                 }
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LottieBuilder.network("https://lottie.host/abd73192-94ce-4ed1-94f2-2f19440b1046/0TPpL0oGZL.json"),
-                const TextWidget(
-                  "Parece que você ainda não fez \nnenhum agendamento",
-                  customWeight: FontWeight.w800,
-                  textAlign: TextAlign.center
-                ),
-                const TextWidget(
-                  "Faça o agendamento com os\n melhores em poucos rapidamente!",
-                  textAlign: TextAlign.center,
-                  customFontsize: 13,
-                  margin: EdgeInsets.only(top: 16, bottom: 16),
-                ),
-                ButtonWidget(
-                  title: "Agendar agora",
-                  onTap: () {
-                    pageViewController.pageController.animateToPage(
-                      0,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.linear
-                    );
-                  }
-                )
-              ],
-            ),
-          ),
+            )          
         ),
       ),
     );
