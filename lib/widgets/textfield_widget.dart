@@ -22,7 +22,9 @@ class TextfieldWidget extends StatefulWidget {
       this.autofocus = false,
       this.enabled = true,
       this.onSubmit,
-      this.onChange
+      this.onTapOutside,
+      this.onChanged,
+      this.notEmpty,
     });
 
   final String? label;
@@ -32,6 +34,8 @@ class TextfieldWidget extends StatefulWidget {
   TextEditingController? controller;
   final String? Function(String?)? validator;
   Function(String)? onSubmit;
+  Function()? onTapOutside;
+  Function(String)? onChanged;
   final TextInputType? keyboardType;
   final EdgeInsets? margin;
   final List<TextInputFormatter>? inputFormatters;
@@ -43,7 +47,7 @@ class TextfieldWidget extends StatefulWidget {
   bool hideKeyboardTapOutside = true;
   bool autofocus = false;
   bool enabled = true;
-  void Function(String value)? onChange;
+  bool? notEmpty;
 
   @override
   State<TextfieldWidget> createState() => _TextfieldWidgetState();
@@ -65,21 +69,22 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
     return Container(
       margin: widget.margin,
       child: TextFormField(
+        key: widget.key,
         enabled: widget.enabled,
         autofocus: widget.autofocus,
         initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
-        validator: widget.validator,
+        validator: widget.notEmpty != null ? (value) => value == null || value.isEmpty ? "Campo obrigatório" : null : widget.validator,
         minLines: widget.minLines,
-        maxLines: 1,
+        maxLines: widget.maxLines ?? 1,
         maxLength: widget.maxLength,
         obscureText: widget.isPasswordField ? isObscureText : false,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(8),
           isDense: true,
-          suffixIcon:widget.isPasswordField 
+          suffixIcon: widget.isPasswordField   
             ? Visibility(
                visible: isObscureText,
                replacement: IconButton(
@@ -91,14 +96,15 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
                  icon: const Icon(Icons.visibility_outlined)
                )
              ) 
-            : ValueListenableBuilder(
-              valueListenable: widget.controller!,
-              builder: (contenxt, value, _) => Visibility(
-                visible: value.text.isNotEmpty,
-                child: GestureDetector(
-                  onTap:() => widget.controller?.clear(),
-                  child: Icon(Icons.cancel_outlined
-                    //onPressed: () => widget.controller?.clear()
+            : widget.suffixIcon ?? Visibility(
+              visible: widget.enabled == true,
+              child: ValueListenableBuilder(
+                valueListenable: widget.controller!,
+                builder: (contenxt, value, _) => Visibility(
+                  visible: value.text.isNotEmpty,
+                  child: GestureDetector(
+                    onTap:() => widget.controller?.clear(),
+                    child: const Icon(Icons.cancel_outlined, color: Colors.black),
                   ),
                 ),
               ),
@@ -108,7 +114,7 @@ class _TextfieldWidgetState extends State<TextfieldWidget> {
           hintText: widget.hintText,
         ),
         onFieldSubmitted: widget.onSubmit,
-        onChanged: widget.onChange,
+        onChanged: widget.onChanged,
         onTapOutside: widget.hideKeyboardTapOutside ?
           (event) {
             FocusScopeNode currentFocus = FocusScope.of(context);

@@ -124,6 +124,21 @@ class MyApp extends StatelessWidget {
   ],
       title: 'Flutter Demo',
       theme: ThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.black.withOpacity(0.9),
+        ),
+        timePickerTheme: const TimePickerThemeData(
+          backgroundColor: Colors.white,
+          dialBackgroundColor: Colors.white,
+          dialTextStyle: TextStyle(
+            fontFamily: 'Sora',
+          ),
+          helpTextStyle: TextStyle(
+            fontFamily: 'Sora',
+            fontWeight: FontWeight.w800,
+            fontSize: 16
+          ),
+        ),
         dividerTheme: DividerThemeData(
           space: 35,
           color: Colors.grey.withOpacity(0.2)
@@ -136,7 +151,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Colors.black),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(8),
               )
             )
           )
@@ -149,9 +164,9 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: Colors.grey[200],
-          suffixIconColor: const Color(0xFF272727).withOpacity(0.5),
+          suffixIconColor: Colors.black.withOpacity(0.2),
           iconColor: const Color(0xFF272727).withOpacity(0.5),
-          prefixIconColor: const Color(0xFF272727).withOpacity(0.5),
+          prefixIconColor: Colors.black.withOpacity(0.2),
           contentPadding:const EdgeInsets.only(left: 16, top: 23, right: 16, bottom: 23),
           hintStyle: TextStyle(
             fontFamily: 'Sora',
@@ -171,17 +186,21 @@ class MyApp extends StatelessWidget {
             color: const Color(0xFF272727).withOpacity(0.5),
             fontFamily: 'Sora'
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            borderSide:BorderSide(color: const Color(0xFF272727).withOpacity(0.5)),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide(color: Colors.black, width: 2),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
-            borderSide: BorderSide(color: const Color(0xFF272727).withOpacity(0.5)),
+            borderSide: BorderSide(color: Colors.black.withOpacity(0.1))
           ),
-          border: OutlineInputBorder(
+          errorBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide(color: Colors.red)
+          ),
+          disabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
-            borderSide: BorderSide(color: const Color(0xFF272727).withOpacity(0.5)),
+            borderSide: BorderSide(color: Colors.black.withOpacity(0.1))
           ),
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -189,22 +208,22 @@ class MyApp extends StatelessWidget {
           showSelectedLabels: true,
           showUnselectedLabels: true,
           elevation: 0,
-          selectedItemColor: Color(0XFF322938),
-          unselectedItemColor: Color(0XFF322938),
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Color.fromARGB(185, 255, 255, 255),
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.w400,
-            fontSize: 13,
+            fontSize: 14,
             fontFamily: "Sora"
           ),
           unselectedLabelStyle: TextStyle(
             fontWeight: FontWeight.w400,
-            fontSize: 13,
+            fontSize: 14,
             fontFamily: "Sora"
           )
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
-      ),
+      )
     );
   }
 }

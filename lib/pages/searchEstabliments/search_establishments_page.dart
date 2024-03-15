@@ -44,7 +44,7 @@ class SearchEstablishmentsPage extends StatelessWidget {
                         onSubmit: (String? value) {
                           Navigator.of(context).pop(value);
                         },
-                        onChange: (String value) {
+                        onChanged: (String value) {
                           debouncer.run(() {
                             controller.searchEstablishments(value);
                           });
