@@ -3,6 +3,7 @@ import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -39,7 +40,7 @@ class EditAccountPage extends StatelessWidget {
                       ButtonWidget(
                         title: "Alterar",
                         onTap: () {
-                          context.push("/emailConfirmation");
+                          Get.toNamed("/emailConfirmation");
                         }
                       )
                     ],
