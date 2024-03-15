@@ -96,9 +96,11 @@ class ExploreController extends GetxController {
     }
   }
 
-  searchEstablishmentByName(String? value) async {
-    allEstablishments.clear();
+  didSearchEstablishmentByName(String? value) async {
+    if(value == null) return;
+    nameEstablishmentController.text = value;
     LoadingFullscreen.startLoading();
+    allEstablishments.clear();
     Map<String, String?> params = {
       //"city": currentLocation?.city,
       //"page": _currentPage.toString(),
@@ -112,7 +114,9 @@ class ExploreController extends GetxController {
       var response = await _api.get("/establishments", queryParameters: params);
       allEstablishments.addAll(List.from(response.data['content'].map((model) => EstablishmentModel.fromJson(model))));
       _currentPage++;
+      update();
     } catch (e) {
+      print(e);
       FeedbackSnackbar.error("Algo aconteceu, tente novamente");
     } finally {
       LoadingFullscreen.stopLoading();

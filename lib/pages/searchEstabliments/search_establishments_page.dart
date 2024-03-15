@@ -1,4 +1,5 @@
 import 'package:cabelin_v2/pages/explore/components/location/location_page.dart';
+import 'package:cabelin_v2/pages/explore/explore_controller.dart';
 import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_controller.dart';
 import 'package:cabelin_v2/utils/debouncer.dart';
 import 'package:cabelin_v2/widgets/chip_widget.dart';
@@ -7,7 +8,6 @@ import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class SearchEstablishmentsPage extends StatelessWidget {
 
@@ -42,7 +42,8 @@ class SearchEstablishmentsPage extends StatelessWidget {
                         hintText: "Pesquise pela empresa ou serviço",
                         autofocus: true,
                         onSubmit: (String? value) {
-                          Navigator.of(context).pop(value);
+                          Get.find<ExploreController>().didSearchEstablishmentByName(value);
+                          Get.back();
                         },
                         onChanged: (String value) {
                           debouncer.run(() {

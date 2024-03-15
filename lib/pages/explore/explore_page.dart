@@ -48,21 +48,7 @@ class ExplorePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap: () async {
-                              String? search = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => SearchEstablishmentsPage(
-                                        currentSearch: controller
-                                            .nameEstablishmentController.text),
-                                  ));
-                              if (search != null && search.isNotEmpty) {
-                                controller.nameEstablishmentController.text = search;
-                                controller.searchEstablishmentByName(search);
-                              } else {
-                                controller.nameEstablishmentController.clear();
-                              }
-                            },
+                            onTap: () => Get.to(SearchEstablishmentsPage(currentSearch: controller.nameEstablishmentController.text)),
                             child: TextfieldWidget(
                               hintText: "Nome do local",
                               controller: controller.nameEstablishmentController,
