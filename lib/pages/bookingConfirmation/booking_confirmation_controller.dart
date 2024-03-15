@@ -1,39 +1,30 @@
 import 'package:cabelin_v2/models/service_model.dart';
-import 'package:mobx/mobx.dart';
-part 'booking_confirmation_controller.g.dart';
+import 'package:get/get.dart';
+class BookingConfirmationController extends GetxController {
 
-class BookingConfirmationController = _BookingConfirmationControllerBase with _$BookingConfirmationController;
-
-abstract class _BookingConfirmationControllerBase with Store {
-
-  _BookingConfirmationControllerBase({required ServiceModel firstServicePicked}) {
+  BookingConfirmationController({required ServiceModel firstServicePicked}) {
     allServicesPicked.add(firstServicePicked);
+    update();
   }
 
-  ObservableList<ServiceModel> allServicesPicked = ObservableList<ServiceModel>();
+  List<ServiceModel> allServicesPicked = [];
 
-  @observable
   int? currentTimeSelected;
 
-  @action
   void addNewService(ServiceModel service) {
     allServicesPicked.add(service);
   }
 
-  @action
   void deleteService(int index) {
     allServicesPicked.removeAt(index);
   }
 
-  @action
   void setCurrentTimeSelected(int newTime) {
     currentTimeSelected = newTime;
   } 
 
-  @observable
   DateTime currentSelectedDate = DateTime.now();
 
-  @action
   void changeDate(DateTime newDate) {
     currentSelectedDate = newDate;
   }
