@@ -8,13 +8,13 @@ class ProfessionalModel {
 
   String id;
   String name;
-  bool active;
+  //bool active;
   //PictureModel profilePicture;
 
   ProfessionalModel({
     required this.id,
     required this.name,
-    required this.active
+    //required this.active
     //required this.profilePicture
   });
 
