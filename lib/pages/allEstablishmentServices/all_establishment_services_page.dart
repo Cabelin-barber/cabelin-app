@@ -4,7 +4,7 @@ import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class AllEstablishmentServicesPage extends StatelessWidget {
@@ -13,13 +13,13 @@ class AllEstablishmentServicesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = AllEstablishmentServiceController(establishmentId: establishemntId);
-    return Scaffold(
-      appBar: AppbarWidget(title: "Todos os cortes"),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 6, bottom: 10),
-        child: Observer(builder: (_) {
-          return ListRefreshWidget(
+    return GetBuilder(
+      init: AllEstablishmentServiceController(establishmentId: establishemntId),
+      builder: (controller) => Scaffold(
+        appBar: AppbarWidget(title: "Todos os cortes"),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 6, bottom: 10),
+          child: ListRefreshWidget(
             itemCount: controller.services.length,
             onRefresh: () async {
               controller.getAllServices();
@@ -44,12 +44,13 @@ class AllEstablishmentServicesPage extends StatelessWidget {
                 title: "Escolher",
                 onTap: () {
                   var service = controller.services[index];
-                  context.pop(service);
+                  Get.back();
+                  //context.pop(service);
                 }
               ),
             )
-          );
-        }),
+          ),
+        ),
       ),
     );
   }
