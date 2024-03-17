@@ -19,6 +19,7 @@ import 'package:cabelin_v2/pages/permissions.request/notification/notification_r
 import 'package:cabelin_v2/pages/presentation/presentation_page.dart';
 import 'package:cabelin_v2/pages/searchEstabliments/search_establishments_page.dart';
 import 'package:cabelin_v2/repositories/customer_repository.dart';
+import 'package:cabelin_v2/repositories/establishment_repository.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ void main() async {
   final getIt = GetIt.instance;
 
   Get.put(CustomerRepository());
+  Get.put(EstablishmentRepository());
   // getIt.registerSingletonAsync<UserStorageRepository>(() async {
   //   final userStorageRepository = UserStorageRepository();
   //   await userStorageRepository.openDatabase();

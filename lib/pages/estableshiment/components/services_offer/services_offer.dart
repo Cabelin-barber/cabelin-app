@@ -1,5 +1,6 @@
 
 import 'package:cabelin_v2/pages/estableshiment/components/services_offer/service_offer_controller.dart';
+import 'package:cabelin_v2/utils/real_formatter.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_refresh_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
@@ -56,7 +57,7 @@ class _ServicesOfferPageState extends State<ServicesOfferPage> with AutomaticKee
           itemCount: controller.services.length,
           itemBuilder: (_, index) => ListTile(
             leading: TextWidget(
-              "R\$ ${controller.services[index].price.value.toString()}",
+              RealFormat.format(controller.services[index].price.value),
               customWeight: FontWeight.w800,
               customFontsize: 16,
             ),

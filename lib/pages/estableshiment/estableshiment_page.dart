@@ -63,7 +63,7 @@ class EstlableshimentPage extends StatelessWidget {
                 children: [
                   ServicesOfferPage(establishmentId: establishmentId),
                   Portfolio(establishmentId: establishmentId),
-                  const Informations()
+                  Informations(establishmentId: establishmentId)
                 ]
               ),
             ),
