@@ -6,6 +6,7 @@ import 'package:cabelin_v2/pages/authentication/authenticatin_page.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
 import 'package:cabelin_v2/pages/bookingConfirmation/components/list_services.dart';
 import 'package:cabelin_v2/utils/loading_fullscreen.dart';
+import 'package:cabelin_v2/utils/real_formatter.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
@@ -89,39 +90,30 @@ class BookingConfirmationPage extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height/2,
                                     width: MediaQuery.of(context).size.width,
                                     child: ListView.builder(
-                                        itemCount: controller.allServicesPicked.length,
-                                        itemBuilder: (_, index) => ListTile(
-                                              title: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  const TextWidget(
-                                                    "Barbeiro Ze",
-                                                    //controller.allServicesPicked[index].professionals[index].name,
-                                                    customWeight: FontWeight.w800,
-                                                  ),
-                                                  TextWidget(
-                                                    controller.allServicesPicked[index].price.value.toString(),
-                                                    customWeight: FontWeight.w800,
-                                                  ),
-                                                ],
+                                      itemCount: controller.allServicesPicked.length,
+                                      itemBuilder: (_, index) {
+                                        return ListTile(
+                                          title: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              TextWidget(
+                                                controller.allServicesPicked[index].professionals[index].name,
+                                                customWeight: FontWeight.w800,
                                               ),
-                                              subtitle: TextWidget(
-                                                controller.allServicesPicked[index].name,
-                                                customFontsize: 14,
-                                                color: Colors.grey[600],
+                                              TextWidget(
+                                                RealFormat.format(controller.allServicesPicked[index].price.value),
+                                                customWeight: FontWeight.w800,
                                               ),
-                                              leading: Container(
-                                                width: 50,
-                                                height: 50,
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.blue,
-                                                  borderRadius:BorderRadius.all(
-                                                    Radius.circular(10)
-                                                  )
-                                                ),
-                                              ),
-                                            )
+                                            ],
                                           ),
+                                          subtitle: TextWidget(
+                                            controller.allServicesPicked[index].name,
+                                            customFontsize: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                        );
+                                      } 
+                                    ),
                                   ),
                                   const Spacer(flex: 2,),
                                   Column(
@@ -135,7 +127,7 @@ class BookingConfirmationPage extends StatelessWidget {
                                             customFontsize: 20,
                                           ),
                                           TextWidget(
-                                            "R\$ ${controller.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value.toInt()).toString()}",
+                                            RealFormat.format(controller.allServicesPicked.fold(0, (sum, expense) => sum + expense.price.value.toInt())),
                                             customWeight: FontWeight.w900,
                                             customFontsize: 20,
                                           )
