@@ -26,7 +26,7 @@ class BookingConfirmationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userStorageRepository = GetIt.instance<UserStorageRepository>();
+    //final userStorageRepository = GetIt.instance<UserStorageRepository>();
     initializeDateFormatting();
     DateFormat formatter = DateFormat("d 'de' MMMM", 'pt_BR');
     DateTime todayDate = DateTime.now();
@@ -137,7 +137,7 @@ class BookingConfirmationPage extends StatelessWidget {
                                         title: "Finalizar",
                                         fullWidth: true,
                                         onTap: () {
-                                          UserModel? currentUser = userStorageRepository.getUser();
+                                          UserModel? currentUser = UserStorage.get();// userStorageRepository.getUser();
                                           currentUser == null 
                                             ?  Get.to(AuthenticationPage(shouldComeBack: true))
                                             : Get.toNamed("/feedback");

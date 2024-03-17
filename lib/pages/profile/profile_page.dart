@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final userStorageRepository = GetIt.instance<UserStorageRepository>();
+    final userStorageRepository = GetIt.instance<UserStorage>();
     final pageViewController = GetIt.instance<PageViewController>();
 
     List<ConfigOption> options = [
@@ -67,13 +67,14 @@ class ProfilePage extends StatelessWidget {
         icon: Icons.logout_outlined,
         onTap: () async {
           try {
-            await userStorageRepository.clearUser();
+            await UserStorage.remove();
             pageViewController.pageController.animateToPage(
               0,
               duration: const Duration(milliseconds: 300),
               curve: Curves.linear
             );
           } catch (e) {
+            print(e);
             FeedbackSnackbar.error("Tivemos algum errinho, tente novamente");
           }
         }

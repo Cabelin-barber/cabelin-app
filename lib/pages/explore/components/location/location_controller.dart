@@ -1,7 +1,6 @@
 import 'package:cabelin_v2/events/user_location_changed_event.dart';
 import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/location_storage.repository.dart';
-import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/main.dart';
 import 'package:cabelin_v2/models/search_location_model.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
@@ -13,10 +12,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 class LocationController extends GetxController {
 
-  final userStorageRepository = GetIt.instance<UserStorageRepository>();
   final userLocationStorageRepository = GetIt.instance<UserLocationStorageRepository>();
   final api = Dio();
   final searchLocationTextfieldControler = TextEditingController();

@@ -11,7 +11,6 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 class AuthenticationController extends GetxController {
 
-  UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
   final api = Api.dio;
   final bool _shouldComeBack;
@@ -55,8 +54,7 @@ class AuthenticationController extends GetxController {
       //phone: PhoneModel(number: "62982399800"),
       provider: "GOOGLE"
     );
-
-    await userStorageRepository.saveUser(user);
+    await UserStorage.save(user);
   }
 
   Future<void> saveUserGoogle(UserCredential userGoogle) async {
@@ -83,7 +81,7 @@ class AuthenticationController extends GetxController {
     //     "isMobile": true
     //   }
     // });
-    await userStorageRepository.saveUser(user);
+    await UserStorage.save(user);
 
     _shouldComeBack 
       ? Get.back()

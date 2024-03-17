@@ -24,24 +24,27 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 EventBus eventBus = EventBus();
+final boxStorage = GetStorage();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('pt_BR');
+
   var notificationService = NotificationService();
   await notificationService.initNotification();
   tz.initializeTimeZones();
   final getIt = GetIt.instance;
 
   Get.put(CustomerRepository());
-  getIt.registerSingletonAsync<UserStorageRepository>(() async {
-    final userStorageRepository = UserStorageRepository();
-    await userStorageRepository.openDatabase();
-    return userStorageRepository;
-  });
+  // getIt.registerSingletonAsync<UserStorageRepository>(() async {
+  //   final userStorageRepository = UserStorageRepository();
+  //   await userStorageRepository.openDatabase();
+  //   return userStorageRepository;
+  // });
    getIt.registerSingletonAsync<UserLocationStorageRepository>(() async {
     final userLocationStorageRepository = UserLocationStorageRepository();
     await userLocationStorageRepository.openDatabase();

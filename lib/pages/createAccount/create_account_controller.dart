@@ -15,7 +15,6 @@ class CreateAccountController extends GetxController {
   Dio _api = Api.dio;
   final String? _shouldGoToRoute;
   PageViewController _pageViewController = GetIt.instance<PageViewController>();
-  UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
 
   CreateAccountController({required shouldGoToRoute}) : _shouldGoToRoute = shouldGoToRoute;
 
@@ -65,7 +64,6 @@ class CreateAccountController extends GetxController {
   }
 
   Future<void> saveUserInLocal(UserModel user) async {
-    await userStorageRepository.saveUser(user);
-
+    UserStorage.save(user);    
   }
 }

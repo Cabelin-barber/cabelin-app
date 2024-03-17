@@ -24,13 +24,13 @@ class AuthenticationPage extends StatelessWidget {
   });
   final _formKey = GlobalKey<FormState>();
   final _formFieldKey = GlobalKey<FormFieldState>();
-  UserStorageRepository userStorageRepository = GetIt.instance<UserStorageRepository>();
+  //UserStorage userStorageRepository = GetIt.instance<UserStorage>();
   PageViewController pageViewController = GetIt.instance<PageViewController>();
   bool shouldComeBack;
 
   @override
   Widget build(BuildContext context) {
-    UserModel? currentUser = userStorageRepository.getUser();
+    UserModel? currentUser = UserStorage.get();
 
     return GetBuilder(
       init: AuthenticationController(shouldComeBack: shouldComeBack),
