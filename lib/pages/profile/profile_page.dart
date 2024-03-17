@@ -31,7 +31,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final userStorageRepository = GetIt.instance<UserStorage>();
     final pageViewController = GetIt.instance<PageViewController>();
 
     List<ConfigOption> options = [
