@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final pageViewController = GetIt.instance<PageViewController>();
+    final pageViewController = Get.find<PageViewController>();
 
     List<ConfigOption> options = [
       ConfigOption(

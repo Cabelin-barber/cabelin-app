@@ -25,7 +25,7 @@ class AuthenticationPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _formFieldKey = GlobalKey<FormFieldState>();
   //UserStorage userStorageRepository = GetIt.instance<UserStorage>();
-  PageViewController pageViewController = GetIt.instance<PageViewController>();
+  final pageViewController = Get.find<PageViewController>();
   bool shouldComeBack;
 
   @override

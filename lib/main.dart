@@ -42,6 +42,7 @@ void main() async {
 
   Get.put(CustomerRepository());
   Get.put(EstablishmentRepository());
+  Get.put(PageViewController());
   // getIt.registerSingletonAsync<UserStorageRepository>(() async {
   //   final userStorageRepository = UserStorageRepository();
   //   await userStorageRepository.openDatabase();
@@ -52,7 +53,6 @@ void main() async {
     await userLocationStorageRepository.openDatabase();
     return userLocationStorageRepository;
   });
-  getIt.registerSingleton<PageViewController>(PageViewController());
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform 

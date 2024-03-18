@@ -7,11 +7,10 @@ import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 class AuthenticationController extends GetxController {
 
-  PageViewController pageViewController = GetIt.instance<PageViewController>();
+  final pageViewController = Get.find<PageViewController>();
   final api = Api.dio;
   final bool _shouldComeBack;
 
