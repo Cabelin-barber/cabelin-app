@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
 class LayoutWidget extends StatelessWidget {
-  const LayoutWidget({super.key, required this.child});
+  LayoutWidget({super.key, required this.child, this.padding, this.isLoading});
 
-  final Widget child;
+  Widget child;
+  bool? isLoading;
+  EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: child
-      ),
+      child: isLoading == true
+        ? const CircularProgressIndicator.adaptive()
+        : Padding(
+            padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
+            child: child,
+        ),
     );
   }
 }

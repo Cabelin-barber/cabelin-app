@@ -13,7 +13,7 @@ class InformationsController extends GetxController {
     getInfos();
   }
 
-  getInfos() async {
+  Future<void> getInfos() async {
     try {
       EstablishmentModel? establishment = await _establishmetRepisotory.getEstablishmentById(establishmentId);
       if(establishment != null) {

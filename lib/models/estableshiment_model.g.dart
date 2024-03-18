@@ -13,6 +13,9 @@ EstablishmentModel _$EstablishmentModelFromJson(Map<String, dynamic> json) =>
       profilePicture:
           PictureModel.fromJson(json['profilePicture'] as Map<String, dynamic>),
       address: LocationModel.fromJson(json['address'] as Map<String, dynamic>),
+      openingHours: (json['openingHours'] as List<dynamic>)
+          .map((e) => BusinessHours.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$EstablishmentModelToJson(EstablishmentModel instance) =>
@@ -21,4 +24,5 @@ Map<String, dynamic> _$EstablishmentModelToJson(EstablishmentModel instance) =>
       'name': instance.name,
       'profilePicture': instance.profilePicture,
       'address': instance.address,
+      'openingHours': instance.openingHours,
     };
