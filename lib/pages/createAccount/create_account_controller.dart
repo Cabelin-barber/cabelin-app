@@ -8,13 +8,12 @@ import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 class CreateAccountController extends GetxController {
   
   Dio _api = Api.dio;
   final String? _shouldGoToRoute;
-  PageViewController _pageViewController = GetIt.instance<PageViewController>();
+final _pageViewController = Get.find<PageViewController>();
 
   CreateAccountController({required shouldGoToRoute}) : _shouldGoToRoute = shouldGoToRoute;
 

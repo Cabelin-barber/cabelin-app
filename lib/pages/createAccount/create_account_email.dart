@@ -6,7 +6,6 @@ import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:cabelin_v2/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CreateAccountEmail extends StatelessWidget {
@@ -15,7 +14,7 @@ class CreateAccountEmail extends StatelessWidget {
   String? shouldGoToRoute;
   @override
   Widget build(BuildContext context) {
-    PageViewController _pageViewController = GetIt.instance<PageViewController>();
+    final _pageViewController = Get.find<PageViewController>();
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     final emailTextEditingController = TextEditingController();
