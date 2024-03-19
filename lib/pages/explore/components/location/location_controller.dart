@@ -3,6 +3,7 @@ import 'package:cabelin_v2/localstorage/models/location_model.dart';
 import 'package:cabelin_v2/localstorage/repositories/location_storage.repository.dart';
 import 'package:cabelin_v2/main.dart';
 import 'package:cabelin_v2/models/search_location_model.dart';
+import 'package:cabelin_v2/utils/feedback_snackbar.dart';
 import 'package:cabelin_v2/utils/globalContext.dart';
 import 'package:cabelin_v2/utils/loading_fullscreen.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
@@ -17,6 +18,7 @@ class LocationController extends GetxController {
   final userLocationStorageRepository = GetIt.instance<UserLocationStorageRepository>();
   final api = Dio();
   final searchLocationTextfieldControler = TextEditingController();
+  bool isLoading = false;
 
   LocationModel? currentLocation;
 
@@ -96,20 +98,31 @@ class LocationController extends GetxController {
   }
 
   Future<void> searchLocation(String? place) async  {
+    isLoading = true;
+    update();
     locationsSearch.clear();
-    var result = await api.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", queryParameters: {
-      "key": "AIzaSyAMLQBzSk9TW0DjnCwtCr-RDjp04ZbWpJ8",
-      "input": place,
-      "type": "geocode",
-      "language": "pt_BR",
-      "components": "country:br"
-    });
-    locationsSearch.addAll(List.from(result.data['predictions'].map((model) => SearchLocationModel.fromJson({
-        "fullAdress": model["description"],
-        "formattedAdress": model["structured_formatting"]["secondary_text"]
-        }
-      )
-    )));
+    try {
+      var result = await api.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", queryParameters: {
+        //[TO-DO usar variavel de ambiente]
+        "key": "AIzaSyDY1x7sSRBjeTlRoDXJN_ZXj8Q39cFDqFc", 
+        "input": place,
+        "type": "geocode",
+        "language": "pt_BR",
+        "components": "country:br"
+      });
+      locationsSearch.addAll(List.from(result.data['predictions'].map((model) => SearchLocationModel.fromJson({
+          "fullAdress": model["description"],
+          "formattedAdress": model["structured_formatting"]["secondary_text"]
+          }
+        )
+      )));
+      isLoading = false;
+      update();
+    } catch (e) {
+      isLoading = false;
+      FeedbackSnackbar.error("Ocorreu um erro ao pesquisar, tente novamente");
+      update();
+    }
   }
 
   Future<void> setLocationSearch(SearchLocationModel locationModel) async {

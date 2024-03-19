@@ -7,16 +7,14 @@ import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class LocationPage extends StatelessWidget {
   LocationPage({super.key});
 
-  
   @override
   Widget build(BuildContext context) {
-    final debouncer = Debouncer(milliseconds: 400);
+    final debouncer = Debouncer(milliseconds: 1000);
     return GetBuilder(
       init: LocationController(),
       builder: (controller) => Container(
@@ -88,8 +86,7 @@ class LocationPage extends StatelessWidget {
             ),
               Expanded(
                 child: ListWidget(
-                  isEmpty: controller.searchLocationTextfieldControler.text.isNotEmpty 
-                    && controller.locationsSearch.isEmpty,
+                  isEmpty: controller.searchLocationTextfieldControler.text.isNotEmpty && controller.locationsSearch.isEmpty && !controller.isLoading,
                   itemCount: controller.locationsSearch.length,
                   customEmpty: Column(
                     children: [
