@@ -2,6 +2,8 @@ import 'package:cabelin_v2/enums/enum_stauts_booking.dart';
 import 'package:cabelin_v2/models/booking_model.dart';
 import 'package:cabelin_v2/pages/bookingInformation/booking_information_page.dart';
 import 'package:cabelin_v2/pages/calendar/calendar_controller.dart';
+import 'package:cabelin_v2/pages/pageview/pageview_controller.dart';
+import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/layout_widget.dart';
 import 'package:cabelin_v2/widgets/listable_refresh.dart';
 import 'package:cabelin_v2/widgets/status_chip_widget.dart';
@@ -26,6 +28,24 @@ class CalendarPage extends StatelessWidget {
             onLoadMore: (page) => controller.loadMoreBookings(page),
             onRefresh: controller.getAllBookings,
             itemCount: controller.bookings.length,
+            customEmpty: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const TextWidget("Parece que aindan não \n fez nenhuma agendamento", textAlign: TextAlign.center,),
+                ButtonWidget(
+                  title: "Fazer agendamento",
+                  onTap: () {
+                    Get.find<PageViewController>().pageController.animateToPage(
+                      1,
+                      curve: Curves.ease,
+                      duration: const Duration(milliseconds: 400),
+
+                    );
+                  },
+                  margin: const EdgeInsets.only(top: 16),
+                )
+              ],
+            ),
             itemBuilder: (_, index) {
                 BookingModel booking = controller.bookings[index];
                 return GestureDetector(
