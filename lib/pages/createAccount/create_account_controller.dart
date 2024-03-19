@@ -28,15 +28,17 @@ final _pageViewController = Get.find<PageViewController>();
     try {
       var result = await _api.post("/customers", data: {
         "name": name,
-        "email": email,
-        "password": password,
-        "notificationToken": await FirebaseMessaging.instance.getToken(),
-        "provider": "APPLICATION",
-        "verificationAccountType": "EMAIL_VERIFICATION",
+        "user": {
+          "username": email,
+          "password": password,
+          "provider": "APPLICATION",
+          "notificationToken": await FirebaseMessaging.instance.getToken(),
+          "userCommunicationType": "EMAIL_COMMUNICATION"
+        },
         "phone": {
           "number": brazilianPhone,
           "isMobile": true
-        },
+        }
       });
       UserModel userModel = UserModel(
         id: result.data["id"],
@@ -52,7 +54,7 @@ final _pageViewController = Get.find<PageViewController>();
         return GlobalContext.context.currentContext?.go(_shouldGoToRoute);
       }
       _pageViewController.pageController.jumpToPage(0);
-      GlobalContext.context.currentContext?.go("/");
+      Get.back();
       FeedbackSnackbar.success("Conta criada com sucesso!");
     } catch (e) {
       print(e);
