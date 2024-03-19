@@ -54,8 +54,9 @@ class _ListableRefreshWidgetState extends State<ListableRefreshWidget> {
       },
       
       child: widget.itemCount == 0 
-      ? widget.customEmpty ?? const Center(
-          child: TextWidget(
+      ? 
+        Center(
+          child: widget.customEmpty ?? const TextWidget(
             "Não encontramos nada por aqui :(",
             textAlign: TextAlign.center,
           )
