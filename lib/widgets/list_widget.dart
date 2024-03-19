@@ -26,7 +26,7 @@ class ListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return itemCount == 0 && isLoading == false 
+    return (itemCount == 0 && isLoading == false) || isEmpty == true
       ? Center(
         child: (
           Column(
