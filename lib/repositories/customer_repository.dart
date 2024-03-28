@@ -9,7 +9,7 @@ class CustomerRepository {
 
   Future<List<BookingModel>> getAllBookings() async {
     UserModel? currentUser = UserStorage.get();
-    String customerId = "f98069c8-4fff-494f-9bef-e908faea4bb3";
+    String customerId = "0343a79f-86b4-463b-bb5c-a5ee816fea32";
     if(currentUser == null) {
       return [];
     }
