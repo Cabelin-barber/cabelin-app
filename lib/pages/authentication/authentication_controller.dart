@@ -47,11 +47,11 @@ class AuthenticationController extends GetxController {
 
   loginProvisorio() async {
     UserModel user = UserModel(
-      id: "2a777126-84ce-493f-964a-d48f6d4de31a",
-      name: "Ze Macueba",
-      email: "augusto.dev@proton.me",
+      id: "0343a79f-86b4-463b-bb5c-a5ee816fea32",
+      name: "Aviãozinho",
+      email: "aviãozinho@gmail.com",
       //phone: PhoneModel(number: "62982399800"),
-      provider: "GOOGLE"
+      provider: "APPLICATION"
     );
     await UserStorage.save(user);
   }
