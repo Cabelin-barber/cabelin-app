@@ -43,6 +43,7 @@ void main() async {
   Get.put(CustomerRepository());
   Get.put(EstablishmentRepository());
   Get.put(PageViewController());
+  Get.put(UserStorage());
   // getIt.registerSingletonAsync<UserStorageRepository>(() async {
   //   final userStorageRepository = UserStorageRepository();
   //   await userStorageRepository.openDatabase();

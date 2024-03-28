@@ -1,6 +1,10 @@
 import 'package:cabelin_v2/localstorage/models/user_model.dart';
 import 'package:cabelin_v2/main.dart';
 class UserStorage {
+
+  UserStorage() {
+    boxStorage.read("userStorage");
+  }
   
   static UserModel? get() {
     var json = boxStorage.read("userStorage");

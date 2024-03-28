@@ -33,7 +33,8 @@ class BookingConfirmationPage extends StatelessWidget {
 
     return GetBuilder(
       init: BookingConfirmationController(
-        firstServicePicked: servicePicked
+        firstServicePicked: servicePicked, 
+        establishmentId: establishmentId,
       ),
       builder: (controller) => Scaffold(
         appBar: AppbarWidget(
@@ -139,8 +140,8 @@ class BookingConfirmationPage extends StatelessWidget {
                                         onTap: () {
                                           UserModel? currentUser = UserStorage.get();// userStorageRepository.getUser();
                                           currentUser == null 
-                                            ?  Get.to(AuthenticationPage(shouldComeBack: true))
-                                            : Get.toNamed("/feedback");
+                                            ? Get.to(AuthenticationPage(shouldComeBack: true))
+                                            : controller.finishBooking();
                                         }
                                       ),
                                     ],
@@ -169,9 +170,8 @@ class BookingConfirmationPage extends StatelessWidget {
                   activeColor: Colors.blue,
                   onDateChange: (dateSelected) async {
                     LoadingFullscreen.startLoading();
-                    await Future.delayed(const Duration(seconds: 3));
+                    await controller.checkAvailableHours();
                     LoadingFullscreen.stopLoading();
-                    controller.changeDate(dateSelected);
                   },
                   itemBuilder: (context, dayNumber, dayName, monthName, fullDate,
                       isSelected) {
@@ -245,7 +245,7 @@ class BookingConfirmationPage extends StatelessWidget {
                       child: ListWidget(
                         separatorBuilder: (_, __) => Container(width: 16),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 10,
+                        itemCount: controller.availableHoursService.length,
                         itemBuilder: (_, index) => GestureDetector(
                           onTap: () => controller.setCurrentTimeSelected(index),
                           child: Container(
@@ -263,16 +263,16 @@ class BookingConfirmationPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16)
                             ),
                             padding: const EdgeInsets.all(16),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.wb_sunny_outlined,
                                   size: 16,
                                 ),
                                 TextWidget(
-                                  "13:00",
-                                  margin: EdgeInsets.only(left: 3),
+                                  controller.availableHoursService[index],
+                                  margin: const EdgeInsets.only(left: 3),
                                   customFontsize: 13,
                                   isFontWeight: true,
                                 )

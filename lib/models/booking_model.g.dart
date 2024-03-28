@@ -8,7 +8,7 @@ part of 'booking_model.dart';
 
 BookingModel _$BookingModelFromJson(Map<String, dynamic> json) => BookingModel(
       id: json['id'] as String,
-      establishment: EstablishmentModel.fromJson(
+      establishment: EstablishmentBookingModel.fromJson(
           json['establishment'] as Map<String, dynamic>),
       price: PriceModel.fromJson(json['price'] as Map<String, dynamic>),
       status: $enumDecode(_$StatusBookingEnumMap, json['status']),
