@@ -45,7 +45,7 @@ void main() async {
   Get.put(PageViewController());
   Get.put(UserStorage());
   // getIt.registerSingletonAsync<UserStorageRepository>(() async {
-  //   final userStorageRepository = UserStorageRepository();
+  //   final userStorageRepository = xfUserStorageRepository();
   //   await userStorageRepository.openDatabase();
   //   return userStorageRepository;
   // });

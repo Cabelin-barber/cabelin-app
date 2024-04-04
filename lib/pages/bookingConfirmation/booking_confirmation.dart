@@ -10,6 +10,7 @@ import 'package:cabelin_v2/utils/real_formatter.dart';
 import 'package:cabelin_v2/widgets/appbar_widget.dart';
 import 'package:cabelin_v2/widgets/button_widget.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
+import 'package:cabelin_v2/widgets/selectable_rounded_list.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -229,6 +230,12 @@ class BookingConfirmationPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const TextWidget(
+                      "Escolha o profissional: ",
+                      customWeight: FontWeight.w800,
+                      margin: EdgeInsets.only(bottom: 12)
+                    ),
+                    SelectableRoundedList(professionals: controller.professionals),
                     TextWidget(
                       formatter.format(controller.currentSelectedDate),
                       isFontWeight: true,

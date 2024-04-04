@@ -1,5 +1,6 @@
 import 'package:cabelin_v2/localstorage/repositories/user_storage_repository.dart';
 import 'package:cabelin_v2/models/estableshiment_model.dart';
+import 'package:cabelin_v2/models/professional_model.dart';
 import 'package:cabelin_v2/utils/apiRequest.dart';
 import 'package:dio/dio.dart';
 
@@ -16,8 +17,13 @@ class EstablishmentRepository {
 
   Future<List<String>> getAvailableHoursService(String establishmentId, String professionalId, String serviceId,) async {
     //var response = await _api.get("/establishments/$establishmentId/beauty-services/$serviceId/available-hours?date=2024-03-20");
-    var response = await _api.get("/establishments/$establishmentId/professionals/$professionalId/beauty-services/$serviceId/available-hours?date=2024-03-24");
+    var response = await _api.get("/establishments/$establishmentId/professionals/$professionalId/beauty-services/$serviceId/available-hours?date=2024-04-01");
     return List<String>.from(response.data);
+  }
+
+  Future<List<ProfessionalModel>> getProfessionals({required String establishemntId, required String serviceId}) async {
+    var response = await _api.get("/establishments/$establishemntId/professionals");
+    return List.from(response.data.map((model) => ProfessionalModel.fromJson(model)));
   }
 
   Future<void> createBooking(String establishmentId, String professionalId, String serviceId, String hourOfService, String date) async {
