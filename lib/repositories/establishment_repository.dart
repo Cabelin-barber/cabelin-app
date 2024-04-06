@@ -26,6 +26,16 @@ class EstablishmentRepository {
     return List.from(response.data.map((model) => ProfessionalModel.fromJson(model)));
   }
 
+  Future<List<ProfessionalModel>> getAvailableProfessionals({
+    required String establishmentId,
+    required String serviceId,
+    required String startHour,
+    required String date,
+  }) async {
+    var response = await _api.get("/establishments/$establishmentId/beauty-services/$serviceId/available-professionals?startHour=$startHour&date=$date");
+    return List.from(response.data["content"].map((model) => ProfessionalModel.fromJson(model)));
+  }
+
   Future<void> createBooking(String establishmentId, String professionalId, String serviceId, String hourOfService, String date) async {
     var currentUser = UserStorage.get();
     await _api.post("/appointment-booking/users/${currentUser?.id}/establishments/$establishmentId", data: [

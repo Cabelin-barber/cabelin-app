@@ -24,7 +24,20 @@ class BookingConfirmationController extends GetxController {
   final establishmentRepository = Get.find<EstablishmentRepository>();
   String establishmentId;
 
-  void didAddNewService(ServiceModel service) {
+
+  Future<List<ProfessionalModel>> getAvailableProfessionals({required String serviceId}) async {
+    List<ProfessionalModel> availableProfessionals = await establishmentRepository.getAvailableProfessionals(
+      establishmentId: establishmentId,
+      serviceId: serviceId,
+      date: "2024-04-05",
+      startHour: "13:00"
+    );
+    return availableProfessionals;
+  }
+
+  void didAddNewService(ServiceModel service) async {
+    List<ProfessionalModel> availableProfessionals = await getAvailableProfessionals(serviceId: service.id);
+    service.professionals = availableProfessionals;
     allServicesPicked.add(service);
     update();
   }

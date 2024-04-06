@@ -230,12 +230,6 @@ class BookingConfirmationPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const TextWidget(
-                      "Escolha o profissional: ",
-                      customWeight: FontWeight.w800,
-                      margin: EdgeInsets.only(bottom: 12)
-                    ),
-                    SelectableRoundedList(professionals: controller.professionals),
                     TextWidget(
                       formatter.format(controller.currentSelectedDate),
                       isFontWeight: true,

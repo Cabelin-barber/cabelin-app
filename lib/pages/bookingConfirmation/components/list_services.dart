@@ -1,7 +1,10 @@
 import 'package:cabelin_v2/models/service_model.dart';
+import 'package:cabelin_v2/pages/bookingConfirmation/booking_confirmation_controller.dart';
+import 'package:cabelin_v2/pages/bookingConfirmation/components/list_professionals.dart';
 import 'package:cabelin_v2/widgets/list_widget.dart';
 import 'package:cabelin_v2/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class ListServices extends StatelessWidget {
@@ -44,20 +47,22 @@ class ListServices extends StatelessWidget {
                     ],
                   ),
                   const Divider(),
-                  services[index].professionals.length == 1
-                      ? TextWidget(
-                          "Profissional: ${services[index].professionals[0].name}",
-                          color: Colors.grey[700],
-                        )
-                      : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const TextWidget("Mais de um profissional"),
-                          GestureDetector(
-                            child: const Icon(Icons.chevron_right_rounded),
-                          )
-                        ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextWidget(
+                        "Profissional: ${services[index].professionals[0].name}",
+                        color: Colors.grey[700],
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.chevron_right_rounded),
+                        onPressed: () async {
+                          var res = await Get.find<BookingConfirmationController>().getAvailableProfessionals(serviceId: services[index].id);
+                          Get.to(() => ListProfessionals(professionals: res));
+                        }
                       )
+                    ],
+                  )
                 ],
               ),
             ),
