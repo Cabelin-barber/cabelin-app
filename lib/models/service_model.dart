@@ -23,6 +23,17 @@ class ServiceModel {
     required this.professionals
   });
 
+  ServiceModel copy() {
+    return ServiceModel(
+      id: id,
+      name: name,
+      description: description,
+      minutes: minutes,
+      price: price,
+      professionals: professionals
+    );
+  }
+
   factory ServiceModel.fromJson(Map<String, dynamic> json) => _$ServiceModelFromJson(json);
   Map<String, dynamic> toJson() => _$ServiceModelToJson(this);
 }

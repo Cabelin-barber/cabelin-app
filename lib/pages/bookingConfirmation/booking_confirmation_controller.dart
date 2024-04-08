@@ -11,7 +11,7 @@ class BookingConfirmationController extends GetxController {
     required this.establishmentId
   }) {
     getProfessionals();
-    allServicesPicked.add(firstServicePicked);
+    allServicesPicked.add(firstServicePicked.copy());
     update();
   }
 
@@ -39,6 +39,15 @@ class BookingConfirmationController extends GetxController {
     List<ProfessionalModel> availableProfessionals = await getAvailableProfessionals(serviceId: service.id);
     service.professionals = availableProfessionals;
     allServicesPicked.add(service);
+    update();
+  }
+
+  void didChangeProfessional({
+    required ServiceModel service,
+    required ProfessionalModel professionalSelected
+  }) async {
+    ServiceModel servicePicked = allServicesPicked.firstWhere((element) => service == element);
+    servicePicked.professionals = [professionalSelected];
     update();
   }
 

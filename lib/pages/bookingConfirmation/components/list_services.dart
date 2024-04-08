@@ -57,8 +57,12 @@ class ListServices extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.chevron_right_rounded),
                         onPressed: () async {
-                          var res = await Get.find<BookingConfirmationController>().getAvailableProfessionals(serviceId: services[index].id);
-                          Get.to(() => ListProfessionals(professionals: res));
+                          var professionals = await Get.find<BookingConfirmationController>().getAvailableProfessionals(serviceId: services[index].id);
+                          Get.to(() => ListProfessionals(
+                            professionals: professionals,
+                            currentService: services[index],
+                          )
+                          );
                         }
                       )
                     ],
